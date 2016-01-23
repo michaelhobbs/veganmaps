@@ -1,0 +1,11 @@
+head
+  meta(charset="utf-8")
+  title #{title}
+  link(rel='stylesheet', href='/stylesheets/maps.css')
+  script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places")
+  script(type='text/javascript', src='/socket.io/socket.io.js')
+  script(type='text/javascript', src='javascripts/geolocator.js')
+
+body
+  input#pac-input.controls(placeholder="Search",type="text")
+  #map-canvas
