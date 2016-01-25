@@ -24,6 +24,14 @@ function useGeoLocation(position) {
     console.log('Sending server location:', initialPosition);
     function initialize() {
         var mapOptions = {
+            /*styles: [
+               {
+                 featureType: "poi",
+                 stylers: [
+                  { visibility: "off" }
+                 ]   
+                }
+            ],*/
             zoom: 14,
             center: initialLocation
         };
@@ -101,4 +109,21 @@ function loadPlaces(places) {
             icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
         }));
     });
+}
+
+window.onload=function(){
+    document.getElementById("list-toggle").addEventListener("click", toggleList, true);
+}
+
+function toggleList() { // TODO: replace with adding/removing a 'list-hidden' class which is responsive.
+    var placesList = document.getElementById("list-view");
+    if (placesList !== null && (placesList.style.display === "none" || placesList.style.display === "")) {
+        document.getElementById('map-canvas').style.width = "70%";
+        placesList.style.display = "inline-block";
+    }
+    else {
+        document.getElementById('map-canvas').style.width = "100%";
+        placesList.style.display = "none";
+    }
+    google.maps.event.trigger(globalMap, "resize");
 }

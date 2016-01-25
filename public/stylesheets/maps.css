@@ -1,8 +1,13 @@
 #map-canvas {
-height: 100%;
-margin: 0px;
-padding: 0px
+    max-height: 100%;
+    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
 }
+
 .controls {
   margin-top: 10px;
   border: 1px solid transparent;
@@ -21,8 +26,42 @@ padding: 0px
   font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
-  margin-left: 120px;
+  /*margin-left: 120px;*/
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 300px;
+}
+
+#list-toggle {
+    margin-top: 5px;
+    position: absolute;
+    z-index: 5;
+    background-color: whitesmoke;
+    right: 32px;
+    width: 32px;
+    height: 32px;
+    top: 10px;
+}
+
+#places-list {
+    margin-top: 45px;
+}
+
+#list-view {
+    display: none;
+    width: 30%;
+    height: 100%;
+    background-color: whitesmoke;
+    z-index: 5;
+    float: right;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+}
+
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
 }
