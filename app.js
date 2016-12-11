@@ -112,7 +112,7 @@ function findPlaces(position, success, socket) {
 var initMockDB = require('./mockups/mockLocations');
 initMockDB();
 
-/*// create a new user called chris
+/*// create a new location
 var enb = new Location({
   name: "Elle'n'Belle",
   address: "Limmatstrasse 118, 8005 Zürich",
