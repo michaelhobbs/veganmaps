@@ -54,6 +54,9 @@
     background-color: whitesmoke;
     z-index: 5;
     float: right;
+    box-sizing: border-box;
+    margin: 0;
+    padding-top: 20px;
 }
 
 .container {
@@ -61,7 +64,7 @@
     width: 100%;
 }
 
-body {    
+body {
     margin: 0 !important;
     padding: 0 !important;
 }
