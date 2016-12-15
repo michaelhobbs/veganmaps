@@ -1,5 +1,5 @@
 
-<img id="list-toggle" src='images/timeline-list-grid-list-icon.png'>
+<img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()">
 <ul id="list-view">
   <li ng-repeat="location in $ctrl.locationList">
     <span>{{location.name}}</span>

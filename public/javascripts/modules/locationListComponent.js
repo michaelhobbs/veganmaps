@@ -1,30 +1,7 @@
 'use strict';
 
-function locationListController($scope) {//}$scope, $element, $attrs) {
+function locationListController($scope) {
   var ctrl = this;
-  //
-  // // This would be loaded by $http etc.
-  // ctrl.list = [
-  //   {
-  //     name: 'Superman',
-  //     location: ''
-  //   },
-  //   {
-  //     name: 'Batman',
-  //     location: 'Wayne Manor'
-  //   }
-  // ];
-  //
-  // ctrl.updateHero = function(hero, prop, value) {
-  //   hero[prop] = value;
-  // };
-  //
-  // ctrl.deleteHero = function(hero) {
-  //   var idx = ctrl.list.indexOf(hero);
-  //   if (idx >= 0) {
-  //     ctrl.list.splice(idx, 1);
-  //   }
-  // };
 
   var socket = io.connect('http://localhost:3000');
 
@@ -141,9 +118,7 @@ function locationListController($scope) {//}$scope, $element, $attrs) {
       });
   }
 
-    document.getElementById("list-toggle").addEventListener("click", toggleList, true);
-
-  function toggleList() { // TODO: replace with adding/removing a 'list-hidden' class which is responsive.
+  ctrl.toggleList = function() { // TODO: replace with adding/removing a 'list-hidden' class which is responsive.
       var placesList = document.getElementById("list-view");
       if (placesList !== null && (placesList.style.display === "none" || placesList.style.display === "")) {
           document.getElementById('map-canvas').style.width = "70%";
@@ -155,27 +130,6 @@ function locationListController($scope) {//}$scope, $element, $attrs) {
       }
       google.maps.event.trigger(ctrl.globalMap, "resize");
   }
-
-  // ctrl.locationList = [
-  //   {
-  //     "name": "Marktküche",
-  //     "latitude": 47.3787028,
-  //     "longitude": 8.5233656,
-  //     "loc": [8.5233656,47.3787028]
-  //   }
-  //   , {
-  //     "name": "Maison Blunt",
-  //     "latitude": 47.3836628,
-  //     "longitude": 8.5283872,
-  //     "loc": [8.5283872,47.3836628]
-  //   }
-  //   , {
-  //     "name": "Hiltl",
-  //     "latitude": 47.3732974,
-  //     "longitude": 8.5366795,
-  //     "loc": [8.5366795,47.3732974]
-  //   }
-  // ];
 }
 
 
