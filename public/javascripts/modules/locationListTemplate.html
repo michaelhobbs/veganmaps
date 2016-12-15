@@ -1,8 +1,10 @@
 
 <img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()">
 <ul id="list-view">
-  <li ng-repeat="location in $ctrl.locationList">
-    <span>{{location.name}}</span>
-    <p>{{location.loc}}</p>
+  <li ng-repeat="location in $ctrl.locationList" class="location">
+    <div>
+      <div>{{location.name}}</div>
+      <div>{{ $ctrl.distance(location.latitude, location.longitude, $ctrl.pos.latitude, $ctrl.pos.longitude) }} m away</div>
+    </div>
   </li>
 </ul>

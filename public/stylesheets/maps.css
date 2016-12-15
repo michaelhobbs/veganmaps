@@ -41,6 +41,11 @@
     width: 32px;
     height: 32px;
     top: 10px;
+    padding: 7px;
+    border-radius: 10px;
+    border-color: gray;
+    border-width: 2px;
+    border-style: solid;
 }
 
 #places-list {
@@ -57,6 +62,11 @@
     box-sizing: border-box;
     margin: 0;
     padding-top: 20px;
+    list-style-type: none;
+}
+
+.location {
+  margin-bottom: 10px;
 }
 
 .container {

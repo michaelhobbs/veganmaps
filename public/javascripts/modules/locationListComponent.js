@@ -5,9 +5,22 @@ function locationListController($scope) {
 
   var socket = io.connect('http://localhost:3000');
 
+  ctrl.distance = function (lat1, lon1, lat2, lon2) {
+      var p = 0.017453292519943295;    // Math.PI / 180
+      var c = Math.cos;
+      var a = 0.5 - c((lat2 - lat1) * p)/2 +
+            c(lat1 * p) * c(lat2 * p) *
+            (1 - c((lon2 - lon1) * p))/2;
+      var km = 12742 * Math.asin(Math.sqrt(a)) // 2 * R; R = 6371 km
+      var m = km * 1000;
+      return Math.round(m);
+  }
+
+  ctrl.pos = {};
   ctrl.getGeoLocation = function(success) {
       var defaultMapPosition =  {coords: {latitude: 47.3841831, longitude: 8.5329786}};
-      if(navigator.geolocation) {
+      ctrl.pos = defaultMapPosition.coords;
+      if (navigator.geolocation) {
           var pos;
           navigator.geolocation.getCurrentPosition(function(position) {
                       success(position);
@@ -84,6 +97,8 @@ function locationListController($scope) {
               ctrl.globalMap.panTo(place.geometry.location);
               console.log(place);
               var newPosition = {latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng()};
+
+              ctrl.pos = newPosition;
               socket.emit('position', newPosition);
           });
           // [END region_getplaces]
