@@ -90,7 +90,7 @@ function sendPlacesCallback(places, socket) {
   console.log('Found places results: ', places.length);
   closePlaces = [];
   places.forEach(function(place) {
-    closePlaces.push({longitude: place.longitude, latitude: place.latitude});
+    closePlaces.push({longitude: place.longitude, latitude: place.latitude, name: place.name, loc: [place.longitude, place.latitude]});
   });
   console.log('Sending places:',closePlaces);
   socket.emit('places', closePlaces);
