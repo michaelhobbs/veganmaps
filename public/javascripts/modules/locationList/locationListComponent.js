@@ -3,8 +3,6 @@
 function locationListController($scope, LocationService) {
   var ctrl = this;
   ctrl.LocationService = LocationService;
-  ctrl.filterProp = ctrl.LocationService.lastSearch.filterProp;
-  ctrl.orderProp = ctrl.LocationService.lastSearch.orderProp;
 
   var socket = io.connect('http://localhost:3000');
 
@@ -371,8 +369,7 @@ function locationListController($scope, LocationService) {
   }
 
   ctrl.filterExpression = function(value) {
-    ctrl.LocationService.lastSearch.filterProp = ctrl.filterProp;
-    return (ctrl.filterProp === 'all' || value[ctrl.filterProp] === true);
+    return (ctrl.LocationService.lastSearch.filterProp === 'all' || value[ctrl.LocationService.lastSearch.filterProp] === true);
   }
 
 }

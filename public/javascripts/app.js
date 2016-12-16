@@ -8,7 +8,7 @@ angular.module('veganmaps', [
   'locationList',
   'locationDetail'
 ]).service('LocationService', function(){
-  this.lastSearch = {filterProp : 'all'}; // coords, results, filterSelection, orderBySelection
+  this.lastSearch = {filterProp : 'all', orderProp: 'closest'}; // coords, results, filterSelection, orderBySelection
   this.currentLocation = {}; // to have detail displayed or to be edited
   this.listView = false; // by default list view is hidden
 });;

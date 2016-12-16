@@ -6,12 +6,12 @@
 <ul id="list-view">
   <p>
     Order by:
-    <select ng-model="$ctrl.orderProp">
+    <select ng-model="$ctrl.LocationService.lastSearch.orderProp">
       <option value="name">Alphabetical</option>
       <option value="distance">Closest</option>
     </select>
     Filter by:
-    <select ng-model="$ctrl.filterProp">
+    <select ng-model="$ctrl.LocationService.lastSearch.filterProp">
       <option value="fullv">100% vegan</option>
       <option value="gf">Gluten-free options</option>
       <option value="meat">Meat options</option>
