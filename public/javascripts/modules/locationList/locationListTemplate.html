@@ -1,4 +1,7 @@
 
+<input id="pac-input" class="controls" placeholder="Search" type="text"></input>
+<div class="container">
+    <div id="map-canvas"></div>
 <img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()">
 <ul id="list-view">
   <p>
@@ -17,8 +20,10 @@
   </p>
   <li ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.orderProp" class="location">
     <div>
-      <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath"></img>
-      <div class="location-name">{{location.name}}</div>
+      <a href="#/id/{{location._id}}">
+        <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath" alt="{{location.name}}"></img>
+      </a>
+      <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
       <div>{{location.distance}} m</div>
       <a href="{{location.url}}" ng-if="location.url">website</a>
       <div ng-if="location.fullv">100% vegan</div>
@@ -27,3 +32,4 @@
     </div>
   </li>
 </ul>
+</div>

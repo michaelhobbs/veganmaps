@@ -1,8 +1,10 @@
 'use strict';
 
-function locationListController($scope) {
+function locationListController($scope, LocationService) {
   var ctrl = this;
-  ctrl.filterProp = 'all'; // default filter is show all results
+  ctrl.LocationService = LocationService;
+  ctrl.filterProp = ctrl.LocationService.lastSearch.filterProp;
+  ctrl.orderProp = ctrl.LocationService.lastSearch.orderProp;
 
   var socket = io.connect('http://localhost:3000');
 
@@ -21,6 +23,7 @@ function locationListController($scope) {
   ctrl.getGeoLocation = function(success) {
       var defaultMapPosition =  {coords: {latitude: 47.3841831, longitude: 8.5329786}};
       ctrl.pos = defaultMapPosition.coords;
+      ctrl.LocationService.lastSearch.coords = ctrl.pos;
       if (navigator.geolocation) {
           var pos;
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -52,7 +55,208 @@ function locationListController($scope) {
                   }
               ],*/
               zoom: 14,
-              center: initialLocation
+              center: initialLocation,
+              styles: [
+    {
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            },
+            {
+                "color": "#f49f53"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "stylers": [
+            {
+                "color": "#f9ddc5"
+            },
+            {
+                "lightness": -7
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "stylers": [
+            {
+                "color": "#813033"
+            },
+            {
+                "lightness": 43
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business",
+        "stylers": [
+            {
+                "color": "#645c20"
+            },
+            {
+                "lightness": 38
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "stylers": [
+            {
+                "color": "#1994bf"
+            },
+            {
+                "saturation": -69
+            },
+            {
+                "gamma": 0.99
+            },
+            {
+                "lightness": 43
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#f19f53"
+            },
+            {
+                "weight": 1.3
+            },
+            {
+                "visibility": "on"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business"
+    },
+    {
+        "featureType": "poi.park",
+        "stylers": [
+            {
+                "color": "#645c20"
+            },
+            {
+                "lightness": 39
+            }
+        ]
+    },
+    {
+        "featureType": "poi.school",
+        "stylers": [
+            {
+                "color": "#a95521"
+            },
+            {
+                "lightness": 35
+            }
+        ]
+    },
+    {},
+    {
+        "featureType": "poi.medical",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#813033"
+            },
+            {
+                "lightness": 38
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {
+        "elementType": "labels"
+    },
+    {
+        "featureType": "poi.sports_complex",
+        "stylers": [
+            {
+                "color": "#9e5916"
+            },
+            {
+                "lightness": 32
+            }
+        ]
+    },
+    {},
+    {
+        "featureType": "poi.government",
+        "stylers": [
+            {
+                "color": "#9e5916"
+            },
+            {
+                "lightness": 46
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.line",
+        "stylers": [
+            {
+                "color": "#813033"
+            },
+            {
+                "lightness": 22
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "stylers": [
+            {
+                "lightness": 38
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#f19f53"
+            },
+            {
+                "lightness": -10
+            }
+        ]
+    },
+    {},
+    {},
+    {}
+]
           };
           ctrl.globalMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -100,6 +304,7 @@ function locationListController($scope) {
               var newPosition = {latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng()};
 
               ctrl.pos = newPosition;
+              ctrl.LocationService.lastSearch.coords = ctrl.pos;
               socket.emit('position', newPosition);
           });
           // [END region_getplaces]
@@ -123,6 +328,8 @@ function locationListController($scope) {
     places.forEach (function(place) {
       place.distance = ctrl.distance(place.latitude, place.longitude, ctrl.pos.latitude, ctrl.pos.longitude);
     });
+
+    ctrl.LocationService.lastSearch.results = ctrl.locationList;
     $scope.$apply();
     // Clear out the old markers.
     veganMarkers.forEach(function(marker) {
@@ -141,9 +348,16 @@ function locationListController($scope) {
               icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
           }));
       });
+
+
+    if (ctrl.LocationService.listView) {
+      ctrl.LocationService.listView = !ctrl.LocationService.listView;
+      ctrl.toggleList();
+    }
   }
 
   ctrl.toggleList = function() { // TODO: replace with adding/removing a 'list-hidden' class which is responsive.
+      ctrl.LocationService.listView = !ctrl.LocationService.listView;
       var placesList = document.getElementById("list-view");
       if (placesList !== null && (placesList.style.display === "none" || placesList.style.display === "")) {
           document.getElementById('map-canvas').style.width = "70%";
@@ -157,8 +371,10 @@ function locationListController($scope) {
   }
 
   ctrl.filterExpression = function(value) {
+    ctrl.LocationService.lastSearch.filterProp = ctrl.filterProp;
     return (ctrl.filterProp === 'all' || value[ctrl.filterProp] === true);
   }
+
 }
 
 
@@ -166,9 +382,6 @@ function locationListController($scope) {
 angular.
   module('locationList').
   component('locationList', {
-    templateUrl: '/javascripts/modules/locationListTemplate.html',
-    controller: locationListController,
-    bindings: {
-      locationList: '<'
-    }
+    templateUrl: '/javascripts/modules/locationList/locationListTemplate.html',
+    controller: locationListController
   });

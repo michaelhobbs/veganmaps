@@ -7,11 +7,11 @@ head
   script(type='text/javascript', src='lib/angular/angular.js')
   script(type='text/javascript', src='lib/angular-route/angular-route.js')
   script(type='text/javascript', src="javascripts/app.js")
-  script(type='text/javascript', src="javascripts/modules/locationListModule.js")
-  script(type='text/javascript', src="javascripts/modules/locationListComponent.js")
+  script(type='text/javascript', src="javascripts/appConfig.js")
+  script(type='text/javascript', src="javascripts/modules/locationList/locationListModule.js")
+  script(type='text/javascript', src="javascripts/modules/locationList/locationListComponent.js")
+  script(type='text/javascript', src="javascripts/modules/locationDetail/locationDetailModule.js")
+  script(type='text/javascript', src="javascripts/modules/locationDetail/locationDetailComponent.js")
 
 body(ng-app="veganmaps")
-    input#pac-input.controls(placeholder="Search",type="text")
-    div.container
-        #map-canvas
-        location-list
+    div(ng-view)

@@ -66,6 +66,14 @@
     border: 2px solid firebrick;
 }
 
+#list-view a {
+  text-decoration: none;
+}
+
+#list-view a:hover {
+  text-decoration: underline;
+}
+
 .location {
     margin-bottom: 10px;
     border: 2px solid firebrick;
@@ -83,7 +91,7 @@
 }
 
 .location-name {
-    color: firebrick;
+    color: #703030;
     font-weight: bold;
 }
 
