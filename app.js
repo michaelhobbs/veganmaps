@@ -86,14 +86,9 @@ io.on('connection', function(socket){
 
 var findLocation = require('./db_queries/locations');
 function sendPlacesCallback(places, socket) {
-  var closePlaces = [];
   console.log('Found places results: ', places.length);
-  closePlaces = [];
-  places.forEach(function(place) {
-    closePlaces.push({longitude: place.longitude, latitude: place.latitude, name: place.name, loc: [place.longitude, place.latitude]});
-  });
-  console.log('Sending places:',closePlaces);
-  socket.emit('places', closePlaces);
+  console.log('Sending places:',places);
+  socket.emit('places', places);
 }
 // TODO: Move DB access & business logic to other modules.
 function findPlaces(position, success, socket) {

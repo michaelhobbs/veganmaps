@@ -2,6 +2,7 @@
 
 function locationListController($scope) {
   var ctrl = this;
+  ctrl.filterProp = 'all'; // default filter is show all results
 
   var socket = io.connect('http://localhost:3000');
 
@@ -103,6 +104,12 @@ function locationListController($scope) {
           });
           // [END region_getplaces]
 
+          /*
+          getDirections(coordsStart, coordsEnd) [
+          linkURL: https://www.google.com/maps/dir/44.12345,-76.12345/43.12345,-76.12345
+          ]
+          */
+
       }
       initialize();
   };
@@ -113,6 +120,9 @@ function locationListController($scope) {
   function loadPlaces(places) {
     console.log('Loading places.', places);
     ctrl.locationList = places;
+    places.forEach (function(place) {
+      place.distance = ctrl.distance(place.latitude, place.longitude, ctrl.pos.latitude, ctrl.pos.longitude);
+    });
     $scope.$apply();
     // Clear out the old markers.
     veganMarkers.forEach(function(marker) {
@@ -144,6 +154,10 @@ function locationListController($scope) {
           placesList.style.display = "none";
       }
       google.maps.event.trigger(ctrl.globalMap, "resize");
+  }
+
+  ctrl.filterExpression = function(value) {
+    return (ctrl.filterProp === 'all' || value[ctrl.filterProp] === true);
   }
 }
 

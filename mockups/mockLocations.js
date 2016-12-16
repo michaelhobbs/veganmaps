@@ -19,9 +19,11 @@ function populateDB() {
     bio: false,
     raw: false,
     fullv: true,
-    url: "www.ellenbelle.ch/",
+    local: false,
+    meat: false,
+    url: "http://www.ellenbelle.ch",
     phone: "044 448 15 20",
-    picPath: "https://static.wixstatic.com/media/d5a121_506227dc77454bedadbb55918e2295a3.jpg/v1/fill/w_196,h_147,al_c,q_75,usm_0.50_1.20_0.00/d5a121_506227dc77454bedadbb55918e2295a3.jpg",
+    picPath: "d5a121_506227dc77454bedadbb55918e2295a3.jpg",
     openTimes: [1100,2300,1100,2300,1100,2300,1100,2300,1100,2300,1100,2300,-1,-1],
     created_at: new Date,
     updated_at: new Date
@@ -37,7 +39,13 @@ function populateDB() {
     name: "Marktküche",
     latitude: 47.3787028,
     longitude: 8.5233656,
-    loc: [8.5233656,47.3787028]
+    loc: [8.5233656,47.3787028],
+    gf: false,
+    bio: false,
+    raw: false,
+    fullv: true,
+    local: true,
+    meat: false
     }).save(savecb);
 
 
@@ -45,7 +53,13 @@ function populateDB() {
     name: "Sasou Saftbar",
     latitude: 47.3822901,
     longitude: 8.5300069,
-    loc: [8.5300069,47.3822901]
+    loc: [8.5300069,47.3822901],
+    gf: false,
+    bio: false,
+    raw: true,
+    fullv: false,
+    local: false,
+    meat: false
     }).save(savecb);
 
 
@@ -53,7 +67,13 @@ function populateDB() {
     name: "SamSeS",
     latitude: 47.3839146,
     longitude: 8.5308147,
-    loc: [8.5308147,47.3839146]
+    loc: [8.5308147,47.3839146],
+    gf: false,
+    bio: false,
+    raw: false,
+    fullv: false,
+    local: false,
+    meat: false
     }).save(savecb);
 
 
@@ -61,7 +81,15 @@ function populateDB() {
     name: "Hiltl",
     latitude: 47.3732974,
     longitude: 8.5366795,
-    loc: [8.5366795,47.3732974]
+    loc: [8.5366795,47.3732974],
+    url: "http://www.hiltl.ch",
+    picPath: "logo-weiss.png",
+    gf: false,
+    bio: false,
+    raw: false,
+    fullv: false,
+    local: false,
+    meat: false
     }).save(savecb);
 
 
@@ -69,7 +97,13 @@ function populateDB() {
     name: "Vegelateria",
     latitude: 47.3760837,
     longitude: 8.5288607,
-    loc: [8.5288607,47.3760837]
+    loc: [8.5288607,47.3760837],
+    gf: false,
+    bio: true,
+    raw: true,
+    fullv: true,
+    local: false,
+    meat: false
     }).save(savecb);
 
 
@@ -77,7 +111,15 @@ function populateDB() {
     name: "Maison Blunt",
     latitude: 47.3836628,
     longitude: 8.5283872,
-    loc: [8.5283872,47.3836628]
+    loc: [8.5283872,47.3836628],
+    url: "http://www.maison-blunt.ch",
+    picPath: "logo_rot.png",
+    gf: false,
+    bio: false,
+    raw: false,
+    fullv: false,
+    local: false,
+    meat: true
     }).save(savecb);
 }
 

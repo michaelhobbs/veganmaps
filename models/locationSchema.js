@@ -18,6 +18,8 @@ var locationSchema = new Schema({
   fullv: Boolean,
   vOpt: Boolean,
   vOnReq: Boolean,
+  local: Boolean,
+  meat: Boolean,
   url: String,
   phone: String,
   picPath: String,
