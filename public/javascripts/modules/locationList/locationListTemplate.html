@@ -1,35 +1,35 @@
 
 <input id="pac-input" class="controls" placeholder="Search" type="text"></input>
 <div class="container">
-    <div id="map-canvas"></div>
-<img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()">
-<ul id="list-view">
-  <p>
-    Order by:
-    <select ng-model="$ctrl.LocationService.lastSearch.orderProp">
-      <option value="name">Alphabetical</option>
-      <option value="distance">Closest</option>
-    </select>
-    Filter by:
-    <select ng-model="$ctrl.LocationService.lastSearch.filterProp">
-      <option value="fullv">100% vegan</option>
-      <option value="gf">Gluten-free options</option>
-      <option value="meat">Meat options</option>
-      <option value="all">show all</option>
-    </select>
-  </p>
-  <li ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
-    <div>
-      <a href="#/id/{{location._id}}">
-        <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath" alt="{{location.name}}"></img>
-      </a>
-      <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
-      <div>{{location.distance}} m</div>
-      <a href="{{location.url}}" ng-if="location.url">website</a>
-      <div ng-if="location.fullv">100% vegan</div>
-      <div ng-if="location.gf">gluten-free options</div>
-      <div ng-if="location.meat">meat options</div>
-    </div>
-  </li>
-</ul>
+  <div id="map-canvas"></div>
+  <img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()">
+  <ul id="list-view">
+    <p>
+      Order by:
+      <select ng-model="$ctrl.LocationService.lastSearch.orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="distance">Closest</option>
+      </select>
+      Filter by:
+      <select ng-model="$ctrl.LocationService.lastSearch.filterProp">
+        <option value="fullv">100% vegan</option>
+        <option value="gf">Gluten-free options</option>
+        <option value="meat">Meat options</option>
+        <option value="all">show all</option>
+      </select>
+    </p>
+    <li ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
+      <div>
+        <a href="#/id/{{location._id}}">
+          <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath" alt="{{location.name}}"></img>
+        </a>
+        <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
+        <div>{{location.distance}} m</div>
+        <a href="{{location.url}}" ng-if="location.url">website</a>
+        <div ng-if="location.fullv">100% vegan</div>
+        <div ng-if="location.gf">gluten-free options</div>
+        <div ng-if="location.meat">meat options</div>
+      </div>
+    </li>
+  </ul>
 </div>
