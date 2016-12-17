@@ -1,0 +1,32 @@
+<form name="form" novalidate class="simple-form">
+
+  <label>Name*: <input type="text" ng-model="$ctrl.newLocation.name" name="name" required=""/></label><br />
+  <div ng-show="form.$submitted || form.name.$touched">
+    <div ng-show="form.name.$error.required">Required</div>
+  </div>
+
+  <label>Longitude*: <input type="number" ng-model="$ctrl.newLocation.longitude" min="-180" max="180" name="longitude" required=""/></label><br />
+  <div ng-show="form.$submitted || form.longitude.$touched">
+    <div ng-show="form.longitude.$error.required">Required</div>
+    <span ng-show="form.longitude.$error.min || form.longitude.$error.max">
+  The value must be in range -180 to 180!</span>
+  </div>
+
+  <label>Latitude*: <input type="number" ng-model="$ctrl.newLocation.latitude" min="-90" max="90" name="latitude" required=""/></label><br />
+  <div ng-show="form.$submitted || form.latitude.$touched">
+    <div ng-show="form.latitude.$error.required">Required</div>
+    <span ng-show="form.latitude.$error.min || form.latitude.$error.max">
+  The value must be in range -90 to 90!</span>
+  </div>
+
+  100% vegan: <label><input type="radio" ng-model="$ctrl.newLocation.fullv" value="true" />yes</label>
+  <label><input type="radio" ng-model="$ctrl.newLocation.fullv" value="false" />no</label><br />
+
+  <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
+  <input type="submit" ng-click="$ctrl.update()" value="Save" />
+</form>
+<pre>newLocation = {{$ctrl.newLocation | json}}</pre>
+
+<div>
+  <a href="#/" ng-if="!$ctrl.fromSearch">New search</a>
+</div>

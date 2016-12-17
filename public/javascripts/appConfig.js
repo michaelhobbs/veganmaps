@@ -19,6 +19,8 @@ angular.
               }
             }
           }
+        }).when('/new', {
+          template: '<location-add></location-add>'
         }).
         otherwise('/');
     }
