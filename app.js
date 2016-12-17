@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var maps = require('./routes/maps');
+var apiLocations = require('./routes/api/locations.js');
 
 var app = express();
 
@@ -29,9 +30,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // serve folders in public as root path
 app.use('/lib', express.static(path.join(__dirname, 'bower_components'))); // serve client dependencies under '/lib'
 
+// serve pages
 app.use('/', routes);
 app.use('/users', users);
 app.use('/maps', maps);
+
+// serve api
+app.use('/api/locations', apiLocations);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
