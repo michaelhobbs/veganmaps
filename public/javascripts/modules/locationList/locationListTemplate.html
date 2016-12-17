@@ -18,7 +18,7 @@
       <option value="all">show all</option>
     </select>
   </p>
-  <li ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.orderProp" class="location">
+  <li ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
     <div>
       <a href="#/id/{{location._id}}">
         <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath" alt="{{location.name}}"></img>
