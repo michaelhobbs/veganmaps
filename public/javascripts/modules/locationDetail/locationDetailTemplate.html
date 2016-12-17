@@ -15,3 +15,9 @@
   <a href="#/" ng-if="$ctrl.fromSearch">Back to search results</a>
   <a href="#/" ng-if="!$ctrl.fromSearch">New search</a>
 </div>
+
+<div>
+  <a href="#/id/{{$ctrl.prevId}}" ng-if="$ctrl.prevId">&lt;prev</a>
+  <span> - </span>
+  <a href="#/id/{{$ctrl.nextId}}" ng-if="$ctrl.nextId">next&gt;</a>
+</div>

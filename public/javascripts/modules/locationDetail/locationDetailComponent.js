@@ -16,6 +16,21 @@ angular.
           ctrl.locationDetails = ctrl.LocationService.lastSearch.results.find(function(place) {
             return (place._id === ctrl.locationId);
           });
+
+
+          ctrl.filterExpression = function(value) {
+            return (ctrl.LocationService.lastSearch.filterProp === 'all' || value[ctrl.LocationService.lastSearch.filterProp] === true);
+          };
+
+          ctrl.filteredLocations = ctrl.LocationService.lastSearch.results.filter(ctrl.filterExpression);
+          var index = ctrl.filteredLocations.findIndex(x => x._id === ctrl.locationId);
+          // prepare next/previous links so user can navigate through search results without having to go back to map/list view
+          if (index > 0) {
+            ctrl.prevId = ctrl.filteredLocations[index-1]._id;
+          }
+          if (index < (ctrl.filteredLocations.length-1) ) {
+            ctrl.nextId = ctrl.filteredLocations[index+1]._id;
+          }
         }
       }
     ]
