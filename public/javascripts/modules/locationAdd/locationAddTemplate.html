@@ -23,7 +23,7 @@
   <label><input type="radio" ng-model="$ctrl.newLocation.fullv" value="false" />no</label><br />
 
   <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
-  <input type="submit" ng-click="$ctrl.update()" value="Save" />
+  <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" />
 </form>
 <pre>newLocation = {{$ctrl.newLocation | json}}</pre>
 
