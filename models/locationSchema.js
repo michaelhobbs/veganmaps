@@ -4,10 +4,19 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var locationSchema = new Schema({
-  name: String,
+  name: {
+        type: String,
+        required: true
+      },
   address: String,
-  latitude: Number,
-  longitude: Number,
+  latitude: {
+        type: Number,
+        required: true
+      },
+  longitude: {
+        type: Number,
+        required: true
+      },
   loc: {
     type: [Number],  // [<longitude>, <latitude>]
     index: '2d'      // create the geospatial index
@@ -24,8 +33,14 @@ var locationSchema = new Schema({
   phone: String,
   picPath: String,
   openTimes: [Number],
-  created_at: Date,
-  updated_at: Date
+  created_at: {
+        type: Date,
+        required: true
+      },
+  updated_at: {
+        type: Date,
+        required: true
+      }
 });
 
 // the schema is useless so far

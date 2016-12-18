@@ -21,6 +21,11 @@ angular.
         ctrl.update = function() {
           // TODO make save call to BE
           $log.debug('saving: ', ctrl.newLocation);
+          $http.put('api/locations', ctrl.newLocation).then(function(response) {
+            $log.debug('Response: ', response);
+          }, function(response) {
+            $log.debug('Response: ', response);
+          });
         }
       }
     ]

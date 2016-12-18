@@ -45,7 +45,9 @@ function populateDB() {
     raw: false,
     fullv: true,
     local: true,
-    meat: false
+    meat: false,
+    created_at: new Date,
+    updated_at: new Date
     }).save(savecb);
 
 
@@ -59,7 +61,9 @@ function populateDB() {
     raw: true,
     fullv: false,
     local: false,
-    meat: false
+    meat: false,
+    created_at: new Date,
+    updated_at: new Date
     }).save(savecb);
 
 
@@ -73,7 +77,9 @@ function populateDB() {
     raw: false,
     fullv: false,
     local: false,
-    meat: false
+    meat: false,
+    created_at: new Date,
+    updated_at: new Date
     }).save(savecb);
 
 
@@ -89,7 +95,9 @@ function populateDB() {
     raw: false,
     fullv: false,
     local: false,
-    meat: false
+    meat: false,
+    created_at: new Date,
+    updated_at: new Date
     }).save(savecb);
 
 
@@ -103,7 +111,9 @@ function populateDB() {
     raw: true,
     fullv: true,
     local: false,
-    meat: false
+    meat: false,
+    created_at: new Date,
+    updated_at: new Date
     }).save(savecb);
 
 
@@ -119,7 +129,9 @@ function populateDB() {
     raw: false,
     fullv: false,
     local: false,
-    meat: true
+    meat: true,
+    created_at: new Date,
+    updated_at: new Date
     }).save(savecb);
 }
 
