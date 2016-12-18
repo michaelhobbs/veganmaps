@@ -7,7 +7,8 @@ angular.module('veganmaps', [
   // ...which depends on the `locationList` module
   'locationList',
   'locationDetail',
-  'locationAdd'
+  'locationAdd',
+  'locationEdit'
 ]).service('LocationService', function(){
   this.lastSearch = {filterProp : 'all', orderProp: 'distance'}; // coords, results, filterSelection, orderBySelection
   this.currentLocation = {}; // to have detail displayed or to be edited

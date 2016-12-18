@@ -20,15 +20,17 @@ router.put('/:locationId', function(req, res, next) {
         if (req.body._id !== req.params.locationId) {
           res.status(500).send('Invalid object. ID has been modified.');
         }
-        Location.findById(req.params.locationId, function(err, doc) {
+        delete req.body.distance;
+        req.body.loc = [req.body.longitude, req.body.latitude];
+        Location.findOneAndUpdate({_id: req.params.locationId}, req.body, {runValidators: true}, function(err) {
           if (err) {
-            res.send(err);
+            console.log('[api call]: PUT location by ID error: ', err);
+            res.status(500).send(err);
           }
-          doc = req.body;
-          doc.save(function(err) {
-            console.log('[api call]: PUT location by ID: ', doc);
+          else {
+            console.log('[api call]: PUT location by ID successful');
             res.json({message: 'Update successful.'});
-          });
+          }
         });
 });
 

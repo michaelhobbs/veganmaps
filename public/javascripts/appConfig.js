@@ -19,8 +19,12 @@ angular.
               }
             }
           }
-        }).when('/new', {
+        }).
+        when('/new', {
           template: '<location-add></location-add>'
+        }).
+        when('/edit/:locationId', {
+          template: '<location-edit>hi</location-edit>'
         }).
         otherwise('/');
     }

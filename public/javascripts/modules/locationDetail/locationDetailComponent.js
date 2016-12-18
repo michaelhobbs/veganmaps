@@ -16,6 +16,7 @@ angular.
           ctrl.locationDetails = ctrl.LocationService.lastSearch.results.find(function(place) {
             return (place._id === ctrl.locationId);
           });
+          ctrl.LocationService.currentLocation = ctrl.locationDetails;
 
 
           ctrl.filterExpression = function(value) {
