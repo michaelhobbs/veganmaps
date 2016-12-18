@@ -21,6 +21,7 @@ router.put('/:locationId', function(req, res, next) {
           res.status(500).send('Invalid object. ID has been modified.');
         }
         delete req.body.distance;
+        req.body.updated_at = new Date();
         req.body.loc = [req.body.longitude, req.body.latitude];
         Location.findOneAndUpdate({_id: req.params.locationId}, req.body, {runValidators: true}, function(err) {
           if (err) {
