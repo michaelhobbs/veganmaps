@@ -6,16 +6,23 @@ var Schema = mongoose.Schema;
 var locationSchema = new Schema({
   name: {
         type: String,
-        required: true
+        required: true,
+        minlength: 1,
+        maxlength: 50,
+        trim: true
       },
   address: String,
   latitude: {
         type: Number,
-        required: true
+        required: true,
+        max: 90,
+        min: -90
       },
   longitude: {
         type: Number,
-        required: true
+        required: true,
+        max: 180,
+        min: -180
       },
   loc: {
     type: [Number],  // [<longitude>, <latitude>]
@@ -29,7 +36,10 @@ var locationSchema = new Schema({
   vOnReq: Boolean,
   local: Boolean,
   meat: Boolean,
-  url: String,
+  url: {
+      String
+      //, match: /^a/  // TODO add URL regex
+    },
   phone: String,
   picPath: String,
   openTimes: [Number],

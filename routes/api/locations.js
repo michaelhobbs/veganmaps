@@ -35,13 +35,6 @@ router.put('/:locationId', function(req, res, next) {
 // INSERT a new location
 router.put('/', function(req, res, next) {
         console.log('[api call]: PUT new location: ', req.body);
-        console.log('[api call]: PUT new location name: ', req.body.name);
-        console.log('[api call]: PUT new location name=emptyString? ', req.body.name==='');
-
-        if (req.body.name==='') {
-          delete req.body.name;
-          console.log('[api call]: deleted name ', req.body);
-        }
 
         function savecb(err) {
           console.log('[api call]: callback error: ', err);
@@ -54,33 +47,33 @@ router.put('/', function(req, res, next) {
           }
         }
 
-        var id = req.body._id;
-        console.log('ID: ', id);
-        var query = {_id: id};
-        var options = {
-          // upsert: true,
-          setDefaultsOnInsert: true,
-          runValidators: true // see update validators @http://mongoosejs.com/docs/validation.html . Apparently there are some caveats for using validators with update...
-        }
+        // var id = req.body._id;
+        // console.log('ID: ', id);
+        // var query = {_id: id};
+        // var options = {
+        //   // upsert: true,
+        //   setDefaultsOnInsert: true,
+        //   runValidators: true // see update validators @http://mongoosejs.com/docs/validation.html . Apparently there are some caveats for using validators with update...
+        // }
         var now = new Date();
-        if (id) {
-          // we are editing an existing locationId
-          req.body.updated_at = now;
-          console.log('[api call]: update');
-          Location.findOneAndUpdate(query, req.body, options, savecb);
-        }
-        else {
+        // if (id) {
+        //   // we are editing an existing locationId
+        //   req.body.updated_at = now;
+        //   console.log('[api call]: update');
+        //   Location.findOneAndUpdate(query, req.body, options, savecb);
+        // }
+        // else {
           // we are inserting a new locationId
           req.body.created_at = now
           req.body.updated_at = now;
           req.body.loc = [req.body.longitude, req.body.latitude];
           console.log('[api call]: insert');
-          // var newLocation = new Location(req.body);
-          // newLocation.save(savecb);
+          var newLocation = new Location(req.body);
+          newLocation.save(savecb);
 
             // swallows the validation error...
             // Location.findOneAndUpdate(query, req.body, { runValidators: true }, savecb);
-        }
+        // }
 
 
 

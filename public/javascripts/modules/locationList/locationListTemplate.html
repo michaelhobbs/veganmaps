@@ -17,6 +17,7 @@
         <option value="meat">Meat options</option>
         <option value="all">show all</option>
       </select>
+      <a href="#/new">New</a>
     </p>
     <li ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
       <div>
