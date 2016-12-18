@@ -19,8 +19,25 @@
   The value must be in range -90 to 90!</span>
   </div>
 
+  <label>Website: <input type="url" ng-model="$ctrl.newLocation.url" name="url"/></label><br />
+  <div ng-show="form.$submitted || form.name.$touched">
+    <div ng-show="form.name.$error.required">Required</div>
+  </div>
+
   100% vegan: <label><input type="radio" ng-model="$ctrl.newLocation.fullv" value="true" />yes</label>
   <label><input type="radio" ng-model="$ctrl.newLocation.fullv" value="false" />no</label><br />
+
+  bio: <label><input type="radio" ng-model="$ctrl.newLocation.bio" value="true" />yes</label>
+  <label><input type="radio" ng-model="$ctrl.newLocation.bio" value="false" />no</label><br />
+
+  raw: <label><input type="radio" ng-model="$ctrl.newLocation.raw" value="true" />yes</label>
+  <label><input type="radio" ng-model="$ctrl.newLocation.raw" value="false" />no</label><br />
+
+  local: <label><input type="radio" ng-model="$ctrl.newLocation.local" value="true" />yes</label>
+  <label><input type="radio" ng-model="$ctrl.newLocation.local" value="false" />no</label><br />
+
+  meat: <label><input type="radio" ng-model="$ctrl.newLocation.meat" value="true" />yes</label>
+  <label><input type="radio" ng-model="$ctrl.newLocation.meat" value="false" />no</label><br />
 
   <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
   <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" />
