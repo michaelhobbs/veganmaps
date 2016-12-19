@@ -11,7 +11,13 @@ var locationSchema = new Schema({
         maxlength: 50,
         trim: true
       },
-  address: String,
+  address: {
+        number: Number,
+        street: String,
+        postal_code: String,
+        city: String,
+        country: String
+      },
   latitude: {
         type: Number,
         required: true,
@@ -42,7 +48,36 @@ var locationSchema = new Schema({
     },
   phone: String,
   picPath: String,
-  openTimes: [Number],
+  openTimes: {
+    monday: [{
+        start: Number,
+        end: Number
+    }],
+    tuesday: [{
+        start: Number,
+        end: Number
+    }],
+    wednesday: [{
+        start: Number,
+        end: Number
+    }],
+    thursday: [{
+        start: Number,
+        end: Number
+    }],
+    friday: [{
+        start: Number,
+        end: Number
+    }],
+    saturday: [{
+        start: Number,
+        end: Number
+    }],
+    sunday: [{
+        start: Number,
+        end: Number
+    }]
+  },
   created_at: {
         type: Date,
         required: true

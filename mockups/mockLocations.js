@@ -11,7 +11,13 @@ function clearDB(callback) {
 function populateDB() {
     var enb = new Location({
     name: "Elle'n'Belle",
-    address: "Limmatstrasse 118, 8005 Zürich",
+    address: {
+      number: 118,
+      street: "Limmatstrasse",
+      postal_code: "8005",
+      city: "Zürich",
+      country: "Switzerland"
+    },
     latitude: 47.3841831,
     longitude: 8.5329786,
     loc: [8.5329786,47.3841831],  // [<longitude>, <latitude>]
@@ -24,7 +30,32 @@ function populateDB() {
     url: "http://www.ellenbelle.ch",
     phone: "044 448 15 20",
     picPath: "d5a121_506227dc77454bedadbb55918e2295a3.jpg",
-    openTimes: [1100,2300,1100,2300,1100,2300,1100,2300,1100,2300,1100,2300,-1,-1],
+    openTimes: {
+      monday: {
+          start: 1100,
+          end: 2300
+      },
+      tuesday: {
+          start: 1100,
+          end: 2300
+      },
+      wednesday: {
+          start: 1100,
+          end: 2300
+      },
+      thursday: {
+          start: 1100,
+          end: 2300
+      },
+      friday: {
+          start: 1100,
+          end: 2300
+      },
+      saturday: {
+          start: 1100,
+          end: 2300
+      }
+    },
     created_at: new Date,
     updated_at: new Date
     });
