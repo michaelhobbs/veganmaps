@@ -358,11 +358,17 @@ function locationListController($scope, LocationService) {
       ctrl.LocationService.listView = !ctrl.LocationService.listView;
       var placesList = document.getElementById("list-view");
       if (placesList !== null && (placesList.style.display === "none" || placesList.style.display === "")) {
-          document.getElementById('map-canvas').style.width = "70%";
-          placesList.style.display = "inline-block";
+          document.getElementById('map-canvas').classList.add("grd-row-col-4-6--md");
+          document.getElementById('map-canvas').classList.remove("grd-row-col-6-6--md");
+          document.getElementById('map-canvas').classList.remove("w100");
+          document.getElementById('list-view').classList.add("grd-row-col-2-6--md");
+          placesList.style.display = "block";
       }
       else {
-          document.getElementById('map-canvas').style.width = "100%";
+          document.getElementById('map-canvas').classList.add("grd-row-col-6-6--md");
+          document.getElementById('map-canvas').classList.add("w100");
+          document.getElementById('map-canvas').classList.remove("grd-row-col-4-6--md");
+          document.getElementById('list-view').classList.remove("grd-row-col-2-6--md");
           placesList.style.display = "none";
       }
       google.maps.event.trigger(ctrl.globalMap, "resize");

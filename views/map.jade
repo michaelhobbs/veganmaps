@@ -1,7 +1,11 @@
 head
   meta(charset="utf-8")
+  meta(author="Michael Hobbs")
+  meta(description="Find restaurants with vegan food near you.")
   title #{title}
+  meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;")
   link(rel='stylesheet', href='/stylesheets/maps.css')
+  link(rel='stylesheet', href='lib/furtive/css/furtive.css')
   script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?libraries=places")
   script(type='text/javascript', src='/socket.io/socket.io.js')
   script(type='text/javascript', src='lib/angular/angular.js')

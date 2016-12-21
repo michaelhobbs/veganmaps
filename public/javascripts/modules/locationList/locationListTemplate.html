@@ -1,10 +1,11 @@
 
 <input id="pac-input" class="controls" placeholder="Search" type="text"></input>
-<div class="container">
-  <div id="map-canvas"></div>
+<div class="container grd-row pageRow h100">
+  <div id="map-canvas" class="grd-row-col-4-6--lg bg--light-gray w100"></div>
   <img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()">
-  <ul id="list-view">
-    <p>
+  <div id="list-view" class"bg--mid-gray oflow-y--auto grd-row-col-2-6--md">
+    <div class="bg--dark-gray px1 fnt--light-gray clearfix">
+      <div><h3 class="my0">Search results</h3></div>
       Order by:
       <select ng-model="$ctrl.LocationService.lastSearch.orderProp">
         <option value="name">Alphabetical</option>
@@ -18,19 +19,27 @@
         <option value="all">show all</option>
       </select>
       <a href="#/new">New</a>
-    </p>
-    <li ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
-      <div>
-        <a href="#/id/{{location._id}}">
-          <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath" alt="{{location.name}}"></img>
-        </a>
-        <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
-        <div>{{location.distance}} m</div>
-        <a href="{{location.url}}" ng-if="location.url">website</a>
-        <div ng-if="location.fullv">100% vegan</div>
-        <div ng-if="location.gf">gluten-free options</div>
-        <div ng-if="location.meat">meat options</div>
+    </div>
+
+    <div class="grd" ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
+      <!-- List item -->
+      <div class="grd-row media py2 list-item">
+        <div class="grd-row-col-1-6 media-figure">
+          <a href="#/id/{{location._id}}">
+            <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath" alt="{{location.name}}"></img>
+          </a>
+        </div>
+        <div class="grd-row-col-5-6 media-body">
+          <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
+          <div>{{location.distance}} m</div>
+          <a href="{{location.url}}" ng-if="location.url">website</a>
+          <div ng-if="location.fullv">100% vegan</div>
+          <div ng-if="location.gf">gluten-free options</div>
+          <div ng-if="location.meat">meat options</div>
+        </div>
+
       </div>
     </li>
-  </ul>
+
+  </div>
 </div>
