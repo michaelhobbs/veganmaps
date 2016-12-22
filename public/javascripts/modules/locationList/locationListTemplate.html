@@ -28,7 +28,7 @@
       <div class="grd-row media py2 list-item">
         <div class="grd-row-col-1-6 media-figure">
           <a href="#/id/{{location._id}}">
-            <img ng-src="images/{{location.picPath}}" class="location-icon" ng-if="location.picPath" alt="{{location.name}}"></img>
+            <img ng-src="images/{{location.picPath || 'default.thumbnail.png'}}" class="location-icon" alt="{{location.name}}"></img>
           </a>
         </div>
         <div class="grd-row-col-5-6 media-body">
