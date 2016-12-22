@@ -53,6 +53,9 @@ function locationListController($scope, LocationService) {
                   }
               ],*/
               zoom: 14,
+              fullscreenControl: false,
+              streetViewControl: false,
+              mapTypeControl: false,
               center: initialLocation,
               styles: [
     {
