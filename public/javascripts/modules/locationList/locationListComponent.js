@@ -45,6 +45,7 @@ function locationListController($scope, $timeout, LocationService) {
       function initialize() {
           var mapOptions = {
               zoom: 14,
+              minZoom: 10,
               fullscreenControl: false,
               streetViewControl: false,
               mapTypeControl: false,
@@ -67,8 +68,33 @@ function locationListController($scope, $timeout, LocationService) {
 
           // Bias the SearchBox results towards current map's viewport.
           ctrl.globalMap.addListener('bounds_changed', function() {
-          autocomplete.setBounds(ctrl.globalMap.getBounds());
+            autocomplete.setBounds(ctrl.globalMap.getBounds());
           });
+
+          // limit panning to current circle
+          google.maps.event.addListener(ctrl.globalMap,'center_changed',function() { checkBounds(); });
+
+          function checkBounds() {
+              var allowedBounds = ctrl.rangeCirclemarker.getBounds();
+              if(! allowedBounds.contains(ctrl.globalMap.getCenter())) {
+                var C = ctrl.globalMap.getCenter();
+                var X = C.lng();
+                var Y = C.lat();
+
+                var AmaxX = allowedBounds.getNorthEast().lng();
+                var AmaxY = allowedBounds.getNorthEast().lat();
+                var AminX = allowedBounds.getSouthWest().lng();
+                var AminY = allowedBounds.getSouthWest().lat();
+
+                if (X < AminX) {X = AminX;}
+                if (X > AmaxX) {X = AmaxX;}
+                if (Y < AminY) {Y = AminY;}
+                if (Y > AmaxY) {Y = AmaxY;}
+
+                ctrl.globalMap.setCenter(new google.maps.LatLng(Y,X));
+              }
+          }
+
           // [START region_getplaces]
           // Listen for the event fired when the user selects a prediction and retrieve
           // more details for that place.
@@ -193,6 +219,7 @@ function locationListController($scope, $timeout, LocationService) {
       center: new google.maps.LatLng(ctrl.pos.latitude, ctrl.pos.longitude),
       radius: $scope.slider.value
     });
+
   }
 
   $scope.slider = {
