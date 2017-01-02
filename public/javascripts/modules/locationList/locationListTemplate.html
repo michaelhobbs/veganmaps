@@ -2,28 +2,54 @@
 <input id="pac-input" class="controls" placeholder="Search" type="text"></input>
 <div class="container grd-row pageRow h100">
   <div id="map-canvas" class="grd-row-col-6-6--lg bg--light-gray w100"></div>
-  <img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()">
-  <div id="list-view" class"bg--mid-gray oflow-y--auto grd-row-col-2-6--md">
-    <div class="bg--dark-gray px1 fnt--light-gray clearfix">
-      <div><h3 class="my0">Search results</h3></div>
-      Order by:
-      <select ng-model="$ctrl.LocationService.lastSearch.orderProp">
-        <option value="name">Alphabetical</option>
-        <option value="distance">Closest</option>
-      </select>
-      Filter by:
-      <select ng-model="$ctrl.LocationService.lastSearch.filterProp">
-        <option value="fullv">100% vegan</option>
-        <option value="gf">Gluten-free options</option>
-        <option value="meat">Meat options</option>
-        <option value="all">show all</option>
-      </select>
-      Distance:
-      <input type="range" min="1" max="5"/>
-      <a href="#/new">New</a>
+  <i id="list-toggle" class="fa fa-lg cursor--pointer" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"></i>
+  <!-- <img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()"> -->
+  <div id="list-view" class="bg--mid-gray grd-row-col-2-6--md">
+    <div class="bg--dark-gray p1 fnt--light-gray clearfix">
+
+      <div class="grd-row">
+        <h3 class="my0 txt--left grd-row-col-3-6">Search</h3>
+
+        <div class="txt--right h3 grd-row-col-3-6" style="margin:0;">
+          <a href="#/new" aria-label="Create location"><i class="fa fa-plus fnt--light-gray"></i></a>
+
+          <i class="fa fa-cog mx1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"></i>
+
+          <i class="fa fa-map cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="$ctrl.LocationService.listView"></i>
+        </div>
+      </div>
+
+      <div class="searchOptionsContainer grd-row grd-row-col-6" ng-init="showOptions = false" ng-show="showOptions">
+        <div class="grd p0">
+          <div class="grd-row">
+            <div class="grd-row-col-3-6 mr05">
+              Order by:
+              <select ng-model="$ctrl.LocationService.lastSearch.orderProp">
+                <option value="name">Alphabetical</option>
+                <option value="distance">Closest</option>
+              </select>
+            </div>
+
+            <div class="grd-row-col-3-6 ml05">
+              Filter by:
+              <select ng-model="$ctrl.LocationService.lastSearch.filterProp">
+                <option value="fullv">100% vegan</option>
+                <option value="gf">Gluten-free options</option>
+                <option value="meat">Meat options</option>
+                <option value="all">show all</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grd-row">
+            Distance:
+            <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options" class="with-legend"></rzslider>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="grd" ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
+    <div class="grd oflow-y--auto" ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
       <!-- List item -->
       <div class="grd-row media py2 list-item">
         <div class="grd-row-col-1-6 media-figure">

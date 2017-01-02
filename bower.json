@@ -5,6 +5,8 @@
   "dependencies": {
     "angular": "1.5.x",
     "angular-route": "1.5.x",
-    "furtive": "2.3.x"
+    "furtive": "2.3.x",
+    "angularjs-slider": "^5.9.0",
+    "components-font-awesome": "^4.7.0"
   }
 }

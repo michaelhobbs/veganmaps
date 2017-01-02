@@ -34,19 +34,20 @@
 }
 
 #list-toggle {
-    margin-top: 5px;
     position: absolute;
     z-index: 5;
     background-color: whitesmoke;
-    right: 15px;
+    right: 5px;
     width: 32px;
     height: 32px;
-    top: 10px;
-    padding: 7px;
+    top: 5px;
     border-radius: 10px;
     border-color: gray;
     border-width: 2px;
     border-style: solid;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 31px;
 }
 
 #places-list {
@@ -97,11 +98,48 @@ body {
     padding: 0 !important;
 }
 
+/* furtive extensions */
 .h100 {height:100%;}
 .oflow-y--auto {overflow-y: auto;}
 .list-item {border-bottom: rgba(150,150,150,0.9) 1px solid;}
+.mr05 {margin-right: 0.5rem;}
+.ml05 {margin-left: 0.5rem;}
 @media screen and (max-width: 48rem) {
   .mapContainer-listOpen {
     display:  none;
   }
+}
+
+.cursor--pointer {
+  cursor: pointer;
+}
+
+/* furtive overwriting */
+input, select, textarea {
+  color: black;
+}
+
+/* rzslider overwriting */
+.rzslider .rz-pointer {
+  background-color: rgba(179, 61, 61, 1);
+}
+
+.rzslider .rz-pointer:focus {
+  outline: none;
+}
+
+.rzslider.with-legend {
+  margin-top: 16px;
+}
+
+.rzslider .rz-pointer.rz-active:after {
+  background-color: rgba(179, 61, 61, 1);
+}
+
+.rzslider .rz-pointer:after {
+  background-color: rgba(179, 61, 61, 1);
+}
+
+.rzslider .rz-pointer:hover:after {
+  background-color: rgba(179, 61, 61, 1);
 }
