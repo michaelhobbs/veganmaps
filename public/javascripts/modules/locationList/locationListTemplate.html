@@ -1,12 +1,18 @@
+<!-- TODO : make pretty expanding search box -->
+<div id="searchTrigger" class="container-map-location-search">
+  <i class="fa fa-search"></i>
+  <input id="searchTextField" class="fa fa-search" type="text" placeholder="Search"></input>
+</div>
 
-<input id="pac-input" class="controls" placeholder="Search" type="text"></input>
+<i id="list-toggle" class="bg--dark-gray fnt--light-gray fa cursor--pointer h3 p1" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"></i>
 <div class="container grd-row pageRow h100">
-  <div id="map-canvas" class="grd-row-col-6-6--lg bg--light-gray w100"></div>
-  <i id="list-toggle" class="fa fa-lg cursor--pointer" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"></i>
-  <!-- <img id="list-toggle" src='images/timeline-list-grid-list-icon.png' ng-click="$ctrl.toggleList()"> -->
-  <div id="list-view" class="bg--mid-gray grd-row-col-2-6--md">
-    <div class="bg--dark-gray p1 fnt--light-gray clearfix">
+  <div id="map-canvas" class="grd-row-col-6-6--lg w100"></div>
 
+  <!-- List -->
+  <div id="list-view" class="bg--mid-gray grd-row-col-2-6--md">
+    <!-- List Header -->
+    <div class="bg--dark-gray p1 fnt--light-gray clearfix">
+      <!-- List Header Controls -->
       <div class="grd-row">
         <h3 class="my0 txt--left grd-row-col-3-6">Search</h3>
 
@@ -19,6 +25,7 @@
         </div>
       </div>
 
+      <!-- List Header Options Menu -->
       <div class="searchOptionsContainer grd-row grd-row-col-6" ng-init="showOptions = false" ng-show="showOptions">
         <div class="grd p0">
           <div class="grd-row">
@@ -49,6 +56,7 @@
       </div>
     </div>
 
+    <!-- List Contents -->
     <div class="grd oflow-y--auto" ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
       <!-- List item -->
       <div class="grd-row media py2 list-item">
