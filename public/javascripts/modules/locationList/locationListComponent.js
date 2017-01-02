@@ -143,10 +143,6 @@ function locationListController($scope, $timeout, LocationService) {
       });
 
     ctrl.updateCircleRange();
-    if (ctrl.LocationService.listView) {
-      ctrl.LocationService.listView = !ctrl.LocationService.listView;
-      ctrl.toggleList();
-    }
   }
 
   ctrl.toggleList = function() { // TODO: replace with adding/removing a 'list-hidden' class which is responsive.
