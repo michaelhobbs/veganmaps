@@ -59,6 +59,7 @@ function locationListController($scope, $timeout, LocationService) {
               map: ctrl.globalMap,
               draggable: false
           })];
+
           // Create the search box and link it to the UI element.
           var input = document.getElementById('searchTextField');
           var autocomplete = new google.maps.places.Autocomplete(input);
@@ -91,6 +92,7 @@ function locationListController($scope, $timeout, LocationService) {
                   position: place.geometry.location
               }));
               ctrl.globalMap.panTo(place.geometry.location);
+
               console.log(place);
               var newPosition = {latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng()};
 
@@ -140,7 +142,7 @@ function locationListController($scope, $timeout, LocationService) {
           }));
       });
 
-
+    ctrl.updateCircleRange();
     if (ctrl.LocationService.listView) {
       ctrl.LocationService.listView = !ctrl.LocationService.listView;
       ctrl.toggleList();
@@ -181,9 +183,26 @@ function locationListController($scope, $timeout, LocationService) {
     return typeFilterValidates && distanceFilterValidates;
   }
 
+  ctrl.updateCircleRange = function() {
+    if (ctrl.rangeCirclemarker) {
+      ctrl.rangeCirclemarker.setMap(null);
+    }
+    ctrl.rangeCirclemarker = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: ctrl.globalMap,
+      center: new google.maps.LatLng(ctrl.pos.latitude, ctrl.pos.longitude),
+      radius: $scope.slider.value
+    });
+  }
+
   $scope.slider = {
     value: 2000,
     options: {
+      onEnd: ctrl.updateCircleRange,
       hideLimitLabels: true,
       hidePointerLabels: true,
       showTicks: true,
