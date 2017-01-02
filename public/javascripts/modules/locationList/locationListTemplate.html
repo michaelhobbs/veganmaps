@@ -72,6 +72,7 @@
           <div ng-if="location.fullv">100% vegan</div>
           <div ng-if="location.gf">gluten-free options</div>
           <div ng-if="location.meat">meat options</div>
+          <div><a ng-href="https://www.google.com/maps/dir/{{$ctrl.pos.latitude}},{{$ctrl.pos.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank">Directions from Google</a></div>
         </div>
 
       </div>
