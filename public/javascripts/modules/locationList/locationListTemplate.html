@@ -57,7 +57,7 @@
     </div>
 
     <!-- List Contents -->
-    <div class="grd oflow-y--auto" ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp" class="location">
+    <div class="grd oflow-y--auto" ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp as filteredPlaces" class="location">
       <!-- List item -->
       <div class="grd-row media py2 list-item">
         <div class="grd-row-col-1-6 media-figure">
@@ -78,5 +78,8 @@
       </div>
     </div>
 
+    <div ng-if="filteredPlaces.length===0 && $ctrl.locationList.length!==0">No places found for given filter. Try relaxing filter settings. Places within 10km of your search: {{$ctrl.locationList.length}}</div>
+
+    <div ng-if="$ctrl.locationList.length===0">No places found within 10km of your search. Try another search.</div>
   </div>
 </div>
