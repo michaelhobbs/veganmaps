@@ -188,11 +188,11 @@ function locationListController($scope, $timeout, LocationService) {
       ctrl.rangeCirclemarker.setMap(null);
     }
     ctrl.rangeCirclemarker = new google.maps.Circle({
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
+      strokeColor: '#00FF00',
+      strokeOpacity: 0.35,
       strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
+      fillColor: '#FFFFFF',
+      fillOpacity: 0.05,
       map: ctrl.globalMap,
       center: new google.maps.LatLng(ctrl.pos.latitude, ctrl.pos.longitude),
       radius: $scope.slider.value

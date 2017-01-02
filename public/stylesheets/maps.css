@@ -67,6 +67,8 @@ body {
 .list-item {border-bottom: rgba(150,150,150,0.9) 1px solid;}
 .mr05 {margin-right: 0.5rem;}
 .ml05 {margin-left: 0.5rem;}
+.pt05 {padding-top: 0.5rem;}
+.brdrt {border-top: thin solid;}
 @media screen and (max-width: 48rem) {
   .mapContainer-listOpen {
     display:  none;
