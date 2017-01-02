@@ -2,12 +2,8 @@ var Location = require('../models/locationSchema');
 var findLocation = function(query, success, socket) {
     var limit = query.limit || 10;
 
-    // get the max distance or set it to 8 kilometers
-    var maxDistance = query.distance || 8;
-
-    // we need to convert the distance to radians
-    // the raduis of Earth is approximately 6371 kilometers
-    maxDistance /= 6371;
+    // get the max distance or set it to 10 kilometers by default
+    var maxDistance = query.distance || 10000;
 
     // get coordinates [ <longitude> , <latitude> ]
     var coords = [];
@@ -17,9 +13,11 @@ var findLocation = function(query, success, socket) {
     console.log("Query coods: ", coords);
     // find a location
     Location.find({
-      loc: {
-        $near: coords,
-        $maxDistance: maxDistance
+      location: {
+        $near: {
+            $geometry: { type: "Point",  coordinates: coords },
+            $maxDistance: maxDistance
+          }
       }
     }).limit(limit).exec(function(err, locations) {
       if (err) {

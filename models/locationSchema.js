@@ -30,9 +30,16 @@ var locationSchema = new Schema({
         max: 180,
         min: -180
       },
-  loc: {
-    type: [Number],  // [<longitude>, <latitude>]
-    index: '2d'      // create the geospatial index
+  location : {
+    type: {
+      type: String,
+      enum: "Point",
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+      index: '2dsphere'
+    }
   },
   gf: Boolean,
   bio: Boolean,
