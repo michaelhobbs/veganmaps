@@ -49,10 +49,10 @@ var locationSchema = new Schema({
   vOnReq: Boolean,
   local: Boolean,
   meat: Boolean,
-  url: {
-      String
+  url: //{
+      String,
       //, match: /^a/  // TODO add URL regex
-    },
+    //},
   phone: String,
   picPath: String,
   openTimes: {

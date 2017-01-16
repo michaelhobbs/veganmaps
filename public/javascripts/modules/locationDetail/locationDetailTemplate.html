@@ -1,13 +1,19 @@
-<a href="#/"><span>{{$ctrl.locationDetails.name}}</span></a>
-<img ng-src="images/{{$ctrl.locationDetails.picPath}}" ng-if="$ctrl.locationDetails.picPath" alt="{{$ctrl.locationDetails.name}}"></img>
+<div class="grd-row media py2 list-item">
+  <div class="grd-row-col-1-6 media-figure">
+    <a href="#/id/{{$ctrl.locationDetails._id}}">
+      <img ng-src="images/{{$ctrl.locationDetails.picPath || 'default.thumbnail.png'}}" class="location-icon" alt="{{$ctrl.locationDetails.name}}"></img>
+    </a>
+  </div>
+  <div class="grd-row-col-5-6 media-body">
+    <a href="#/id/{{$ctrl.locationDetails._id}}" class="location-name">{{$ctrl.locationDetails.name}}</a>
+    <div>{{$ctrl.locationDetails.distance}} m</div>
+    <a href="{{$ctrl.locationDetails.url}}" ng-if="$ctrl.locationDetails.url">website</a>
+    <div ng-if="$ctrl.locationDetails.fullv">100% vegan</div>
+    <div ng-if="$ctrl.locationDetails.gf">gluten-free options</div>
+    <div ng-if="$ctrl.locationDetails.meat">meat options</div>
+    <div><a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{$ctrl.locationDetails.latitude}},{{$ctrl.locationDetails.longitude}}" target="_blank">Directions from Google</a></div>
+  </div>
 
-<div>
-  <table>
-    <tr ng-repeat="(key, value) in $ctrl.locationDetails">
-      <td> {{key}} </td>
-      <td> {{ value }} </td>
-    </tr>
-  </table>
 </div>
 
 <div>
