@@ -47,10 +47,14 @@ body {
     padding: 0 !important;
 }
 
+a {
+  color: midnightblue;
+}
+
 /* furtive extensions */
 .h100 {height:100%;}
 .oflow-y--auto {overflow-y: auto;}
-.list-item {border-bottom: rgba(150,150,150,0.9) 1px solid;}
+.list-item {border-bottom: rgba(150,150,150,0.9) 1px solid; line-height: 1.3rem;}
 .mr05 {margin-right: 0.5rem;}
 .ml05 {margin-left: 0.5rem;}
 .pt05 {padding-top: 0.5rem;}

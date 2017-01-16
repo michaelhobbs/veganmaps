@@ -68,11 +68,14 @@
         <div class="grd-row-col-5-6 media-body">
           <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
           <div>{{location.distance}} m</div>
-          <a href="{{location.url}}" ng-if="location.url">website</a>
           <div ng-if="location.fullv">100% vegan</div>
           <div ng-if="location.gf">gluten-free options</div>
           <div ng-if="location.meat">meat options</div>
-          <div><a ng-href="https://www.google.com/maps/dir/{{$ctrl.pos.latitude}},{{$ctrl.pos.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank">Directions from Google</a></div>
+          <div>
+            <a href="{{location.url}}" ng-if="location.url" target="_blank">website</a>
+            <span ng-if="location.url"> | </span>
+            <a ng-href="https://www.google.com/maps/dir/{{$ctrl.pos.latitude}},{{$ctrl.pos.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank">directions</a>
+          </div>
         </div>
 
       </div>
