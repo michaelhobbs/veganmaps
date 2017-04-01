@@ -1,31 +1,33 @@
-angular.
-  module('veganmaps').
-  config(['$routeProvider',
-    function config($routeProvider) {
+define(function(require) {
 
-      $routeProvider.
-        when('/', {
-          template: '<location-list></location-list>'
-        }).
-        when('/id/:locationId', {
-          template: '<location-detail location-details="$resolve.locationDetails.data"></location-detail>',
-          resolve: {
-            locationDetails: function($http, $route, LocationService) {
-              if (!LocationService.lastSearch.results) {
-                return $http.get('api/locations/' + $route.current.params.locationId);
-              }
-              else {
-                return {};
-              }
+  'use strict';
+
+  function config($routeProvider) {
+    $routeProvider.
+      when('/', {
+        template: '<location-list></location-list>'
+      }).
+      when('/id/:locationId', {
+        template: '<location-detail location-details="$resolve.locationDetails.data"></location-detail>',
+        resolve: {
+          locationDetails: function($http, $route, LocationService) {
+            if (!LocationService.lastSearch.results) {
+              return $http.get('api/locations/' + $route.current.params.locationId);
+            }
+            else {
+              return {};
             }
           }
-        }).
-        when('/new', {
-          template: '<location-add></location-add>'
-        }).
-        when('/edit/:locationId', {
-          template: '<location-edit>hi</location-edit>'
-        }).
-        otherwise('/');
-    }
-  ]);
+        }
+      }).
+      when('/new', {
+        template: '<location-add></location-add>'
+      }).
+      when('/edit/:locationId', {
+        template: '<location-edit>hi</location-edit>'
+      }).
+      otherwise('/');
+  };
+
+  return ['$routeProvider', config];
+});

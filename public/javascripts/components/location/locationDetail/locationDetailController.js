@@ -1,12 +1,8 @@
-angular.
-  module('locationDetail').
-  component('locationDetail', {
-    templateUrl: '/javascripts/modules/locationDetail/locationDetailTemplate.html',
-    bindings: {
-      locationDetails: '<'
-    },
-    controller: ['$routeParams', '$http', '$filter', 'LocationService',
-      function locationDetailController($routeParams, $http, $filter, LocationService) {
+define(function(require) {
+
+  'use strict';
+
+  function locationDetailController($routeParams, $http, $filter, LocationService) {
         var ctrl = this;
         ctrl.locationId = $routeParams.locationId;
         ctrl.LocationService = LocationService;
@@ -35,6 +31,8 @@ angular.
             ctrl.nextId = ctrl.filteredLocations[index+1]._id;
           }
         }
-      }
-    ]
-  });
+  };
+
+  return ['$routeParams', '$http', '$filter', 'LocationService', locationDetailController];
+
+});

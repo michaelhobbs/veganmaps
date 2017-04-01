@@ -1,17 +1,40 @@
-'use strict';
+/**
+  * This module initializes the application.
+  */
+define(function(require) {
 
-// Define the `veganmaps` module
-angular.module('veganmaps', [
-  // external dependencies
-  'ngRoute', // TODO: replace/augment with ui-router, preserve data and state between views
-  // ...which depends on the `locationList` module
-  'rzModule',
-  'locationList',
-  'locationDetail',
-  'locationAdd',
-  'locationEdit'
-]).service('LocationService', function(){
-  this.lastSearch = {filterProp : 'all', orderProp: 'distance'}; // coords, results, filterSelection, orderBySelection
-  this.currentLocation = {}; // to have detail displayed or to be edited
-  this.listView = false; // by default list view is hidden
-});;
+  'use strict';
+
+  // module name
+  var moduleName = 'veganmaps';
+
+  // load external dependencies
+  var angular = require('angular');
+  require('ngRoute');
+  require('rzModule');
+  var socketio = require('socketio');
+
+  // load app's submodules
+  var components = require('./components/components');
+
+  // create application module
+  var app = angular.module(moduleName, [
+      // external dependencies
+      'ngRoute', // TODO: replace/augment with ui-router, preserve data and state between views
+      // ...which depends on the `locationList` module
+      // 'ngAnimate',
+      'rzModule',
+      components
+    ]).service('LocationService', require('./services/locationService'));
+
+  // load routeConfig
+  app.config(require('./appConfig')); // maybe need to put this in location module
+
+  // add app.run() here if needed
+
+  // bootstrap the application
+  angular.element(document).ready(function() {
+    angular.bootstrap(document, [moduleName]);
+  });
+
+});
