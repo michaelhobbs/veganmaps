@@ -1,1 +1,6 @@
-<div id="map-canvas" style="height: 100%"></div>
+<!-- map implementation attaches to the element loading this component with id='map-canvas'
+  this is currently in order to preserve the css changes when opening the list view on a
+  mobile device.
+  putting a div here with id='map-canvas' then requires giving it height: 100% in order for the map to load correctly
+  however, then when the list opens on mobile devices it is offscreen as the map does not reduce height to 0
+-->
