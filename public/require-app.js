@@ -14,7 +14,8 @@
           ngRoute : '../lib/angular-route/angular-route',
           angular : '../lib/angular/angular',
           text : '../lib/text/text',
-          socketio : '../socket.io/socket.io'
+          socketio : '../socket.io/socket.io',
+          leaflet : '../lib/leaflet/dist/leaflet'
       },
       shim: {
         rzModule: {

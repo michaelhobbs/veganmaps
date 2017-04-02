@@ -1,5 +1,5 @@
 <!-- TODO : make pretty expanding search box -->
-<div id="searchTrigger" class="container-map-location-search">
+<div id="searchTrigger" class="container-map-location-search" ng-if="$ctrl.LocationService.mapType === 'google'">
   <i class="fa fa-search"></i>
   <input id="searchTextField" class="fa fa-search" type="text" placeholder="Search"></input>
 </div>

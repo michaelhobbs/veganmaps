@@ -11,6 +11,9 @@
 
 #list-toggle {
     margin: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1000;
 }
 
 #list-view {

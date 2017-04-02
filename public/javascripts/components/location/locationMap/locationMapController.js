@@ -2,12 +2,14 @@ define(function(require) {
 
   'use strict';
   var io = require('socketio');
+  var L = require('leaflet');
 
   function locationMapController($scope, $timeout, LocationService) {
 
-    var MAP_TYPE = 'google'; // 'leaflet'
+    var MAP_TYPE = 'leaflet'; // 'leaflet' || 'google'
     var ctrl = this;
     ctrl.LocationService = LocationService;
+    ctrl.LocationService.mapType = MAP_TYPE;
     var socket = io.connect('http://localhost:3000'); // socket handler has to be at end of file such that it registers callbacks which have been initialized
 
     ctrl.LocationService.map;
@@ -24,9 +26,24 @@ define(function(require) {
       }
 
       ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
+        var mymap = L.map('map-canvas').setView([47.3841831, 8.5329786], 13);
+        L.tileLayer('http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            minZoom: 12
+        }).addTo(mymap);
+        var marker = L.marker([47.3841831, 8.5329786]).addTo(mymap);
+        var circle = L.circle([47.3841831, 8.5329786], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.05,
+            radius: 2000 // meters
+        }).addTo(mymap);
       }
 
       // need to trigger ctrl.LocationService.getGeoLocation() in order to start loading the map
+
+      ctrl.LocationService.getGeoLocation();
     }
 
 
@@ -178,6 +195,10 @@ define(function(require) {
 
     }
 
+    /*
+     * END OF MAP TYPE SPECIFIC CODE
+     * BELOW IS CODE WHICH MUST APPLY REGARDLESS OF MAP TYPE
+     */
     socket.on('places', ctrl.loadPlaces); // should call interface
   };
 
