@@ -9,7 +9,9 @@
     "angularjs-slider": "^5.9.0",
     "components-font-awesome": "^4.7.0",
     "requirejs": "^2.3.3",
-    "text": "requirejs-text#^2.0.15"
+    "text": "requirejs-text#^2.0.15",
+    "leaflet": "^1.0.3",
+    "leaflet-geosearch": "^2.0.0"
   },
   "resolutions": {
     "angular": "1.5.10",

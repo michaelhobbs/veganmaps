@@ -1,0 +1,186 @@
+define(function(require) {
+
+  'use strict';
+  var io = require('socketio');
+
+  function locationMapController($scope, $timeout, LocationService) {
+
+    var MAP_TYPE = 'google'; // 'leaflet'
+    var ctrl = this;
+    ctrl.LocationService = LocationService;
+    var socket = io.connect('http://localhost:3000'); // socket handler has to be at end of file such that it registers callbacks which have been initialized
+
+    ctrl.LocationService.map;
+    ctrl.LocationService.markers = [];
+
+    if (MAP_TYPE === 'leaflet') {
+      ctrl.LocationService.updateCircleRange = function() { // called when range slider value changes
+      }
+
+      ctrl.loadPlaces = function(places) { // called when server sends list of places for a new search
+      }
+
+      ctrl.LocationService.resizeMap = function() { // called when toggle list open/closed
+      }
+
+      ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
+      }
+
+      // need to trigger ctrl.LocationService.getGeoLocation() in order to start loading the map
+    }
+
+
+    if (MAP_TYPE === 'google') {
+      ctrl.LocationService.updateCircleRange = function() {
+        if (ctrl.rangeCirclemarker) {
+          ctrl.rangeCirclemarker.setMap(null);
+        }
+        ctrl.rangeCirclemarker = new google.maps.Circle({
+          strokeColor: '#00FF00',
+          strokeOpacity: 0.35,
+          strokeWeight: 2,
+          fillColor: '#FFFFFF',
+          fillOpacity: 0.05,
+          map: ctrl.LocationService.map,
+          center: new google.maps.LatLng(ctrl.LocationService.lastSearch.coords.latitude, ctrl.LocationService.lastSearch.coords.longitude),
+          radius: ctrl.LocationService.range
+        });
+
+      };
+
+      ctrl.loadPlaces = function(places) {
+        console.log('Loading places.', places);
+        places.forEach (function(place) {
+          place.distance = ctrl.LocationService.distance(place.latitude, place.longitude, ctrl.LocationService.lastSearch.coords.latitude, ctrl.LocationService.lastSearch.coords.longitude);
+        });
+
+        ctrl.LocationService.lastSearch.results = places;
+        $scope.$apply();
+        // Clear out the old markers.
+        ctrl.LocationService.markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        ctrl.LocationService.markers = [];
+        var index = 0;
+          places.forEach (function(place) {
+              console.log('Found close place: ', place);
+              var latLng = new google.maps.LatLng(place.latitude, place.longitude);
+              ctrl.LocationService.markers.push(new google.maps.Marker({
+                  position: latLng,
+                  map: ctrl.LocationService.map,
+                  draggable: false,
+                  animation: google.maps.Animation.DROP,
+                  icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+              }));
+          });
+
+        ctrl.LocationService.updateCircleRange();
+      }
+
+
+      ctrl.LocationService.resizeMap = function() {
+        $timeout(function () {
+          google.maps.event.trigger(ctrl.LocationService.map, "resize"); // should be called through interface
+        },10);
+      }
+
+
+      ctrl.LocationService.initializeMap = function(position) {
+          var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          var initialPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+          socket.emit('position', initialPosition);
+          console.log('Sending server location:', initialPosition);
+
+          var mapOptions = {
+              zoom: 14,
+              minZoom: 10,
+              fullscreenControl: false,
+              streetViewControl: false,
+              mapTypeControl: false,
+              center: initialLocation,
+              styles: [
+                 {"featureType":"all","elementType":"geometry","stylers":[{"saturation":"18"}]},{"featureType":"all","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#3577ad"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"visibility":"on"},{"color":"#661212"}]},{"featureType":"all","elementType":"labels","stylers":[{"color":"#682828"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"color":"#822626"},{"visibility":"on"}]},{"featureType":"administrative.country","elementType":"geometry.stroke","stylers":[{"color":"#37312c"},{"lightness":"0"},{"saturation":"-13"},{"weight":"2"}]},{"featureType":"administrative.country","elementType":"labels.text","stylers":[{"visibility":"off"},{"weight":"0.01"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#52463b"},{"weight":"4.89"},{"lightness":"11"},{"gamma":"1"},{"visibility":"off"},{"saturation":"0"}]},{"featureType":"administrative.province","elementType":"geometry.fill","stylers":[{"color":"#c06969"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"lightness":20},{"color":"#252525"},{"visibility":"on"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"color":"#252525"},{"visibility":"on"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21},{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":"18"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2},{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry.fill","stylers":[{"visibility":"off"},{"color":"#2c2c28"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#252525"},{"lightness":18},{"visibility":"on"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#863131"},{"lightness":16},{"visibility":"on"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#282a32"},{"lightness":"4"}]}]
+           };
+           ctrl.LocationService.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+          var markers = [new google.maps.Marker({
+              position: initialLocation,
+              map: ctrl.LocationService.map,
+              draggable: false
+          })];
+
+          // Create the search box and link it to the UI element.
+          var input = document.getElementById('searchTextField');
+          var autocomplete = new google.maps.places.Autocomplete(input);
+          ctrl.LocationService.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('searchTrigger')); ctrl.LocationService.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('list-toggle'));
+
+          // Bias the SearchBox results towards current map's viewport.
+          ctrl.LocationService.map.addListener('bounds_changed', function() {
+            autocomplete.setBounds(ctrl.LocationService.map.getBounds());
+          });
+
+          // limit panning to current circle
+          google.maps.event.addListener(ctrl.LocationService.map,'center_changed',function() { checkBounds(); });
+
+          function checkBounds() {
+              var allowedBounds = ctrl.rangeCirclemarker.getBounds();
+              if(! allowedBounds.contains(ctrl.LocationService.map.getCenter())) {
+                var C = ctrl.LocationService.map.getCenter();
+                var X = C.lng();
+                var Y = C.lat();
+
+                var AmaxX = allowedBounds.getNorthEast().lng();
+                var AmaxY = allowedBounds.getNorthEast().lat();
+                var AminX = allowedBounds.getSouthWest().lng();
+                var AminY = allowedBounds.getSouthWest().lat();
+
+                if (X < AminX) {X = AminX;}
+                if (X > AmaxX) {X = AmaxX;}
+                if (Y < AminY) {Y = AminY;}
+                if (Y > AmaxY) {Y = AmaxY;}
+
+                ctrl.LocationService.map.setCenter(new google.maps.LatLng(Y,X));
+              }
+          }
+
+          // [START region_getplaces]
+          // Listen for the event fired when the user selects a prediction and retrieve
+          // more details for that place.
+          autocomplete.addListener('place_changed', function() {
+              var place = autocomplete.getPlace();
+
+              if (!place) {
+                return;
+              }
+
+              // Clear out the old markers.
+              markers.forEach(function(marker) {
+                  marker.setMap(null);
+              });
+              markers = [];
+
+              // Create a marker
+              markers.push(new google.maps.Marker({
+                  map: ctrl.LocationService.map,
+                  title: place.name,
+                  position: place.geometry.location
+              }));
+              ctrl.LocationService.map.panTo(place.geometry.location);
+
+              console.log(place);
+
+              ctrl.LocationService.lastSearch.coords = {latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng()};
+              socket.emit('position', ctrl.LocationService.lastSearch.coords);
+          });
+          // [END region_getplaces]
+      };
+      google.maps.event.addDomListener(window, 'load', ctrl.LocationService.getGeoLocation());
+
+    }
+
+    socket.on('places', ctrl.loadPlaces); // should call interface
+  };
+
+  return ['$scope', '$timeout', 'LocationService', locationMapController];
+
+});

@@ -6,7 +6,7 @@
 
 <i id="list-toggle" class="bg--dark-gray fnt--light-gray fa cursor--pointer h3 p1" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"></i>
 <div class="container grd-row pageRow h100">
-  <div id="map-canvas" ng-class="{'grd-row-col-4-6--md': $ctrl.LocationService.listView, 'w100': !$ctrl.LocationService.listView, 'grd-row-col-6--lg': !$ctrl.LocationService.listView}"></div>
+  <location-map ng-class="{'grd-row-col-4-6--md': $ctrl.LocationService.listView, 'w100': !$ctrl.LocationService.listView, 'grd-row-col-6--lg': !$ctrl.LocationService.listView}"></location-map>
 
   <!-- List -->
   <div id="list-view" ng-show="$ctrl.LocationService.listView" class="bg--mid-gray" ng-class="{'grd-row-col-2-6--md': $ctrl.LocationService.listView}">
@@ -57,7 +57,7 @@
     </div>
 
     <!-- List Contents -->
-    <div class="grd oflow-y--auto" ng-repeat="location in $ctrl.locationList | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp as filteredPlaces">
+    <div class="grd oflow-y--auto" ng-repeat="location in $ctrl.LocationService.lastSearch.results | filter: $ctrl.filterExpression | orderBy: $ctrl.LocationService.lastSearch.orderProp as filteredPlaces">
       <!-- List item -->
       <div class="grd-row media py2 list-item">
         <div class="grd-row-col-1-6 media-figure">
@@ -74,15 +74,15 @@
           <div>
             <a href="{{location.url}}" ng-if="location.url" target="_blank">website</a>
             <span ng-if="location.url"> | </span>
-            <a ng-href="https://www.google.com/maps/dir/{{$ctrl.pos.latitude}},{{$ctrl.pos.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank">directions</a>
+            <a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank">directions</a>
           </div>
         </div>
 
       </div>
     </div>
 
-    <div ng-if="filteredPlaces.length===0 && $ctrl.locationList.length!==0">No places found for given filter. Try relaxing filter settings. Places within 10km of your search: {{$ctrl.locationList.length}}</div>
+    <div ng-if="filteredPlaces.length===0 && $ctrl.locationService.lastSearch.results.length!==0">No places found for given filter. Try relaxing filter settings. Places within 10km of your search: {{$ctrl.locationService.lastSearch.results.length}}</div>
 
-    <div ng-if="$ctrl.locationList.length===0">No places found within 10km of your search. Try another search.</div>
+    <div ng-if="$ctrl.locationService.lastSearch.results.length===0">No places found within 10km of your search. Try another search.</div>
   </div>
 </div>

@@ -98,3 +98,16 @@ input, select, textarea {
 .rzslider .rz-pointer:hover:after {
   background-color: rgba(179, 61, 61, 1);
 }
+
+
+/* animations */
+/*#list-view.ng-hide {
+  -webkit-animation:slideOutRight 0.5s both ease;
+	-moz-animation:slideOutRight 0.5s both ease;
+	animation:slideOutRight 0.5s both ease;
+}
+#list-view {
+  -webkit-animation:slideInRight 0.5s both ease;
+	-moz-animation:slideInRight 0.5s both ease;
+	animation:slideInRight 0.5s both ease;
+}*/

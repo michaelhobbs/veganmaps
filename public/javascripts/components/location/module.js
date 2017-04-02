@@ -19,7 +19,8 @@ define(function(require) {
     .component('locationAdd', require('./locationAdd/locationAddDirective'))
     .component('locationDetail', require('./locationDetail/locationDetailDirective'))
     .component('locationEdit', require('./locationEdit/locationEditDirective'))
-    .component('locationList', require('./locationList/locationListDirective'));
+    .component('locationList', require('./locationList/locationListDirective'))
+    .component('locationMap', require('./locationMap/locationMapDirective'));
 
   return module.name;
 });
