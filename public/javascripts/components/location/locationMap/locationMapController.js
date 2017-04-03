@@ -16,35 +16,77 @@ define(function(require) {
     ctrl.LocationService.markers = [];
 
     if (MAP_TYPE === 'leaflet') {
+      ctrl.LocationService.lastSearch.coords = {latitude: 47.3841831, longitude: 8.5329786};
+
       ctrl.LocationService.updateCircleRange = function() { // called when range slider value changes
+        ctrl.rangeCirclemarker.setRadius(ctrl.LocationService.range);
+        //for marker in markers, if marker.distance > range -> set marker opacity to low
       }
 
       ctrl.loadPlaces = function(places) { // called when server sends list of places for a new search
+        console.log('Loading places.', places);
+        places.forEach (function(place) {
+          place.distance = ctrl.LocationService.distance(place.latitude, place.longitude, ctrl.LocationService.lastSearch.coords.latitude, ctrl.LocationService.lastSearch.coords.longitude);
+        });
+
+        ctrl.LocationService.lastSearch.results = places;
+        $scope.$apply();
+        // Clear out the old markers.
+        ctrl.LocationService.markers.forEach(function(marker) {
+          ctrl.LocationService.map.removeLayer(marker);
+        });
+        ctrl.LocationService.markers = [];
+        places.forEach (function(place) {
+            console.log('Found close place: ', place);
+            ctrl.LocationService.markers.push(L.marker(place.location.coordinates.reverse()).addTo(ctrl.LocationService.map));
+        });
       }
 
       ctrl.LocationService.resizeMap = function() { // called when toggle list open/closed
       }
 
       ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
-        var mymap = L.map('map-canvas').setView([47.3841831, 8.5329786], 13);
+        position = Object.values(ctrl.LocationService.lastSearch.coords);
+        ctrl.LocationService.map = L.map('map-canvas').setView(position, 13);
         L.tileLayer('http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
             maxZoom: 18,
             minZoom: 12
-        }).addTo(mymap);
-        var marker = L.marker([47.3841831, 8.5329786]).addTo(mymap);
-        var circle = L.circle([47.3841831, 8.5329786], {
-            color: 'red',
+        }).addTo(ctrl.LocationService.map);
+        ctrl.LocationService.markers.push(L.marker(position).addTo(ctrl.LocationService.map));
+        ctrl.rangeCirclemarker = L.circle(position, {
+            color: 'darkgreen',
             fillColor: '#f03',
             fillOpacity: 0.05,
             radius: 2000 // meters
-        }).addTo(mymap);
+        }).addTo(ctrl.LocationService.map);
+
+        console.debug('sending query position: (lat, lng) ', ctrl.LocationService.lastSearch.coords)
+        socket.emit('position', ctrl.LocationService.lastSearch.coords);
       }
 
       // need to trigger ctrl.LocationService.getGeoLocation() in order to start loading the map
 
       ctrl.LocationService.getGeoLocation();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     if (MAP_TYPE === 'google') {
@@ -78,18 +120,17 @@ define(function(require) {
             marker.setMap(null);
         });
         ctrl.LocationService.markers = [];
-        var index = 0;
-          places.forEach (function(place) {
-              console.log('Found close place: ', place);
-              var latLng = new google.maps.LatLng(place.latitude, place.longitude);
-              ctrl.LocationService.markers.push(new google.maps.Marker({
-                  position: latLng,
-                  map: ctrl.LocationService.map,
-                  draggable: false,
-                  animation: google.maps.Animation.DROP,
-                  icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-              }));
-          });
+        places.forEach (function(place) {
+            console.log('Found close place: ', place);
+            var latLng = new google.maps.LatLng(place.latitude, place.longitude);
+            ctrl.LocationService.markers.push(new google.maps.Marker({
+                position: latLng,
+                map: ctrl.LocationService.map,
+                draggable: false,
+                animation: google.maps.Animation.DROP,
+                icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            }));
+        });
 
         ctrl.LocationService.updateCircleRange();
       }
