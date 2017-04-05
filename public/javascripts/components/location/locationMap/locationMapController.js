@@ -3,6 +3,7 @@ define(function(require) {
   'use strict';
   var io = require('socketio');
   var L = require('leaflet');
+  var Lgeo = require('leafletgeosearch');
 
   function locationMapController($scope, $timeout, LocationService) {
 
@@ -38,7 +39,7 @@ define(function(require) {
         ctrl.LocationService.markers = [];
         places.forEach (function(place) {
             console.log('Found close place: ', place);
-            ctrl.LocationService.markers.push(L.marker(place.location.coordinates.reverse()).addTo(ctrl.LocationService.map));
+            ctrl.LocationService.markers.push(L.marker(place.location.coordinates.reverse()).addTo(ctrl.LocationService.map).bindPopup('<a href="#/id/'+place._id+'">'+place.name+'</a><br><a href="https://www.google.com/maps/dir/' + ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude+'/'+place.location.coordinates[0]+','+place.location.coordinates[1]+'" target="_blank">directions</a>'));
         });
       }
 
@@ -53,13 +54,44 @@ define(function(require) {
             maxZoom: 18,
             minZoom: 12
         }).addTo(ctrl.LocationService.map);
-        ctrl.LocationService.markers.push(L.marker(position).addTo(ctrl.LocationService.map));
+        var userMarkerIcon = L.icon({
+          iconUrl: '/images/marker.png',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        });
+        
+        ctrl.userMarker = L.marker(position, {icon: userMarkerIcon, zIndexOffset: -1000}).addTo(ctrl.LocationService.map)
         ctrl.rangeCirclemarker = L.circle(position, {
             color: 'darkgreen',
             fillColor: '#f03',
             fillOpacity: 0.05,
             radius: 2000 // meters
         }).addTo(ctrl.LocationService.map);
+
+        L.control.scale().addTo(ctrl.LocationService.map);
+        // autocomplete search controls
+        var mapBounds = ctrl.LocationService.map.getBounds();
+        var viewbox = mapBounds.getWest() + ',' + mapBounds.getNorth() + ',' + mapBounds.getEast() +',' + mapBounds.getSouth();
+        var provider = new Lgeo.OpenStreetMapProvider({params:{
+          countrycodes: 'CH', addressdetails:1, limit: 3, viewbox: viewbox}}
+        );
+        var searchControl = new Lgeo.GeoSearchControl({
+          provider: provider,
+          style: 'bar',
+          autoCompleteDelay: 1000,
+          showMarker: false
+        });
+        ctrl.LocationService.map.addControl(searchControl);
+
+        // auto close result list (aka. autocomplete options) after user selects one
+        ctrl.LocationService.map.on("geosearch/showlocation", function(r) {
+          var ev = new Event("fake");
+          searchControl.resultList.clear();
+          ctrl.userMarker.setLatLng({lat: r.location.y, lng: r.location.x});
+          ctrl.rangeCirclemarker.setLatLng({lat: r.location.y, lng: r.location.x});
+          ctrl.LocationService.lastSearch.coords = {latitude: r.location.y, longitude: r.location.x};
+          socket.emit('position', ctrl.LocationService.lastSearch.coords);
+        });
 
         console.debug('sending query position: (lat, lng) ', ctrl.LocationService.lastSearch.coords)
         socket.emit('position', ctrl.LocationService.lastSearch.coords);

@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // serve folders in public as root path
 app.use('/lib', express.static(path.join(__dirname, 'bower_components'))); // serve client dependencies under '/lib'
+app.use('/node', express.static(path.join(__dirname, 'node_modules'))); // serve client dependencies which do not support bower under '/node'
 
 // serve pages
 app.use('/', routes);
