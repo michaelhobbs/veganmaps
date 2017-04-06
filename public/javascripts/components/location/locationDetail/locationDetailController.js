@@ -25,10 +25,10 @@ define(function(require) {
           var index = ctrl.filteredLocations.findIndex(x => x._id === ctrl.locationId);
           // prepare next/previous links so user can navigate through search results without having to go back to map/list view
           if (index > 0) {
-            ctrl.prevId = ctrl.filteredLocations[index-1]._id;
+            ctrl.prev = ctrl.filteredLocations[index-1];
           }
           if (index < (ctrl.filteredLocations.length-1) ) {
-            ctrl.nextId = ctrl.filteredLocations[index+1]._id;
+            ctrl.next = ctrl.filteredLocations[index+1];
           }
         }
   };

@@ -30,9 +30,9 @@ define(function(require) {
       $scope.showOptions = !$scope.showOptions;
     }
 
-    ctrl.filterExpression = function(value) { // TODO: apply filter to map also
-      var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || value[ctrl.LocationService.lastSearch.filterProp] === true);
-      var distanceFilterValidates = $scope.slider.value >= value.distance;
+    ctrl.filterExpression = function(location) { // TODO: apply filter to map also
+      var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || location.flags[ctrl.LocationService.lastSearch.filterProp] === true);
+      var distanceFilterValidates = $scope.slider.value >= location.distance;
       return typeFilterValidates && distanceFilterValidates;
     }
 

@@ -5,7 +5,7 @@
 </div>
 
 <i id="list-toggle" class="bg--dark-gray fnt--light-gray fa cursor--pointer h3 p1" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"></i>
-<div class="container grd-row pageRow h100">
+<div class="container grd-row pageRow h100" ng-class="{'list-view-open': $ctrl.LocationService.listView}">
   <location-map id="map-canvas" ng-class="{'grd-row-col-4-6--md': $ctrl.LocationService.listView, 'w100': !$ctrl.LocationService.listView, 'grd-row-col-6--lg': !$ctrl.LocationService.listView}"></location-map>
 
   <!-- List -->
@@ -68,9 +68,7 @@
         <div class="grd-row-col-5-6 media-body">
           <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
           <div>{{location.distance}} m</div>
-          <div ng-if="location.fullv">100% vegan</div>
-          <div ng-if="location.gf">gluten-free options</div>
-          <div ng-if="location.meat">meat options</div>
+          <span ng-repeat="(key, value) in location.flags" ng-if="value"><img class="locationFlagIcon {{key}}"></img></span>
           <div>
             <a href="{{location.url}}" ng-if="location.url" target="_blank">website</a>
             <span ng-if="location.url"> | </span>

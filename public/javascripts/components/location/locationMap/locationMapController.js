@@ -37,9 +37,16 @@ define(function(require) {
           ctrl.LocationService.map.removeLayer(marker);
         });
         ctrl.LocationService.markers = [];
+        var flagsHTML = '';
         places.forEach (function(place) {
+            flagsHTML = ''
             console.log('Found close place: ', place);
-            ctrl.LocationService.markers.push(L.marker(place.location.coordinates.reverse()).addTo(ctrl.LocationService.map).bindPopup('<a href="#/id/'+place._id+'">'+place.name+'</a><br><a href="https://www.google.com/maps/dir/' + ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude+'/'+place.location.coordinates[0]+','+place.location.coordinates[1]+'" target="_blank">directions</a>'));
+            Object.keys(place.flags).forEach(function(key) {
+              if (place.flags[key]) {
+                flagsHTML += '<span><img class="locationFlagIcon ' +key + '"></img></span>';
+              }
+            });
+            ctrl.LocationService.markers.push(L.marker(place.location.coordinates.reverse()).addTo(ctrl.LocationService.map).bindPopup('<a href="#/id/'+place._id+'" class="location-name">'+place.name+'</a><br><a href="https://www.google.com/maps/dir/' + ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude+'/'+place.location.coordinates[0]+','+place.location.coordinates[1]+'" target="_blank">directions</a>'+'<div>'+flagsHTML+'<div>'));
         });
       }
 
@@ -59,7 +66,7 @@ define(function(require) {
           iconSize: [16, 16],
           iconAnchor: [8, 8]
         });
-        
+
         ctrl.userMarker = L.marker(position, {icon: userMarkerIcon, zIndexOffset: -1000}).addTo(ctrl.LocationService.map)
         ctrl.rangeCirclemarker = L.circle(position, {
             color: 'darkgreen',

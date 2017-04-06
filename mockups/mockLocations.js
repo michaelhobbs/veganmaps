@@ -24,40 +24,42 @@ function populateDB() {
       "type": "Point",
       "coordinates": [8.5329786, 47.3841831]
     }, // [longitude, latitude]
-    gf: true,
-    bio: false,
-    raw: false,
-    fullv: true,
-    local: false,
-    meat: false,
+    flags: {
+      gf: true,
+      bio: false,
+      raw: false,
+      fullv: true,
+      local: false,
+      meat: false
+    },
     url: "http://www.ellenbelle.ch",
     phone: "044 448 15 20",
     picPath: "d5a121_506227dc77454bedadbb55918e2295a3.jpg",
     openTimes: {
-      monday: {
+      monday: [{
           start: 1100,
           end: 2300
-      },
-      tuesday: {
+      }],
+      tuesday: [{
           start: 1100,
           end: 2300
-      },
-      wednesday: {
+      }],
+      wednesday: [{
           start: 1100,
           end: 2300
-      },
-      thursday: {
+      }],
+      thursday: [{
           start: 1100,
           end: 2300
-      },
-      friday: {
+      }],
+      friday: [{
           start: 1100,
           end: 2300
-      },
-      saturday: {
+      }],
+      saturday: [{
           start: 1100,
           end: 2300
-      }
+      }]
     },
     created_at: new Date,
     updated_at: new Date
@@ -76,12 +78,14 @@ function populateDB() {
     location: {
       "type": "Point",
       "coordinates": [8.5233656,47.3787028]},
-    gf: false,
-    bio: false,
-    raw: false,
-    fullv: true,
-    local: true,
-    meat: false,
+    flags: {
+      gf: false,
+      bio: false,
+      raw: false,
+      fullv: true,
+      local: true,
+      meat: false
+    },
     created_at: new Date,
     updated_at: new Date
     }).save(savecb);
@@ -94,12 +98,14 @@ function populateDB() {
     location: {
       "type": "Point",
       "coordinates": [8.5300069,47.3822901]},
-    gf: false,
-    bio: false,
-    raw: true,
-    fullv: false,
-    local: false,
-    meat: false,
+    flags: {
+      gf: false,
+      bio: false,
+      raw: true,
+      fullv: false,
+      local: false,
+      meat: false
+    },
     created_at: new Date,
     updated_at: new Date
     }).save(savecb);
@@ -112,12 +118,14 @@ function populateDB() {
     location: {
       "type": "Point",
       "coordinates": [8.5308147,47.3839146]},
-    gf: false,
-    bio: false,
-    raw: false,
-    fullv: false,
-    local: false,
-    meat: false,
+    flags: {
+      gf: false,
+      bio: false,
+      raw: false,
+      fullv: false,
+      local: false,
+      meat: false
+    },
     created_at: new Date,
     updated_at: new Date
     }).save(savecb);
@@ -132,12 +140,14 @@ function populateDB() {
       "coordinates": [8.5366795,47.3732974]},
     url: "http://www.hiltl.ch",
     picPath: "logo-weiss.png",
-    gf: false,
-    bio: false,
-    raw: false,
-    fullv: false,
-    local: false,
-    meat: false,
+    flags: {
+      gf: false,
+      bio: false,
+      raw: false,
+      fullv: false,
+      local: false,
+      meat: false
+    },
     created_at: new Date,
     updated_at: new Date
     }).save(savecb);
@@ -150,12 +160,14 @@ function populateDB() {
     location: {
       "type": "Point",
       "coordinates": [8.5288607,47.3760837]},
-    gf: false,
-    bio: true,
-    raw: true,
-    fullv: true,
-    local: false,
-    meat: false,
+    flags: {
+      gf: false,
+      bio: true,
+      raw: true,
+      fullv: true,
+      local: false,
+      meat: false
+    },
     created_at: new Date,
     updated_at: new Date
     }).save(savecb);
@@ -170,12 +182,14 @@ function populateDB() {
       "coordinates": [8.5283872,47.3836628]},
     url: "http://www.maison-blunt.ch",
     picPath: "logo_rot.png",
-    gf: false,
-    bio: false,
-    raw: false,
-    fullv: false,
-    local: false,
-    meat: true,
+    flags: {
+      gf: false,
+      bio: false,
+      raw: false,
+      fullv: false,
+      local: false,
+      meat: true
+    },
     created_at: new Date,
     updated_at: new Date
     }).save(savecb);

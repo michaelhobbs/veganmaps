@@ -23,11 +23,13 @@
     overflow: auto;
 }
 
-#list-view a {
+/*#list-view */
+a {
   text-decoration: none;
 }
 
-#list-view a:hover {
+/*#list-view */
+a:hover {
   text-decoration: underline;
 }
 
@@ -39,6 +41,30 @@
 .location-name {
     color: #703030;
     font-weight: bold;
+}
+
+/* Flag icons */
+.locationFlagIcon {
+  height: 18px;
+
+}
+.locationFlagIcon.meat {
+  content: url("/images/meat_options.png");
+}
+.locationFlagIcon.gf {
+  content: url("/images/gluten_free.png");
+}
+.locationFlagIcon.bio {
+  content: url("/images/bio.png");
+}
+.locationFlagIcon.raw {
+  content: url("/images/raw.png");
+}
+.locationFlagIcon.fullv {
+  content: url("/images/100_percent_vegan.png");
+}
+.locationFlagIcon.local {
+  content: url("/images/local.png");
 }
 
 .container {
@@ -60,6 +86,8 @@ a {
 .list-item {border-bottom: rgba(150,150,150,0.9) 1px solid; line-height: 1.3rem;}
 .mr05 {margin-right: 0.5rem;}
 .ml05 {margin-left: 0.5rem;}
+.mb2 {margin-bottom: 2rem;}
+.mt1 {margin-top: 1rem;}
 .pt05 {padding-top: 0.5rem;}
 .brdrt {border-top: thin solid;}
 @media screen and (max-width: 48rem) {
@@ -100,6 +128,17 @@ input, select, textarea {
 
 .rzslider .rz-pointer:hover:after {
   background-color: rgba(179, 61, 61, 1);
+}
+
+/* leaflet-geosearch overwriting */
+@media screen and (max-width: 48rem) {
+  .leaflet-control-geosearch.bar {
+    margin: 10px 5rem;
+    width: auto;
+  }
+  .list-view-open .leaflet-control-geosearch.bar {
+    display: none;
+  }
 }
 
 

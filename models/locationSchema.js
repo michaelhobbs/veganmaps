@@ -41,14 +41,16 @@ var locationSchema = new Schema({
       index: '2dsphere'
     }
   },
-  gf: Boolean,
-  bio: Boolean,
-  raw: Boolean,
-  fullv: Boolean,
-  vOpt: Boolean,
-  vOnReq: Boolean,
-  local: Boolean,
-  meat: Boolean,
+  flags: {
+    gf: Boolean,
+    bio: Boolean,
+    raw: Boolean,
+    fullv: Boolean,
+    vOpt: Boolean,
+    vOnReq: Boolean,
+    local: Boolean,
+    meat: Boolean
+  },
   url: //{
       String,
       //, match: /^a/  // TODO add URL regex
