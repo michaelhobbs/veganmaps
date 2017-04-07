@@ -5,10 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+//var index = require('./routes/index');
 var users = require('./routes/users');
 var maps = require('./routes/maps');
 var apiLocations = require('./routes/api/locations.js');
+var welcome = require('./routes/index');
 
 var app = express();
 
@@ -32,9 +33,10 @@ app.use('/lib', express.static(path.join(__dirname, 'bower_components'))); // se
 app.use('/node', express.static(path.join(__dirname, 'node_modules'))); // serve client dependencies which do not support bower under '/node'
 
 // serve pages
-app.use('/', routes);
+//app.use('/', routes); // disabled so that the static page from the public dir will be served at server root
 app.use('/users', users);
 app.use('/maps', maps);
+app.use('/welcome', welcome);
 
 // serve api
 app.use('/api/locations', apiLocations);

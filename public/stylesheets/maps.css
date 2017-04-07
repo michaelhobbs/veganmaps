@@ -141,6 +141,11 @@ input, select, textarea {
   }
 }
 
+.leaflet-control-geosearch.bar form .results.active div:hover {
+    cursor: pointer;
+    background: rgb(200,213,230);
+}
+
 
 /* animations */
 /*#list-view.ng-hide {
