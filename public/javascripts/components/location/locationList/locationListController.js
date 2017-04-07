@@ -8,9 +8,8 @@ define(function(require) {
     ctrl.LocationService.range = 2000;
     ctrl.defaultMapPosition =  {coords: {latitude: 47.3841831, longitude: 8.5329786}};
 
-    ctrl.LocationService.lastSearch.coords = {};
     ctrl.LocationService.getGeoLocation = function() {
-        ctrl.LocationService.lastSearch.coords = ctrl.defaultMapPosition.coords;
+        ctrl.LocationService.lastSearch.coords = ctrl.LocationService.lastSearch.coords ? ctrl.LocationService.lastSearch.coords : ctrl.defaultMapPosition.coords;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                         ctrl.LocationService.initializeMap(position);

@@ -3,21 +3,21 @@
 
   <div ng-if="$ctrl.prev._id || $ctrl.next._id" class="mt1 grd-row">
     <span class="grd-row-col-3-6">
-      <a href="#/id/{{$ctrl.prev._id}}" ng-if="$ctrl.prev._id" class="btn btn--link flt--right">&lt; {{$ctrl.prev.name}}</a>
+      <a href="#/maps/id/{{$ctrl.prev._id}}" ng-if="$ctrl.prev._id" class="btn btn--link flt--right">&lt; {{$ctrl.prev.name}}</a>
     </span>
     <span class="grd-row-col-3-6">
-      <a href="#/id/{{$ctrl.next._id}}" ng-if="$ctrl.next._id" class="btn btn--link flt--left">{{$ctrl.next.name}} &gt;</a>
+      <a href="#/maps/id/{{$ctrl.next._id}}" ng-if="$ctrl.next._id" class="btn btn--link flt--left">{{$ctrl.next.name}} &gt;</a>
     </span>
   </div>
 
   <div class="list-item py2">
     <div class="mb2">
-      <a href="#/id/{{$ctrl.locationDetails._id}}">
+      <a href="#/maps/id/{{$ctrl.locationDetails._id}}">
         <img ng-src="images/{{$ctrl.locationDetails.picPath || 'default.thumbnail.png'}}" alt="{{$ctrl.locationDetails.name}}" style="max-height: 10rem;"></img>
       </a>
     </div>
     <div>
-      <a href="#/id/{{$ctrl.locationDetails._id}}" class="location-name h2">{{$ctrl.locationDetails.name}}</a>
+      <a href="#/maps/id/{{$ctrl.locationDetails._id}}" class="location-name h2">{{$ctrl.locationDetails.name}}</a>
       <div ng-if="$ctrl.locationDetails.distance">{{$ctrl.locationDetails.distance}} m</div>
       <div>
         <span ng-repeat="(key, value) in $ctrl.locationDetails.flags" ng-if="value">
@@ -34,9 +34,9 @@
   </div>
 
   <div class="my2">
-    <a href="#/edit/{{$ctrl.locationId}}" ng-if="$ctrl.fromSearch" class="btn btn--gray">Edit details</a>
+    <a href="#/maps/edit/{{$ctrl.locationId}}" ng-if="$ctrl.fromSearch" class="btn btn--gray">Edit details</a>
 
-    <a href="#/" ng-if="$ctrl.fromSearch" class="btn btn--blue">Back to map</a>
-    <a href="#/" ng-if="!$ctrl.fromSearch" class="btn btn--blue">New search</a>
+    <a href="#/maps/" ng-if="$ctrl.fromSearch" class="btn btn--blue">Back to map</a>
+    <a href="#/maps/" ng-if="!$ctrl.fromSearch" class="btn btn--blue">New search</a>
   </div>
 </div>

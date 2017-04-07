@@ -17,7 +17,7 @@ define(function(require) {
     ctrl.LocationService.markers = [];
 
     if (MAP_TYPE === 'leaflet') {
-      ctrl.LocationService.lastSearch.coords = {latitude: 47.3841831, longitude: 8.5329786};
+      ctrl.LocationService.lastSearch.coords = ctrl.LocationService.lastSearch.coords ? ctrl.LocationService.lastSearch.coords : {latitude: 47.3841831, longitude: 8.5329786};
 
       ctrl.LocationService.updateCircleRange = function() { // called when range slider value changes
         ctrl.rangeCirclemarker.setRadius(ctrl.LocationService.range);

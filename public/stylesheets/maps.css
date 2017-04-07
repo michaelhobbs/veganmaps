@@ -147,6 +147,23 @@ input, select, textarea {
 }
 
 
+
+/* fonts */
+@font-face {
+  font-family: 'Moon Light';
+  font-weight: normal;
+  font-style: normal;
+  src: url('../fonts/Moon Light.otf');
+}
+@font-face {
+  font-family: 'Moon Bold';
+  font-weight: normal;
+  font-style: normal;
+  src: url('../fonts/Moon Bold.otf');
+}
+
+
+
 /* animations */
 /*#list-view.ng-hide {
   -webkit-animation:slideOutRight 0.5s both ease;

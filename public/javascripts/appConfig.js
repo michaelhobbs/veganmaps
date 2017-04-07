@@ -5,9 +5,12 @@ define(function(require) {
   function config($routeProvider) {
     $routeProvider.
       when('/', {
+        template: '<landing-welcome></landing-welcome>'
+      }).
+      when('/maps', {
         template: '<location-list></location-list>'
       }).
-      when('/id/:locationId', {
+      when('/maps/id/:locationId', {
         template: '<location-detail location-details="$resolve.locationDetails.data"></location-detail>',
         resolve: {
           locationDetails: function($http, $route, LocationService) {
@@ -20,10 +23,10 @@ define(function(require) {
           }
         }
       }).
-      when('/new', {
+      when('/maps/new', {
         template: '<location-add></location-add>'
       }).
-      when('/edit/:locationId', {
+      when('/maps/edit/:locationId', {
         template: '<location-edit>hi</location-edit>'
       }).
       otherwise('/');

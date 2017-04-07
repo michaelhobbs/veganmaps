@@ -17,7 +17,7 @@
         <h3 class="my0 txt--left grd-row-col-3-6">Feed me.</h3>
 
         <div class="txt--right h3 grd-row-col-3-6" style="margin:0;">
-          <a href="#/new" aria-label="Create location"><i class="fa fa-plus fnt--light-gray"></i></a>
+          <a href="#/maps/new" aria-label="Create location"><i class="fa fa-plus fnt--light-gray"></i></a>
 
           <i class="fa fa-cog mx1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"></i>
 
@@ -61,12 +61,12 @@
       <!-- List item -->
       <div class="grd-row media py2 list-item">
         <div class="grd-row-col-1-6 media-figure">
-          <a href="#/id/{{location._id}}">
+          <a href="#/maps/id/{{location._id}}">
             <img ng-src="images/{{location.picPath || 'default.thumbnail.png'}}" class="location-icon" alt="{{location.name}}"></img>
           </a>
         </div>
         <div class="grd-row-col-5-6 media-body">
-          <a href="#/id/{{location._id}}" class="location-name">{{location.name}}</a>
+          <a href="#/maps/id/{{location._id}}" class="location-name">{{location.name}}</a>
           <div>{{location.distance}} m</div>
           <span ng-repeat="(key, value) in location.flags" ng-if="value"><img class="locationFlagIcon {{key}}"></img></span>
           <div>
