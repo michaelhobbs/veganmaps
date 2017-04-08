@@ -2,17 +2,11 @@
 .landingTitle:hover {
   text-decoration: underline overline;
 }
-#autocompleter {
-
-    margin-right:20rem;
-    margin-left:20rem;
-}
 
 #autocompleter input:first-child {
 
   line-height: 4rem;
   height: 4rem;
-  width: 70%;
   font-size: 2rem;
   font-family: 'Moon Light', 'Architext Regular', serif;
   border: 2px solid black;
@@ -20,6 +14,19 @@
   max-width: 700px;
   margin: auto;
   margin-top: 2rem;
+}
+#autocompleter .results {
+  max-width: 700px;
+  margin: auto;
+  cursor: pointer;
+  text-align: left;
+  border: 1px solid grey;
+}
+#autocompleter .results div:hover {
+  background-color: grey;
+}
+#autocompleter .results.active div {
+  padding: 0.3rem;
 }
 
 </style>
