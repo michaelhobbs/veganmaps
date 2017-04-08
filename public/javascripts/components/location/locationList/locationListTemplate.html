@@ -9,19 +9,19 @@
   <location-map id="map-canvas" ng-class="{'grd-row-col-4-6--md': $ctrl.LocationService.listView, 'w100': !$ctrl.LocationService.listView, 'grd-row-col-6--lg': !$ctrl.LocationService.listView}"></location-map>
 
   <!-- List -->
-  <div id="list-view" ng-show="$ctrl.LocationService.listView" class="bg--mid-gray" ng-class="{'grd-row-col-2-6--md': $ctrl.LocationService.listView}">
+  <div id="list-view" ng-show="$ctrl.LocationService.listView" ng-class="{'grd-row-col-2-6--md': $ctrl.LocationService.listView}" class="fnt--moon">
     <!-- List Header -->
-    <div class="bg--dark-gray p1 fnt--light-gray clearfix">
+    <div id="list-view-header" class="p1 clearfix">
       <!-- List Header Controls -->
       <div class="grd-row">
-        <h3 class="my0 txt--left grd-row-col-3-6">Feed me.</h3>
+        <h3 class="my0 txt--left grd-row-col-3-6 fnt--moon"><a href="maps#/" class="fnt--moon-bold home-link">v_m</a> Feed me.</a></h3>
 
         <div class="txt--right h3 grd-row-col-3-6" style="margin:0;">
-          <a href="#/maps/new" aria-label="Create location"><i class="fa fa-plus fnt--light-gray"></i></a>
+          <a href="#/maps/new" aria-label="Create location"><i class="fa fa-plus create-location-button"></i></a>
 
-          <i class="fa fa-cog mx1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"></i>
+          <i class="fa fa-cog ml1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"></i>
 
-          <i class="fa fa-map cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="$ctrl.LocationService.listView"></i>
+          <i class="fa fa-map ml1 cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="$ctrl.LocationService.listView"></i>
         </div>
       </div>
 
@@ -68,7 +68,7 @@
         <div class="grd-row-col-5-6 media-body">
           <a href="#/maps/id/{{location._id}}" class="location-name">{{location.name}}</a>
           <div>{{location.distance}} m</div>
-          <span ng-repeat="(key, value) in location.flags" ng-if="value"><img class="locationFlagIcon {{key}}"></img></span>
+          <span ng-repeat="(key, value) in location.flags" ng-if="value"><img class="locationFlagIcon {{key}}"></img> </span>
           <div>
             <a href="{{location.url}}" ng-if="location.url" target="_blank">website</a>
             <span ng-if="location.url"> | </span>

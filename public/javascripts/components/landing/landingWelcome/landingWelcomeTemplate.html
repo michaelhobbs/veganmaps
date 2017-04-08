@@ -1,13 +1,40 @@
+<style>
+.landingTitle:hover {
+  text-decoration: underline overline;
+}
+#autocompleter {
+
+    margin-right:20rem;
+    margin-left:20rem;
+}
+
+#autocompleter input:first-child {
+
+  line-height: 4rem;
+  height: 4rem;
+  width: 70%;
+  font-size: 2rem;
+  font-family: 'Moon Light', 'Architext Regular', serif;
+  border: 2px solid black;
+  border-radius:3px;
+  max-width: 700px;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+</style>
 <div style="color:black; line-height:normal;box-sizing: content-box; ">
 <div style="font-family: 'Moon Bold', 'Architext Regular', serif;text-align: center;margin: auto;background: white;color:black;    box-sizing: content-box;">
   <h1 style="
       text-align: center;
-      font-size: 20rem;
+      font-size: 16rem;
       margin: 0 auto;
       opacity: 1;
-      padding: 20px;
-      cursor: default;    box-sizing: content-box; line-height:normal;
-      ">v_M
+      cursor:pointer;   box-sizing: content-box; line-height:normal;
+    display: inline-block;
+
+      " class="landingTitle"
+      >v_M
   </h1>
 </div>
 <div style="
@@ -16,23 +43,29 @@
     margin: auto;
     background-color: rgba(255,255,255,0.8);
     margin-top: 1rem;
+    margin-right:20rem;
+    margin-left:20rem;
     ">
-  <span style="text-align: center;font-size: 5rem;opacity: 1;">Bringing** vegan food to the digital nomad.*</span>
+  <span style="text-align: center;font-size: 4rem;opacity: 1;">Bringing vegan food to the digital nomad.*</span>
 
 
   <br>
+<div id="autocompleter"></div>
+
+<!-- old implementation without autocomplete
 <form id="locationSearchForm">
   <input style="
   line-height: 4rem;
   height: 4rem;
   width: 70%;
-  font-size: 3rem;
+  font-size: 2rem;
   font-family: 'Moon Light', 'Architext Regular', serif;
   border: 2px solid black;
   border-radius:3px;
   max-width: 700px;
   margin: auto;
-  margin-top: 2rem;">
+  margin-top: 2rem;"
+  placeholder="swiss street, city">
   <input class="btn" type="submit" value="Search" style="
   font-size: 3rem;
   padding: 0.5rem 1rem;
@@ -46,6 +79,7 @@
   margin-top: 2rem;
   "/>
 </form>
+-->
   <br>
 
 
@@ -65,12 +99,21 @@
       font-size: 2rem;
       margin: 0 auto;
       opacity: 1;
-      padding: 20px;
       ">*So long as they are in Switzerland.</span><br>
 
-    <span style="text-align: center;font-size: 2rem; ;margin: 0 auto;opacity: 1;
-    padding: 20px;">**No food will actually be brought to anyone.</span>
+      <span style="text-align: center;font-size: 2rem; ;margin: 0 auto;opacity: 1;">**No food will actually be brought to anyone.</span><br>
+      <span style="text-align: center;font-size: 2rem; ;margin: 0 auto;opacity: 1;">***Unless they use a <strong style="cursor:pointer;">delivery service</strong>.</span>
   </div>
 
 </div>
 </div>
+
+<a href="#/info">
+  <img src="../images/info.png" style="
+    position: fixed;
+    height: 4rem;
+    width: 4rem;
+    top: 2rem;
+    right: 2rem;">
+  </img>
+</a>

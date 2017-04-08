@@ -27,7 +27,10 @@ define(function(require) {
         template: '<location-add></location-add>'
       }).
       when('/maps/edit/:locationId', {
-        template: '<location-edit>hi</location-edit>'
+        template: '<location-edit></location-edit>'
+      }).
+      when('/info', {
+        template: '<landing-info></landing-info>'
       }).
       otherwise('/');
   };

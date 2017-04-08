@@ -16,7 +16,8 @@ define(function(require) {
 
   // load routes
   module
-    .component('landingWelcome', require('./landingWelcome/landingWelcomeDirective'));
+    .component('landingWelcome', require('./landingWelcome/landingWelcomeDirective'))
+    .component('landingInfo', require('./landingInfo/landingInfoDirective'));
 
   return module.name;
 });

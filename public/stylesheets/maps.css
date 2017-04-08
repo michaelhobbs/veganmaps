@@ -4,23 +4,49 @@
     padding: 0px;
 }
 
+.container.list-view-open #map-canvas {
+  border-right: 3px solid darkgrey;
+}
+
 .w100 {
   width: 100%;
   max-width: 100%;
 }
 
 #list-toggle {
-    margin: 0;
     position: absolute;
     right: 0;
     z-index: 1000;
+    padding-top: 0.5rem;
+    margin: 10px;
+    background-color: white;
+    border-radius: 0 4px 4px 0;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-clip: padding-box;
+    padding-bottom: 0.5rem;
+
+    color: black;
 }
 
 #list-view {
     height: 100%;
-    background-color: grey;
     margin: 0;
     overflow: auto;
+}
+#list-view-header {
+    border-bottom: 3px solid darkgrey;
+}
+.create-location-button {
+  color: #333;
+}
+.home-link {
+  text-decoration: none;
+  color: #333;
+}
+.home-link:hover {
+  text-decoration: underline overline;
+  color: #333;
 }
 
 /*#list-view */
@@ -39,8 +65,12 @@ a:hover {
 }
 
 .location-name {
-    color: #703030;
+    color: #333;/*#703030;*/
     font-weight: bold;
+}
+
+.location-name:hover {
+    color: #333;/*#703030;*/
 }
 
 /* Flag icons */
@@ -75,10 +105,10 @@ body {
     margin: 0 !important;
     padding: 0 !important;
 }
-
+/*
 a {
   color: midnightblue;
-}
+}*/
 
 /* furtive extensions */
 .h100 {height:100%;}
@@ -86,6 +116,7 @@ a {
 .list-item {border-bottom: rgba(150,150,150,0.9) 1px solid; line-height: 1.3rem;}
 .mr05 {margin-right: 0.5rem;}
 .ml05 {margin-left: 0.5rem;}
+.ml1 {margin-left:1rem;}
 .mb2 {margin-bottom: 2rem;}
 .mt1 {margin-top: 1rem;}
 .pt05 {padding-top: 0.5rem;}
@@ -95,6 +126,8 @@ a {
     display:  none;
   }
 }
+.fnt--moon {font-family: 'Moon Light';}
+.fnt--moon-bold {font-family: 'Moon Bold';}
 
 .cursor--pointer {
   cursor: pointer;
@@ -128,6 +161,14 @@ input, select, textarea {
 
 .rzslider .rz-pointer:hover:after {
   background-color: rgba(179, 61, 61, 1);
+}
+
+.rzslider .rz-bar {
+  background-color: #666;
+}
+
+.rzslider .rz-ticks .rz-tick {
+  background-color: #666;
 }
 
 /* leaflet-geosearch overwriting */
