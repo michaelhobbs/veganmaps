@@ -6,16 +6,18 @@ Quick start:
 
 2) npm install
 
-3) install mongodb (pacman -S mongodb)
+3) bower install
 
+4) install mongodb (pacman -S mongodb //archlinux) 
+//check service running
 systemctl status mongodb
-
+//start if not running
 systemctl start mongodb
 
-4) mkdir db
+5) mkdir db
 
 mongod --dbpath db
 
-5) node app.js
+6) node app.js
 
-6) http://localhost:3000/maps
+7) http://localhost:3000/maps
