@@ -22,7 +22,7 @@ router.put('/:locationId', function(req, res, next) {
         }
         delete req.body.distance;
         req.body.updated_at = new Date();
-        req.body.loc = [req.body.longitude, req.body.latitude];
+        req.body.location.coordinates = [req.body.longitude, req.body.latitude];
         Location.findOneAndUpdate({_id: req.params.locationId}, req.body, {runValidators: true}, function(err) {
           if (err) {
             console.log('[api call]: PUT location by ID error: ', err);
