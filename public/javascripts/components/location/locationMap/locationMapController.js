@@ -1,22 +1,23 @@
 define(function(require) {
 
   'use strict';
-  var io = require('socketio');
+  //var io = require('socketio');
   var L = require('leaflet');
   var Lgeo = require('leafletgeosearch');
 
-  function locationMapController($scope, $timeout, LocationService) {
+  function locationMapController($scope, $timeout, $http, LocationService) {
 
     var MAP_TYPE = 'leaflet'; // 'leaflet' || 'google'
     var ctrl = this;
     ctrl.LocationService = LocationService;
     ctrl.LocationService.mapType = MAP_TYPE;
-    var socket = io.connect('http://localhost:3000'); // socket handler has to be at end of file such that it registers callbacks which have been initialized
+    //var socket = io.connect('http://localhost:3000'); // socket handler has to be at end of file such that it registers callbacks which have been initialized
 
     ctrl.LocationService.map;
     ctrl.LocationService.markers = [];
 
     if (MAP_TYPE === 'leaflet') {
+      ctrl.LocationService.lastSearch = ctrl.LocationService.lastSearch ? ctrl.LocationService.lastSearch : {};
       ctrl.LocationService.lastSearch.coords = ctrl.LocationService.lastSearch.coords ? ctrl.LocationService.lastSearch.coords : {latitude: 47.3841831, longitude: 8.5329786};
 
       ctrl.LocationService.updateCircleRange = function() { // called when range slider value changes
@@ -51,7 +52,7 @@ define(function(require) {
         });
 
         ctrl.LocationService.lastSearch.results = places;
-        $scope.$apply();
+        //$scope.$apply();
         // Clear out the old markers.
         ctrl.LocationService.markers.forEach(function(marker) {
           ctrl.LocationService.map.removeLayer(marker.marker);
@@ -134,18 +135,30 @@ define(function(require) {
           ctrl.userMarker.setLatLng({lat: r.location.y, lng: r.location.x});
           ctrl.rangeCirclemarker.setLatLng({lat: r.location.y, lng: r.location.x});
           ctrl.LocationService.lastSearch.coords = {latitude: r.location.y, longitude: r.location.x};
-          socket.emit('position', ctrl.LocationService.lastSearch.coords);
+          $http.get('api/locations/search/' + ctrl.LocationService.lastSearch.coords).then(function(response) {
+            ctrl.loadPlaces(response);
+          });
+          //socket.emit('position', ctrl.LocationService.lastSearch.coords);
         });
 
-        console.debug('sending query position: (lat, lng) ', ctrl.LocationService.lastSearch.coords)
-        socket.emit('position', ctrl.LocationService.lastSearch.coords);
+        console.debug('sending query position: (lat, lng) ', ctrl.LocationService.lastSearch.coords);
+        $http.get('api/locations/search/' + Object.values(ctrl.LocationService.lastSearch.coords).join()).then(function(response) {
+          ctrl.loadPlaces(response.data);
+        });
+        //socket.emit('position', ctrl.LocationService.lastSearch.coords);
       }
-
       // need to trigger ctrl.LocationService.getGeoLocation() in order to start loading the map
 
-      ctrl.LocationService.getGeoLocation();
+      //ctrl.LocationService.getGeoLocation();
     }
 
+    // above we defined all the functions the map uses.
+    // now we have to initialize it.
+    // in the initialize function it will create the map, so we have to wait for the DOM to be ready in order for the map to have correct size.
+    // at the end of the initialize function a call is made to the backend to fetch the locations near the center of the map
+    angular.element(document).ready(function () {
+      ctrl.LocationService.initializeMap();
+    });
 
 
 
@@ -316,9 +329,9 @@ define(function(require) {
      * END OF MAP TYPE SPECIFIC CODE
      * BELOW IS CODE WHICH MUST APPLY REGARDLESS OF MAP TYPE
      */
-    socket.on('places', ctrl.loadPlaces); // should call interface
+//    socket.on('places', ctrl.loadPlaces); // should call interface
   };
 
-  return ['$scope', '$timeout', 'LocationService', locationMapController];
+  return ['$scope', '$timeout', '$http', 'LocationService', locationMapController];
 
 });

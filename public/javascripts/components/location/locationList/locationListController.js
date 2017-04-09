@@ -29,9 +29,10 @@ define(function(require) {
       $scope.showOptions = !$scope.showOptions;
     }
 
-    ctrl.filterExpression = function(location) { // TODO: apply filter to map also
+    ctrl.filterExpression = function(location) {
       var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || location.flags[ctrl.LocationService.lastSearch.filterProp] === true);
       var distanceFilterValidates = $scope.slider.value >= location.distance;
+      ctrl.LocationService.updateCircleRange();
       return typeFilterValidates && distanceFilterValidates;
     }
 

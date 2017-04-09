@@ -1,6 +1,26 @@
 var express = require('express');
 var router = express.Router();
 var Location = require('../../models/locationSchema');
+var findLocation = require('../../db_queries/locations');
+
+/* GET a location by id */
+router.get('/search/:coordinates', function(req, res, next) {
+        console.log('[api call]: GET locations near query coordinates: ' + req.params.coordinates);
+        function findPlaces(position, success) {
+          var searchQuery = {
+            longitude: position[1],
+            latitude: position[0],
+            limit: 100,
+            distance: 10000
+          };
+          findLocation(searchQuery, success);
+        };
+        findPlaces(req.params.coordinates.split(','), function(places) {
+          console.log('[api call]: GET location by ID: ', places);
+          res.json(places);
+        });
+
+});
 
 /* GET a location by id */
 router.get('/:locationId', function(req, res, next) {
