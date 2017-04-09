@@ -22,14 +22,6 @@ define(function(require) {
 
         /* Overwriting search control so that it works even without a map */
         searchControl.onAdd = function(elem) {
-          /*
-          var form  = this.searchElement.elements.form;
-          var root = elem;
-
-          root.appendChild(form);
-          this.elements.container = root;
-
-          return this.searchElement.elements.container;*/
           var form  = this.searchElement.elements.form;
           var searchButton =  form.appendChild(document.createElement('input')); // after inpout -> ', "class1 clas2 etc"'
           searchButton.value = "Search";
@@ -42,17 +34,6 @@ define(function(require) {
           container.appendChild(form);
           root.appendChild(container);
           this.elements.container = container;
-        /*  <input style="
-  line-height: 4rem;
-  height: 4rem;
-  width: 70%;
-  font-size: 2rem;
-  font-family: 'Moon Light', 'Architext Regular', serif;
-  border: 2px solid black;
-  border-radius:3px;
-  max-width: 700px;
-  margin: auto;
-  margin-top: 2rem;" placeholder="swiss street, city"> */
 
           return this.searchElement.elements.container;
         };
@@ -64,40 +45,7 @@ define(function(require) {
           });
         };
         searchControl.onAdd(document.getElementById('autocompleter'));
-                // overwrite searchControl.onAdd() to add it to my form
-
-                /*  onAdd(map) {
-                      const { showMarker, style } = this.options;
-
-                      this.map = map;
-                      if (showMarker) {
-                        this.markers.addTo(map);
-                      }
-
-                      if (style === 'bar') {
-                        const { form } = this.searchElement.elements;
-                        const root = map.getContainer().querySelector('.leaflet-control-container');
-
-                        const container = createElement('div', 'leaflet-control-geosearch bar');
-                        container.appendChild(form);
-                        root.appendChild(container);
-                        this.elements.container = container;
-                      }
-
-                      return this.searchElement.elements.container;
-                    }*/
-
-                // overwrite searchControl.onSubmit() to load map page with param long/lat
-                /*  async onSubmit(query) {
-                      const { provider } = this.options;
-
-                      const results = await provider.search(query);
-
-                      if (results && results.length > 0) {
-                        this.showResult(results[0]);
-                      }
-                    },*/
-
+        // end overwrite of searchcontrol functions
 
         angular.element(document.getElementById('locationSearchForm')).bind('submit', async (event) => {
           event.preventDefault();
@@ -105,9 +53,6 @@ define(function(require) {
           provider
             .search({ query: input[0].value })
             .then(function(r) {
-              // do something with result;
-              console.log(r); // » [{}, {}, {}, ...]
-
               ctrl.LocationService.lastSearch.coords = {latitude: r[0].y, longitude: r[0].x};
               $location.path( "/maps" );
               $scope.$apply(); // outside angular digest

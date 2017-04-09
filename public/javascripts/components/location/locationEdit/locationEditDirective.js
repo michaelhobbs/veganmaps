@@ -4,6 +4,9 @@ define(function(require) {
 
   return {
     template : require('text!./locationEditTemplate.html'),
-    controller : require('./locationEditController')
+    controller : require('./locationEditController'),
+    bindings: {
+      locationDetails: '<'
+    }
   }
 });

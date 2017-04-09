@@ -5,7 +5,7 @@ define(function(require) {
   function locationEditController($routeParams, $http, $log, LocationService) {
     var ctrl = this;
     ctrl.LocationService = LocationService;
-    ctrl.oriLocation = ctrl.LocationService.currentLocation;
+    ctrl.oriLocation = (ctrl.LocationService.currentLocation && Object.keys(ctrl.LocationService.currentLocation).length) ? ctrl.LocationService.currentLocation : ctrl.locationDetails;
     ctrl.updatedLocation = angular.copy(ctrl.oriLocation);
 
     ctrl.reset = function(form) {

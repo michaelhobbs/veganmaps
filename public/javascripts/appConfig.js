@@ -27,7 +27,17 @@ define(function(require) {
         template: '<location-add></location-add>'
       }).
       when('/maps/edit/:locationId', {
-        template: '<location-edit></location-edit>'
+        template: '<location-edit location-details="$resolve.locationDetails.data"></location-edit>',
+        resolve: {
+          locationDetails: function($http, $route, LocationService) {
+            if (!LocationService.lastSearch.results) {
+              return $http.get('api/locations/' + $route.current.params.locationId);
+            }
+            else {
+              return {};
+            }
+          }
+        }
       }).
       when('/info', {
         template: '<landing-info></landing-info>'

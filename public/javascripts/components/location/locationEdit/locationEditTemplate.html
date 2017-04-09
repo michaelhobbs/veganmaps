@@ -1,56 +1,54 @@
 <!--<location-detail location-details="$ctrl.oriLocation"></location-detail>
 <location-add></location-add>'
 -->
+<a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
+<a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
 
-<div>
-  <form name="form" novalidate class="simple-form">
-    <table>
-      <tr>
-        <td></td>
-        <td>
-          <h4>Current Details:</h4>
-        </td>
-        <td>
-          <h4>Update to:</h4>
-        <td>
-      </tr>
-      <tr>
-        <td>Name</td>
-        <td>{{$ctrl.oriLocation.name}}</td>
-        <td>
-          <input type="text" ng-model="$ctrl.updatedLocation.name" name="name" required=""/>
-          <div ng-show="form.$submitted || form.name.$touched">
-            <div ng-show="form.name.$error.required">Required</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Longitude</td>
-        <td>{{$ctrl.oriLocation.longitude}}</td>
-        <td>
-          <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="-180" max="180" name="longitude" required=""/></label><br />
-          <div ng-show="form.$submitted || form.longitude.$touched">
-            <div ng-show="form.longitude.$error.required">Required</div>
-            <span ng-show="form.longitude.$error.min || form.longitude.$error.max">
-          The value must be in range -180 to 180!</span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Latitude</td>
-        <td>{{$ctrl.oriLocation.latitude}}</td>
-        <td>
-          <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="-90" max="90" name="latitude" required=""/>
-          <div ng-show="form.$submitted || form.latitude.$touched">
-            <div ng-show="form.latitude.$error.required">Required</div>
-            <span ng-show="form.latitude.$error.min || form.latitude.$error.max">
-          The value must be in range -90 to 90!</span>
-          </div>
-        </td>
-      </tr>
-    </table>
-    <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
-    <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" />
-  </form>
-  <pre>newLocation = {{$ctrl.updatedLocation | json}}</pre>
+<div class="formContainer grd-row">
+  <div class="formOffsetLeft grd-row-col-1-6--md"></div>
+
+  <div class="grd-row-col-4-6--md">
+    <h4>Update:</h4>
+    <form name="form" novalidate class="simple-form">
+      <fieldset>
+        <legend>Name:</legend>
+            <div>{{$ctrl.oriLocation.name}}</div>
+            <div>
+              <input type="text" ng-model="$ctrl.updatedLocation.name" name="name" required=""/>
+              <div ng-show="form.$submitted || form.name.$touched">
+                <div ng-show="form.name.$error.required">Required</div>
+              </div>
+            </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Location:</legend>
+        <div>Longitude</div>
+        <div>{{$ctrl.oriLocation.longitude}}</div>
+        <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="-180" max="180" name="longitude" required=""/></label>
+
+        <div ng-show="form.$submitted || form.longitude.$touched">
+          <div ng-show="form.longitude.$error.required">Required</div>
+          <span ng-show="form.longitude.$error.min || form.longitude.$error.max">
+            The value must be in range -180 to 180!</span>
+        </div>
+
+        <div>Latitude</div>
+        <div>{{$ctrl.oriLocation.latitude}}</div>
+        <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="-90" max="90" name="latitude" required=""/>
+        <div ng-show="form.$submitted || form.latitude.$touched">
+          <div ng-show="form.latitude.$error.required">Required</div>
+          <span ng-show="form.latitude.$error.min || form.latitude.$error.max">
+            The value must be in range -90 to 90!</span>
+        </div>
+      </fieldset>
+      <br>
+
+      <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
+      <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" />
+    </form>
+    <pre>newLocation = {{$ctrl.updatedLocation | json}}</pre>
+  </div>
+
+  <div class="formOffsetRight grd-row-col-1-6--md"> </div>
 </div>
