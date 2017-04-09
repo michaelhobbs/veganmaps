@@ -79,8 +79,8 @@
       </div>
     </div>
 
-    <div ng-if="filteredPlaces.length===0 && $ctrl.LocationService.lastSearch.results.length!==0">No places found for given filter. Try relaxing filter settings. Places within 10km of your search: {{$ctrl.LocationService.lastSearch.results.length}}</div>
+    <div ng-if="filteredPlaces.length===0 && $ctrl.LocationService.lastSearch.results.length!==0" style="margin:1rem;">No places found for given filter. Try relaxing filter settings. Places within 10km of your search: {{$ctrl.LocationService.lastSearch.results.length}}</div>
 
-    <div ng-if="$ctrl.LocationService.lastSearch.results.length===0">No places found within 10km of your search. Try another search.</div>
+    <div ng-if="$ctrl.LocationService.lastSearch.results.length===0" style="margin:1rem;">No places found within 10km of your search. Try another search.</div>
   </div>
 </div>

@@ -22,7 +22,7 @@
       </fieldset>
 
       <fieldset>
-        <legend>Location:</legend>
+        <legend>Address:</legend>
         <div>Longitude</div>
         <div>{{$ctrl.oriLocation.longitude}}</div>
         <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="-180" max="180" name="longitude" required=""/></label>
@@ -43,6 +43,15 @@
         </div>
       </fieldset>
       <br>
+
+      <fieldset>
+        <legend>Offers:</legend>
+            <div>
+              <span ng-repeat="(key, value) in $ctrl.updatedLocation.flags"><img class="locationFlagIcon {{key}}"></img>
+                <label>{{key}} <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]"/></label>
+              </span>
+            </div>
+      </fieldset>
 
       <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
       <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" />
