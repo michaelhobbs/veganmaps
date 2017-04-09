@@ -16,7 +16,6 @@ define(function(require) {
         });
         var searchControl = new Lgeo.GeoSearchControl({
             provider: provider,
-            style: 'bar',
             autoCompleteDelay: 1000,
             searchLabel: 'swiss street, city'
           });
@@ -58,9 +57,11 @@ define(function(require) {
           return this.searchElement.elements.container;
         };
         searchControl.onSubmit = function(query) {
-          provider.search(query).then(function(r) {ctrl.LocationService.lastSearch.coords = {latitude: r[0].y, longitude: r[0].x};
-          $location.path( "/maps" );
-          $scope.$apply();});
+          provider.search(query).then(function(r) {
+            ctrl.LocationService.lastSearch.coords = {latitude: r[0].y, longitude: r[0].x};
+            $location.path( "/maps" );
+            $scope.$apply();
+          });
         };
         searchControl.onAdd(document.getElementById('autocompleter'));
                 // overwrite searchControl.onAdd() to add it to my form
