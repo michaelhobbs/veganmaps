@@ -69,9 +69,11 @@ router.put('/', function(req, res, next) {
           // we are inserting a new locationId
           req.body.created_at = now
           req.body.updated_at = now;
-          req.body.loc = [req.body.longitude, req.body.latitude];
-          console.log('[api call]: insert');
+          req.body.location = {};
+          req.body.location.coordinates = [req.body.longitude, req.body.latitude];
+          console.log('[api call]: insert', req.body);
           var newLocation = new Location(req.body);
+          console.log('[api call]: insert', newLocation);
           newLocation.save(savecb);
 
             // swallows the validation error...
