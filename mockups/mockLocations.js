@@ -12,7 +12,7 @@ function populateDB() {
     var enb = new Location({
     name: "Elle'n'Belle",
     address: {
-      number: 118,
+      number: "118",
       street: "Limmatstrasse",
       postal_code: "8005",
       city: "Zürich",

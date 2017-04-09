@@ -104,6 +104,14 @@ define(function(require) {
             radius: 2000 // meters
         }).addTo(ctrl.LocationService.map);
 
+        L.circle(position, {
+            color: 'white',
+            opacity: 0.4,
+            dashArray: "30 10",
+            fill: false,
+            radius: 10000 // meters
+        }).addTo(ctrl.LocationService.map);
+
         L.control.scale().addTo(ctrl.LocationService.map);
         // autocomplete search controls
         var mapBounds = ctrl.LocationService.map.getBounds();

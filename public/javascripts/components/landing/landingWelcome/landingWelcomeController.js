@@ -22,9 +22,10 @@ define(function(require) {
 
         /* Overwriting search control so that it works even without a map */
         searchControl.onAdd = function(elem) {
+          this.searchElement.elements.input.setAttribute('autofocus', 'true');
           var form  = this.searchElement.elements.form;
           form.id = "locationSearchForm"; // needed for event listener so that search button works
-          var searchButton =  form.appendChild(document.createElement('input')); // after inpout -> ', "class1 clas2 etc"'
+          var searchButton =  form.appendChild(document.createElement('input'));
           searchButton.value = "Search";
           searchButton.type = "submit";
           searchButton.className = "btn";

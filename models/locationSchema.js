@@ -12,10 +12,11 @@ var locationSchema = new Schema({
         trim: true
       },
   address: {
-        number: Number,
+        number: String, // string not number type because could be 21A, or 45 bis, etc
         street: String,
-        postal_code: String,
+        postcode: String,
         city: String,
+        state: String,
         country: String
       },
   latitude: {

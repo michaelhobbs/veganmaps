@@ -1,49 +1,126 @@
-<form name="form" novalidate class="simple-form">
-
-  <label>Name*: <input type="text" ng-model="$ctrl.newLocation.name" name="name" required=""/></label><br />
-  <div ng-show="form.$submitted || form.name.$touched">
-    <div ng-show="form.name.$error.required">Required</div>
+<div class="formContainer grd-row">
+  <div class="formOffsetLeft grd-row-col-1-6--md" style="position: relative;">
+    <div style="top:0;">
+      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
+      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
+    </div>
+    <div style="bottom:0;position: absolute;">
+      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
+      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
+    </div>
   </div>
 
-  <label>Longitude*: <input type="number" ng-model="$ctrl.newLocation.longitude" min="-180" max="180" name="longitude" required=""/></label><br />
-  <div ng-show="form.$submitted || form.longitude.$touched">
-    <div ng-show="form.longitude.$error.required">Required</div>
-    <span ng-show="form.longitude.$error.min || form.longitude.$error.max">
-  The value must be in range -180 to 180!</span>
-  </div>
+  <div class="grd-row-col-4-6--md">
+    <h4>Add:</h4>
+  <form name="form" novalidate class="simple-form">
 
-  <label>Latitude*: <input type="number" ng-model="$ctrl.newLocation.latitude" min="-90" max="90" name="latitude" required=""/></label><br />
-  <div ng-show="form.$submitted || form.latitude.$touched">
-    <div ng-show="form.latitude.$error.required">Required</div>
-    <span ng-show="form.latitude.$error.min || form.latitude.$error.max">
-  The value must be in range -90 to 90!</span>
-  </div>
+    <fieldset>
+      <legend>Name*:</legend>
+          <div>
+            <input type="text" ng-model="$ctrl.updatedLocation.name" name="name" required=""/>
+            <div ng-show="form.$submitted || form.name.$touched">
+              <div ng-show="form.name.$error.required">Required</div>
+            </div>
+          </div>
+    </fieldset>
 
-  <label>Website: <input type="url" ng-model="$ctrl.newLocation.url" name="url"/></label><br />
-  <div ng-show="form.$submitted || form.name.$touched">
-    <div ng-show="form.name.$error.required">Required</div>
-  </div>
+    <fieldset>
+      <legend>Address*:</legend>
+      <div>try to search and automatically fill in the address:</div>
+      <div id="autocompleter"></div>
+      <div>Edit the address manually:</div>
+      <div>number*</div>
+        <div>
+          <input type="text" ng-model="$ctrl.updatedLocation.address.number" name="addressNumber" required=""/>
+          <div ng-show="form.$submitted || form.addressNumber.$touched">
+            <div ng-show="form.addressNumber.$error.required">Required</div>
+          </div>
+        </div>
+      <div>street*</div>
+        <div>
+          <input type="text" ng-model="$ctrl.updatedLocation.address.street" name="addressStreet" required=""/>
+          <div ng-show="form.$submitted || form.addressStreet.$touched">
+            <div ng-show="form.addressStreet.$error.required">Required</div>
+          </div>
+        </div>
+      <div>postcode*</div>
+        <div>
+          <input type="text" ng-model="$ctrl.updatedLocation.address.postcode" name="addressPostcode" required=""/>
+          <div ng-show="form.$submitted || form.addressPostcode.$touched">
+            <div ng-show="form.addressPostcode.$error.required">Required</div>
+          </div>
+        </div>
+      <div>city*</div>
+        <div>
+          <input type="text" ng-model="$ctrl.updatedLocation.address.city" name="addressCity" required=""/>
+          <div ng-show="form.$submitted || form.addressCity.$touched">
+            <div ng-show="form.addressCity.$error.required">Required</div>
+          </div>
+        </div>
+      <div>state*
+        <span ng-show="form.$submitted || form.addressState.$touched">
+          <span style="color:red;" ng-show="form.addressState.$error.required">Required</span>
+        </span>
+      </div>
+        <div>
+          <input type="text" ng-model="$ctrl.updatedLocation.address.state" name="addressState" required=""/>
+        </div>
+      <div>country*</div>
+        <div>
+          <input type="text" ng-model="$ctrl.updatedLocation.address.country" name="addressCountry" required=""/>
+          <div ng-show="form.$submitted || form.addressCountry.$touched">
+            <div ng-show="form.addressCountry.$error.required">Required</div>
+          </div>
+        </div>
 
-  100% vegan: <label><input type="radio" ng-model="$ctrl.newLocation.flags.fullv" value="true" />yes</label>
-  <label><input type="radio" ng-model="$ctrl.newLocation.fullv" value="false" />no</label><br />
+      <div>Longitude*</div>
+      <!--<div>{{$ctrl.oriLocation.longitude}}</div>-->
+      <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="-180" max="180" name="longitude" required=""/>
 
-  bio: <label><input type="radio" ng-model="$ctrl.newLocation.flags.bio" value="true" />yes</label>
-  <label><input type="radio" ng-model="$ctrl.newLocation.bio" value="false" />no</label><br />
+      <div ng-show="form.$submitted || form.longitude.$touched">
+        <div ng-show="form.longitude.$error.required">Required</div>
+        <span ng-show="form.longitude.$error.min || form.longitude.$error.max">
+          The value must be in range -180 to 180!</span>
+      </div>
 
-  raw: <label><input type="radio" ng-model="$ctrl.newLocation.flags.raw" value="true" />yes</label>
-  <label><input type="radio" ng-model="$ctrl.newLocation.raw" value="false" />no</label><br />
+      <div>Latitude*</div>
+      <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="-90" max="90" name="latitude" required=""/>
+      <div ng-show="form.$submitted || form.latitude.$touched">
+        <div ng-show="form.latitude.$error.required">Required</div>
+        <span ng-show="form.latitude.$error.min || form.latitude.$error.max">
+          The value must be in range -90 to 90!</span>
+      </div>
+    </fieldset>
 
-  local: <label><input type="radio" ng-model="$ctrl.newLocation.flags.local" value="true" />yes</label>
-  <label><input type="radio" ng-model="$ctrl.newLocation.local" value="false" />no</label><br />
+    <fieldset>
+      <legend>Offers:</legend>
+          <div style="text-align: center;">
+            <span ng-repeat="(key, value) in $ctrl.updatedLocation.flags">
+              <label style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer;">
+                <img class="locationFlagIcon {{key}}"></img> {{key}} <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]" style="cursor:pointer;"/>
+              </label>
+            </span>
+          </div>
+    </fieldset>
 
-  meat: <label><input type="radio" ng-model="$ctrl.newLocation.flags.meat" value="true" />yes</label>
-  <label><input type="radio" ng-model="$ctrl.newLocation.meat" value="false" />no</label><br />
+    <fieldset>
+      <legend>Contact:</legend>
+          <div>
+            <div>phone</div>
+            <input type="text" ng-model="$ctrl.updatedLocation.phone" name="phone" />
 
-  <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
-  <input type="submit" ng-click="$ctrl.update()" value="Save" />
-</form>
-<pre>newLocation = {{$ctrl.newLocation | json}}</pre>
+            <div>url</div>
+            <input type="text" ng-model="$ctrl.updatedLocation.url" name="url" required=""/>
+          </div>
+    </fieldset>
 
-<div>
-  <a href="#/maps/" ng-if="!$ctrl.fromSearch">New search</a>
+    <div style="width:100%; display: inline-block;text-align: center;">
+      <input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/>
+      <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" class="btn btn--green" style="max-width:49%; display: inline-block;box-sizing: border-box;"/>
+    </div>
+    <div ng-if="$ctrl.showSuccess">Changes saved! Thank you for your contribution :-)</div>
+    <div ng-if="$ctrl.showError">An error occurred. Please send a message saying what you were doing when the error occurred.</div>
+  </form>
+  <pre>newLocation = {{$ctrl.updatedLocation | json}}</pre>
+  <div class="formOffsetRight grd-row-col-1-6--md"> </div>
 </div>

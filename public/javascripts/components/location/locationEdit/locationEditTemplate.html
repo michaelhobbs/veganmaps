@@ -1,18 +1,22 @@
 <!--<location-detail location-details="$ctrl.oriLocation"></location-detail>
 <location-add></location-add>'
 -->
-<a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
-<a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
-
 <div class="formContainer grd-row">
-  <div class="formOffsetLeft grd-row-col-1-6--md"></div>
-
+  <div class="formOffsetLeft grd-row-col-1-6--md" style="position: relative;">
+    <div style="top:0;">
+      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
+      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
+    </div>
+    <div style="bottom:0;position: absolute;">
+      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
+      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
+    </div>
+  </div>
   <div class="grd-row-col-4-6--md">
     <h4>Update:</h4>
     <form name="form" novalidate class="simple-form">
       <fieldset>
-        <legend>Name:</legend>
-            <div>{{$ctrl.oriLocation.name}}</div>
+        <legend>Name*:</legend>
             <div>
               <input type="text" ng-model="$ctrl.updatedLocation.name" name="name" required=""/>
               <div ng-show="form.$submitted || form.name.$touched">
@@ -22,10 +26,57 @@
       </fieldset>
 
       <fieldset>
-        <legend>Address:</legend>
-        <div>Longitude</div>
-        <div>{{$ctrl.oriLocation.longitude}}</div>
-        <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="-180" max="180" name="longitude" required=""/></label>
+        <legend>Address*:</legend>
+        <div>try to search and automatically fill in the address:</div>
+        <div id="autocompleter"></div>
+        <div>Edit the address manually:</div>
+        <div>number*</div>
+          <div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.number" name="addressNumber" required=""/>
+            <div ng-show="form.$submitted || form.addressNumber.$touched">
+              <div ng-show="form.addressNumber.$error.required">Required</div>
+            </div>
+          </div>
+        <div>street*</div>
+          <div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.street" name="addressStreet" required=""/>
+            <div ng-show="form.$submitted || form.addressStreet.$touched">
+              <div ng-show="form.addressStreet.$error.required">Required</div>
+            </div>
+          </div>
+        <div>postcode*</div>
+          <div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.postcode" name="addressPostcode" required=""/>
+            <div ng-show="form.$submitted || form.addressPostcode.$touched">
+              <div ng-show="form.addressPostcode.$error.required">Required</div>
+            </div>
+          </div>
+        <div>city*</div>
+          <div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.city" name="addressCity" required=""/>
+            <div ng-show="form.$submitted || form.addressCity.$touched">
+              <div ng-show="form.addressCity.$error.required">Required</div>
+            </div>
+          </div>
+        <div>state*
+          <span ng-show="form.$submitted || form.addressState.$touched">
+            <span style="color:red;" ng-show="form.addressState.$error.required">Required</span>
+          </span>
+        </div>
+          <div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.state" name="addressState" required=""/>
+          </div>
+        <div>country*</div>
+          <div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.country" name="addressCountry" required=""/>
+            <div ng-show="form.$submitted || form.addressCountry.$touched">
+              <div ng-show="form.addressCountry.$error.required">Required</div>
+            </div>
+          </div>
+
+        <div>Longitude*</div>
+        <!--<div>{{$ctrl.oriLocation.longitude}}</div>-->
+        <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="-180" max="180" name="longitude" required=""/>
 
         <div ng-show="form.$submitted || form.longitude.$touched">
           <div ng-show="form.longitude.$error.required">Required</div>
@@ -33,8 +84,7 @@
             The value must be in range -180 to 180!</span>
         </div>
 
-        <div>Latitude</div>
-        <div>{{$ctrl.oriLocation.latitude}}</div>
+        <div>Latitude*</div>
         <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="-90" max="90" name="latitude" required=""/>
         <div ng-show="form.$submitted || form.latitude.$touched">
           <div ng-show="form.latitude.$error.required">Required</div>
@@ -46,9 +96,11 @@
 
       <fieldset>
         <legend>Offers:</legend>
-            <div>
-              <span ng-repeat="(key, value) in $ctrl.updatedLocation.flags"><img class="locationFlagIcon {{key}}"></img>
-                <label>{{key}} <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]"/></label>
+            <div style="text-align: center;">
+              <span ng-repeat="(key, value) in $ctrl.updatedLocation.flags">
+                <label style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer;">
+                  <img class="locationFlagIcon {{key}}"></img> {{key}} <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]" style="cursor:pointer;"/>
+                </label>
               </span>
             </div>
       </fieldset>
@@ -56,35 +108,52 @@
       <fieldset>
         <legend>Contact:</legend>
             <div>
+              <div>phone</div>
+              <input type="text" ng-model="$ctrl.updatedLocation.phone" name="phone" />
+
+              <div>url</div>
+              <input type="text" ng-model="$ctrl.updatedLocation.url" name="url" required=""/>
             </div>
       </fieldset>
 
-      <fieldset>
+      <!--<fieldset>
         <legend>Opening times:</legend>
             <div>
+              <div>monday</div>
             </div>
       </fieldset>
+    -->
 
-      <fieldset>
+      <!--<fieldset>
         <legend>Menu:</legend>
             <div>
+            <div>url</div>
+            <div>pictures</div>
             </div>
       </fieldset>
+    -->
 
-      <fieldset>
+      <!--<fieldset>
         <legend>Thumbnail:</legend>
             <div>
             </div>
       </fieldset>
+    -->
 
+      <!--
       <fieldset>
         <legend>Pictures:</legend>
             <div>
             </div>
       </fieldset>
+    -->
 
-      <input type="button" ng-click="$ctrl.reset(form)" value="Reset" />
-      <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" />
+      <div style="width:100%; display: inline-block;text-align: center;">
+        <input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/>
+        <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" class="btn btn--green" style="max-width:49%; display: inline-block;box-sizing: border-box;"/>
+      </div>
+      <div ng-if="$ctrl.showSuccess">Changes saved! Thank you for your contribution :-)</div>
+      <div ng-if="$ctrl.showError">An error occurred. Please send a message saying what you were doing when the error occurred.</div>
     </form>
     <pre>newLocation = {{$ctrl.updatedLocation | json}}</pre>
   </div>
