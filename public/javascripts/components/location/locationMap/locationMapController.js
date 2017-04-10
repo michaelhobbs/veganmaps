@@ -126,6 +126,7 @@ define(function(require) {
           autoCompleteDelay: 1000,
           showMarker: false
         });
+        searchControl.searchElement.elements.input.addEventListener("click", function(){this.focus();});
         ctrl.LocationService.map.addControl(searchControl);
 
         // auto close result list (aka. autocomplete options) after user selects one
