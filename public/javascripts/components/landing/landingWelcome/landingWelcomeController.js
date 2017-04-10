@@ -28,8 +28,7 @@ define(function(require) {
           var searchButton =  form.appendChild(document.createElement('input'));
           searchButton.value = "Search";
           searchButton.type = "submit";
-          searchButton.className = "btn";
-          searchButton.style ="    font-size: 3rem;    padding: 0.5rem 1rem;    font-family: 'Moon Light', 'Architext Regular', serif;    cursor:pointer;    background: transparent;    border-radius: 3px;    border: 2px solid #ccc;    width: auto;    margin: auto;    margin-top: 2rem;";
+          searchButton.className = "btn btn--search";
           var root = elem;
 
           var container = document.createElement('div', 'leaflet-control-geosearch bar');
