@@ -379,7 +379,7 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
     font-size: 1.5rem;
     margin-top: 0;
   }
-  #autocompleter .btn { // has to have !important since leaflet-geoccode is adding these elements with style directly in the DOM instead of class based
+  #autocompleter .btn { /* has to have !important since leaflet-geoccode is adding these elements with style directly in the DOM instead of class based*/
     margin: auto !important;
     margin-top: 1rem !important;
     font-size: 1.5rem !important;

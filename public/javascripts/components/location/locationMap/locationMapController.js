@@ -84,7 +84,7 @@ define(function(require) {
       }
 
       ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
-        position = Object.values(ctrl.LocationService.lastSearch.coords);
+        position = [ctrl.LocationService.lastSearch.coords.latitude,ctrl.LocationService.lastSearch.coords.longitude];
         ctrl.LocationService.map = L.map('map-canvas').setView(position, 13);
         L.tileLayer('http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -142,7 +142,7 @@ define(function(require) {
         });
 
         console.debug('sending query position: (lat, lng) ', ctrl.LocationService.lastSearch.coords);
-        $http.get('api/locations/search/' + Object.values(ctrl.LocationService.lastSearch.coords).join()).then(function(response) {
+        $http.get('api/locations/search/' +   ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude).then(function(response) {
           ctrl.loadPlaces(response.data);
         });
         //socket.emit('position', ctrl.LocationService.lastSearch.coords);

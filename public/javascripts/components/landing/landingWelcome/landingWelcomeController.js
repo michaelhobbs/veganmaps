@@ -49,7 +49,7 @@ define(function(require) {
         searchControl.onAdd(document.getElementById('autocompleter'));
         // end overwrite of searchcontrol functions
 
-        angular.element(document.getElementById('locationSearchForm')).bind('submit', async (event) => {
+        angular.element(document.getElementById('locationSearchForm')).bind('submit', function(event) {
           event.preventDefault();
           var input = angular.element(document.getElementById('locationSearchForm')).find('input');
           provider
