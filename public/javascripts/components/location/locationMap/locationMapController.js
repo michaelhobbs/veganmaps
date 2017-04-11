@@ -93,7 +93,7 @@ define(function(require) {
       ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
         position = [ctrl.LocationService.lastSearch.coords.latitude,ctrl.LocationService.lastSearch.coords.longitude];
         ctrl.LocationService.map = L.map('map-canvas').setView(position, 13);
-        L.tileLayer('http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
             maxZoom: 18,
             minZoom: 12
