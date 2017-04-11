@@ -7,7 +7,7 @@
   */
   'use strict';
 
-  requirejs.config({,
+  requirejs.config({
       waitSeconds: 0,
       baseUrl: 'javascripts',
       paths: {
