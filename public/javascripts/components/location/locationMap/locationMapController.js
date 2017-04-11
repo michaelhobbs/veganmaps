@@ -94,15 +94,22 @@ define(function(require) {
         position = [ctrl.LocationService.lastSearch.coords.latitude,ctrl.LocationService.lastSearch.coords.longitude];
         ctrl.LocationService.map = L.map('map-canvas').setView(position, 13);
         L.tileLayer('https://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            attribution: 'data &copy <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors, map <a href="https://creativecommons.org/licenses/by/4.0/">cc-by</a> <a href="https://github.com/xyztobixyz/OSM-Swiss-Style">xyztobixyz</a>',
             maxZoom: 18,
             minZoom: 12
         }).addTo(ctrl.LocationService.map);
-        var userMarkerIcon = L.icon({
-          iconUrl: '/images/marker.png',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8]
-        });
+        // var icontext = 'A';
+        var userMarkerIcon =
+        //         L.icon({
+        //           iconUrl: '/images/marker.png',
+        //           iconSize: [16, 16],
+        //           iconAnchor: [8, 8]
+        //         });
+          L.divIcon({
+               className: 'map-marker user-position',
+               iconSize:null,
+               html:'<div class="icon"></div>'//'<div class="icon">'+icontext+'</div>'
+             });
 
         ctrl.userMarker = L.marker(position, {icon: userMarkerIcon, zIndexOffset: -1000}).addTo(ctrl.LocationService.map)
         ctrl.rangeCirclemarker = L.circle(position, {

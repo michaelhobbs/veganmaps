@@ -393,3 +393,14 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
     font-size: 1rem;
   }
 }
+
+/** LEAFLET EXTENSIONS **/
+.map-marker.user-position {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background-color: #B3362E;
+    margin-left: -6px;
+    margin-top: -7px;
+    text-align: center;
+}
