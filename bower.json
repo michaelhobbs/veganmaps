@@ -12,7 +12,8 @@
     "text": "requirejs-text#^2.0.15",
     "leaflet": "^1.0.3",
     "leaflet-geosearch": "^2.0.0",
-    "requirejs-babel": "^0.0.9"
+    "requirejs-babel": "^0.0.9",
+    "fetch": "^2.0.3"
   },
   "resolutions": {
     "angular": "1.5.10",
