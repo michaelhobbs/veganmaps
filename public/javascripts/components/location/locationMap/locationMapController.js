@@ -85,6 +85,9 @@ define(function(require) {
       }
 
       ctrl.LocationService.resizeMap = function() { // called when toggle list open/closed
+        setTimeout(function(){
+          ctrl.LocationService.map.invalidateSize()
+        }, 100);
       }
 
       ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
@@ -135,7 +138,6 @@ define(function(require) {
 
         // auto close result list (aka. autocomplete options) after user selects one
         ctrl.LocationService.map.on("geosearch/showlocation", function(r) {
-          var ev = new Event("fake");
           searchControl.resultList.clear();
           ctrl.userMarker.setLatLng({lat: r.location.y, lng: r.location.x});
           ctrl.rangeCirclemarker.setLatLng({lat: r.location.y, lng: r.location.x});
