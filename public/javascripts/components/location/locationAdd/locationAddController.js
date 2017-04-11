@@ -90,6 +90,37 @@ define(function(require) {
         $scope.$apply();
       });
     };
+    // Use custom formatting of address for display in autocomplete suggestions
+    searchControl.resultList.renderOld = searchControl.resultList.render;
+    searchControl.resultList.render = function(results) {
+      console.log("RESULTS: ", results);
+      results.forEach(function(result) {
+        var label = '';
+        if (result.raw.address.house_number) {
+          label += result.raw.address.house_number +', ';
+        }
+        if (result.raw.address.road) {
+          label += result.raw.address.road +', ';
+        }
+        if (result.raw.address.village) {
+          label += result.raw.address.village +', ';
+        }
+        if (result.raw.address.city) {
+          label += result.raw.address.city +', ';
+        }
+        if (result.raw.address.postcode) {
+          label += result.raw.address.postcode;
+        }
+        label = label.trim();
+        if (label.endsWith(',')) {
+          label = label.substr(0,label.length -1);
+        }
+        if (label !== '') {
+          result.label = label;
+        }
+      });
+      searchControl.resultList.renderOld(results);
+    };
     searchControl.onAdd(document.getElementById('autocompleter'));
   // end overwrite of searchcontrol functions
 

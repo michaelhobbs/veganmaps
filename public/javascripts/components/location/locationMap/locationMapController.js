@@ -15,6 +15,11 @@ define(function(require) {
 
     ctrl.LocationService.map;
     ctrl.LocationService.markers = [];
+    // ctrl.locationMarkerIcon = L.icon({
+    //           iconUrl: '/images/locationMarker.png',
+    //           iconSize: [40, 40],
+    //           iconAnchor: [20, 30]
+    //         });
 
     if (MAP_TYPE === 'leaflet') {
       ctrl.LocationService.lastSearch = ctrl.LocationService.lastSearch ? ctrl.LocationService.lastSearch : {};
@@ -70,7 +75,8 @@ define(function(require) {
                 flagsHTML += '<span><img class="locationFlagIcon ' +key + '"></img></span>';
               }
             });
-            ctrl.LocationService.markers.push({id:place._id, marker: L.marker(place.location.coordinates.reverse()).addTo(ctrl.LocationService.map).bindPopup('<a href="#/maps/id/'+place._id+'" class="location-name">'+place.name+'</a><br><a href="https://www.google.com/maps/dir/' + ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude+'/'+place.location.coordinates[0]+','+place.location.coordinates[1]+'" target="_blank">directions</a>'+'<div>'+flagsHTML+'<div>')});
+            ctrl.LocationService.markers.push({id:place._id, marker: L.marker(place.location.coordinates.reverse()//,{icon:ctrl.locationMarkerIcon}
+              ).addTo(ctrl.LocationService.map).bindPopup('<a href="#/maps/id/'+place._id+'" class="location-name">'+place.name+'</a><br><a href="https://www.google.com/maps/dir/' + ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude+'/'+place.location.coordinates[0]+','+place.location.coordinates[1]+'" target="_blank">directions</a>'+'<div>'+flagsHTML+'<div>')});
             var t = ctrl.LocationService.markers.find(function (m) { return m.id === place._id;});
             var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || place.flags[ctrl.LocationService.lastSearch.filterProp] === true);
             var distanceFilterValidates = ctrl.LocationService.range >= place.distance;
@@ -113,15 +119,15 @@ define(function(require) {
 
         ctrl.userMarker = L.marker(position, {icon: userMarkerIcon, zIndexOffset: -1000}).addTo(ctrl.LocationService.map)
         ctrl.rangeCirclemarker = L.circle(position, {
-            color: 'darkgreen',
-            fillColor: '#f03',
-            fillOpacity: 0.05,
+            color: 'white',
+            fillColor: '#000',
+            fillOpacity: 0.03,
             radius: 2000 // meters
         }).addTo(ctrl.LocationService.map);
 
         ctrl.maxRangeCirclemarker = L.circle(position, {
             color: 'white',
-            opacity: 0.4,
+            opacity: 0.6,
             dashArray: "30 10",
             fill: false,
             radius: 10000 // meters
@@ -140,7 +146,42 @@ define(function(require) {
           autoCompleteDelay: 1000,
           showMarker: false
         });
+
+        // Use custom formatting of address for display in autocomplete suggestions
+        searchControl.resultList.renderOld = searchControl.resultList.render;
+        searchControl.resultList.render = function(results) {
+          console.log("RESULTS: ", results);
+          results.forEach(function(result) {
+            var label = '';
+            if (result.raw.address.house_number) {
+              label += result.raw.address.house_number +', ';
+            }
+            if (result.raw.address.road) {
+              label += result.raw.address.road +', ';
+            }
+            if (result.raw.address.village) {
+              label += result.raw.address.village +', ';
+            }
+            if (result.raw.address.city) {
+              label += result.raw.address.city +', ';
+            }
+            if (result.raw.address.postcode) {
+              label += result.raw.address.postcode;
+            }
+            label = label.trim();
+            if (label.endsWith(',')) {
+              label = label.substr(0,label.length -1);
+            }
+            if (label !== '') {
+              result.label = label;
+            }
+          });
+          searchControl.resultList.renderOld(results);
+        };
+
+        // allow autocomplete to be focussed on iOS safari
         searchControl.searchElement.elements.input.addEventListener("click", function(){this.focus();});
+
         ctrl.LocationService.map.addControl(searchControl);
 
         // auto close result list (aka. autocomplete options) after user selects one
