@@ -47,9 +47,11 @@ define(function(require) {
 
       ctrl.loadPlaces = function(places) { // called when server sends list of places for a new search
         console.log('Loading places.', places);
-        places.forEach (function(place) {
-          place.distance = ctrl.LocationService.distance(place.latitude, place.longitude, ctrl.LocationService.lastSearch.coords.latitude, ctrl.LocationService.lastSearch.coords.longitude);
-        });
+        if (places) {
+          places.forEach (function(place) {
+            place.distance = ctrl.LocationService.distance(place.latitude, place.longitude, ctrl.LocationService.lastSearch.coords.latitude, ctrl.LocationService.lastSearch.coords.longitude);
+          });
+        }
 
         ctrl.LocationService.lastSearch.results = places;
         //$scope.$apply();
@@ -59,7 +61,8 @@ define(function(require) {
         });
         ctrl.LocationService.markers = [];
         var flagsHTML = '';
-        places.forEach (function(place) {
+        if (places) {
+          places.forEach (function(place) {
             flagsHTML = ''
             console.log('Found close place: ', place);
             Object.keys(place.flags).forEach(function(key) {
@@ -77,7 +80,8 @@ define(function(require) {
                 t.marker.setOpacity(0.5);
               }
             }
-        });
+          });
+        }
       }
 
       ctrl.LocationService.resizeMap = function() { // called when toggle list open/closed
@@ -105,7 +109,7 @@ define(function(require) {
             radius: 2000 // meters
         }).addTo(ctrl.LocationService.map);
 
-        L.circle(position, {
+        ctrl.maxRangeCirclemarker = L.circle(position, {
             color: 'white',
             opacity: 0.4,
             dashArray: "30 10",
@@ -135,9 +139,10 @@ define(function(require) {
           searchControl.resultList.clear();
           ctrl.userMarker.setLatLng({lat: r.location.y, lng: r.location.x});
           ctrl.rangeCirclemarker.setLatLng({lat: r.location.y, lng: r.location.x});
+          ctrl.maxRangeCirclemarker.setLatLng({lat: r.location.y, lng: r.location.x});
           ctrl.LocationService.lastSearch.coords = {latitude: r.location.y, longitude: r.location.x};
-          $http.get('api/locations/search/' + ctrl.LocationService.lastSearch.coords).then(function(response) {
-            ctrl.loadPlaces(response);
+          $http.get('api/locations/search/' +   ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude).then(function(response) {
+            ctrl.loadPlaces(response.data);
           });
           //socket.emit('position', ctrl.LocationService.lastSearch.coords);
         });
