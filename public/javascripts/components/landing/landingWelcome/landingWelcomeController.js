@@ -57,6 +57,9 @@ define(function(require) {
             if (result.raw.address.road) {
               label += result.raw.address.road +', ';
             }
+            if (result.raw.address.footway) {
+              label += result.raw.address.footway +', ';
+            }
             if (result.raw.address.village) {
               label += result.raw.address.village +', ';
             }

@@ -63,9 +63,9 @@ define(function(require) {
         // update location with selected address
         ctrl.updatedLocation.address = ctrl.updatedLocation.address ? ctrl.updatedLocation.address : {};
         ctrl.updatedLocation.address.number = r[0].raw.address.house_number;
-        ctrl.updatedLocation.address.street = r[0].raw.address.road;
+        ctrl.updatedLocation.address.street = r[0].raw.address.road || r[0].raw.address.footway;
         ctrl.updatedLocation.address.postcode = r[0].raw.address.postcode;
-        ctrl.updatedLocation.address.city = r[0].raw.address.city;
+        ctrl.updatedLocation.address.city = r[0].raw.address.city || r[0].raw.address.village;
         ctrl.updatedLocation.address.state = r[0].raw.address.state;
         ctrl.updatedLocation.address.country = r[0].raw.address.country;
 
@@ -87,6 +87,9 @@ define(function(require) {
         }
         if (result.raw.address.road) {
           label += result.raw.address.road +', ';
+        }
+        if (result.raw.address.footway) {
+          label += result.raw.address.footway +', ';
         }
         if (result.raw.address.village) {
           label += result.raw.address.village +', ';
