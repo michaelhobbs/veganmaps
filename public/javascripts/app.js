@@ -16,6 +16,7 @@ define(function(require) {
 
   // load app's submodules
   var components = require('./components/components');
+  var libs = require('./lib/libs');
 
   // create application module
   var app = angular.module(moduleName, [
@@ -28,7 +29,7 @@ define(function(require) {
     ]).service('LocationService', require('./services/locationService'));
 
   // load routeConfig
-  app.config(require('./appConfig')); // maybe need to put this in location module
+  app.config(require('./routeConfig')); // maybe need to put this in location module
 
   // add app.run() here if needed
 

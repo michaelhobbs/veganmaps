@@ -98,10 +98,11 @@ define(function(require) {
 
       ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
         position = [ctrl.LocationService.lastSearch.coords.latitude,ctrl.LocationService.lastSearch.coords.longitude];
-        ctrl.LocationService.map = L.map('map-canvas').setView(position, 13);
+        ctrl.LocationService.map = L.map('map-canvas', {maxBounds: [[45.8,5.9],[48.0,10.5]] //[[[5.9559111595,45.8179931641],[10.4920501709,45.8179931641],[10.4920501709,47.808380127],[5.9559111595,47.808380127],[5.9559111595,45.8179931641]]]
+        }).setView(position, 13);
         L.tileLayer('https://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
-            attribution: 'data &copy <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors, map <a href="https://creativecommons.org/licenses/by/4.0/">cc-by</a> <a href="https://github.com/xyztobixyz/OSM-Swiss-Style">xyztobixyz</a>',
-            maxZoom: 18,
+            attribution: 'data &copy <a href="http://openstreetmap.org/copyright">OSM</a> map <a href="https://creativecommons.org/licenses/by/4.0/">cc-by</a> <a href="https://github.com/xyztobixyz/OSM-Swiss-Style">xyztobixyz</a>',
+            maxZoom: 17,
             minZoom: 12
         }).addTo(ctrl.LocationService.map);
         // var icontext = 'A';
@@ -138,7 +139,7 @@ define(function(require) {
         var mapBounds = ctrl.LocationService.map.getBounds();
         var viewbox = mapBounds.getWest() + ',' + mapBounds.getNorth() + ',' + mapBounds.getEast() +',' + mapBounds.getSouth();
         var provider = new Lgeo.OpenStreetMapProvider({params:{
-          countrycodes: 'CH', addressdetails:1, limit: 3, viewbox: viewbox}}
+          countrycodes: 'CH', addressdetails:1, limit: 10, viewbox: viewbox}}
         );
         var searchControl = new Lgeo.GeoSearchControl({
           provider: provider,
@@ -153,6 +154,9 @@ define(function(require) {
           console.log("RESULTS: ", results);
           results.forEach(function(result) {
             var label = '';
+            if (result.raw.address.restaurant) {
+              label += result.raw.address.restaurant +', ';
+            }
             if (result.raw.address.house_number) {
               label += result.raw.address.house_number +', ';
             }
@@ -162,8 +166,14 @@ define(function(require) {
             if (result.raw.address.footway) {
               label += result.raw.address.footway +', ';
             }
+            if (result.raw.address.pedestrian) {
+              label += result.raw.address.pedestrian +', ';
+            }
             if (result.raw.address.village) {
               label += result.raw.address.village +', ';
+            }
+            if (result.raw.address.town) {
+              label += result.raw.address.town +', ';
             }
             if (result.raw.address.city) {
               label += result.raw.address.city +', ';
@@ -179,13 +189,25 @@ define(function(require) {
               result.label = label;
             }
           });
+          // TODO: remove duplicates, if street name is same and town/city and postcode
           searchControl.resultList.renderOld(results);
         };
 
         // allow autocomplete to be focussed on iOS safari
         searchControl.searchElement.elements.input.addEventListener("click", function(){this.focus();});
 
+
+        // by default leaflet-geosearch makes a new query to provider with the label the user selected. This is not guaranteed to return a result... Here we overwrite this function making it use the result's coordinates directly.
+        searchControl.resultList.props.handleClick = function(event) {
+              ctrl.LocationService.map.fireEvent('geosearch/showlocation', {
+                location: event.result
+              });
+              searchControl.centerMap(event.result);
+          };
+
+
         ctrl.LocationService.map.addControl(searchControl);
+        L.DomEvent.disableClickPropagation(searchControl.searchElement.elements.input); // allow text selection in input without panning map
 
         // auto close result list (aka. autocomplete options) after user selects one
         ctrl.LocationService.map.on("geosearch/showlocation", function(r) {
