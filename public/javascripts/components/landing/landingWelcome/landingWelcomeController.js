@@ -2,6 +2,7 @@ define(function(require) {
 
   'use strict';
   var Lgeo = require('leafletgeosearch');
+  var removeDiacritics = require('removeDiacritics');
 
   function landingWelcomeController($routeParams, $location, $scope, LocationService) {
         var ctrl = this;
@@ -11,7 +12,7 @@ define(function(require) {
           params:{
             countrycodes: 'CH',
             addressdetails:1,
-            limit: 3
+            limit: 10
           }
         });
         var searchControl = new Lgeo.GeoSearchControl({
@@ -51,6 +52,9 @@ define(function(require) {
           console.log("RESULTS: ", results);
           results.forEach(function(result) {
             var label = '';
+            if (result.raw.address.restaurant) {
+              label += result.raw.address.restaurant +', ';
+            }
             if (result.raw.address.house_number) {
               label += result.raw.address.house_number +', ';
             }
@@ -60,8 +64,14 @@ define(function(require) {
             if (result.raw.address.footway) {
               label += result.raw.address.footway +', ';
             }
+            if (result.raw.address.pedestrian) {
+              label += result.raw.address.pedestrian +', ';
+            }
             if (result.raw.address.village) {
               label += result.raw.address.village +', ';
+            }
+            if (result.raw.address.town) {
+              label += result.raw.address.town +', ';
             }
             if (result.raw.address.city) {
               label += result.raw.address.city +', ';
@@ -74,7 +84,7 @@ define(function(require) {
               label = label.substr(0,label.length -1);
             }
             if (label !== '') {
-              result.label = label;
+              result.label = removeDiacritics(label);
             }
           });
           searchControl.resultList.renderOld(results);
@@ -93,8 +103,15 @@ define(function(require) {
               $scope.$apply(); // outside angular digest
             });
         });
+
+        // by default leaflet-geosearch makes a new query to provider with the label the user selected. This is not guaranteed to return a result... Here we overwrite this function making it use the result's coordinates directly.
+        searchControl.resultList.props.handleClick = function(event) {
+          ctrl.LocationService.lastSearch.coords = {latitude: event.result.y, longitude: event.result.x};
+          $location.path( "/maps" );
+          $scope.$apply(); // outside angular digest
+        };
   };
 
-  return ['$routeParams', '$location', '$scope', 'LocationService', landingWelcomeController];
+return ['$routeParams', '$location', '$scope', 'LocationService', landingWelcomeController];
 
 });

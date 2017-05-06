@@ -18,7 +18,8 @@
           socketio : '../socket.io/socket.io',
           leaflet : '../lib/leaflet/dist/leaflet',
           leafletgeosearch: '../node/leaflet-geosearch/dist/bundle.min',
-          'whatwg-fetch' : '../lib/fetch/fetch'
+          'whatwg-fetch' : '../lib/fetch/fetch',
+          removeDiacritics: './lib/removeDiacritics'
           // es6: '../lib/requirejs-babel/es6', // added when trying to use bower's leaflet-geosearch, in order to transcompile at load time
           // babel: '../lib/requirejs-babel/babel-5.8.34.min'
       },
