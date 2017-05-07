@@ -13,7 +13,8 @@
     "leaflet": "^1.0.3",
     "leaflet-geosearch": "^2.0.0",
     "requirejs-babel": "^0.0.9",
-    "fetch": "^2.0.3"
+    "fetch": "^2.0.3",
+    "moment": "^2.18.1"
   },
   "resolutions": {
     "angular": "1.5.10",

@@ -18,12 +18,18 @@ define(function(require) {
         var searchControl = new Lgeo.GeoSearchControl({
             provider: provider,
             autoCompleteDelay: 1000,
-            searchLabel: 'swiss street, city'
+            searchLabel: 'Enter Swiss street, city...'
           });
 
         /* Overwriting search control so that it works even without a map */
         searchControl.onAdd = function(elem) {
-          this.searchElement.elements.input.setAttribute('autofocus', 'true');
+          var oldKeyUp = this.searchElement.onKeyUp;
+          this.searchElement.onKeyUp = function(e) {
+            if ([13,16,17,18,20,225,27,40,38,37,39].indexOf(e.keyCode) < 0) { // ignore some keys eg: arrows, escape, enter, in order to not trigger input change
+          	  this.elements.input.value = removeDiacritics(this.elements.input.value);
+            }
+            oldKeyUp.apply(this, [e]); // use .apply() to call it in order to preserve the 'this' object in the original function
+          };
           var form  = this.searchElement.elements.form;
           form.id = "locationSearchForm"; // needed for event listener so that search button works
           var searchButton =  form.appendChild(document.createElement('input'));
