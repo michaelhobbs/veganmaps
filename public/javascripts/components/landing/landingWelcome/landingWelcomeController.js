@@ -33,6 +33,14 @@ define(function(require) {
           }
           var form  = this.searchElement.elements.form;
           form.id = "locationSearchForm"; // needed for event listener so that search button works
+          var fancyFocusEffectContainer = document.createElement('div');
+          fancyFocusEffectContainer.className = "fancyFocusEffectContainer";
+          form.insertBefore(fancyFocusEffectContainer, this.searchElement.elements.input);
+          fancyFocusEffectContainer.appendChild(this.searchElement.elements.input);
+
+          var fancyFocusEffect =  fancyFocusEffectContainer.appendChild(document.createElement('span'));
+          fancyFocusEffect.className = "focus-border";
+          fancyFocusEffect.appendChild(document.createElement('i'));
           var searchButton =  form.appendChild(document.createElement('input'));
           searchButton.value = "Search";
           searchButton.type = "submit";
@@ -91,7 +99,7 @@ define(function(require) {
               label = label.substr(0,label.length -1);
             }
             if (label !== '') {
-              result.label = removeDiacritics(label);
+              result.label = label;//removeDiacritics(label);
             }
           });
           searchControl.resultList.renderOld(results);
