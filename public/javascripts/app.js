@@ -26,7 +26,11 @@ define(function(require) {
       // 'ngAnimate',
       'rzModule',
       components
-    ]).service('LocationService', require('./services/locationService'));
+    ]).service('LocationService', require('./services/locationService'))
+    .filter('removeDiacriticsFilter', function() {
+      var removeDiacritics = require('removeDiacritics');
+      return removeDiacritics;
+    });
 
   // load routeConfig
   app.config(require('./routeConfig')); // maybe need to put this in location module
