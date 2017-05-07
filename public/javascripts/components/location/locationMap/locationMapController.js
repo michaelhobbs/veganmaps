@@ -137,7 +137,7 @@ define(function(require) {
         L.control.scale().addTo(ctrl.LocationService.map);
         // autocomplete search controls
         var mapBounds = ctrl.LocationService.map.getBounds();
-        var viewbox = mapBounds.getWest() + ',' + mapBounds.getNorth() + ',' + mapBounds.getEast() +',' + mapBounds.getSouth();
+        var viewbox = mapBounds.getWest() + ',' + mapBounds.getNorth() + ',' + mapBounds.getEast() +',' + (mapBounds.getSouth()+0.1);
         var provider = new Lgeo.OpenStreetMapProvider({params:{
           countrycodes: 'CH', addressdetails:1, limit: 10, viewbox: viewbox}}
         );
