@@ -241,6 +241,9 @@ input, select, textarea {
   margin: auto;
   margin-top: 2rem;
 }
+#autocompleter input:focus {
+  outline-color: dodgerblue;
+}
 #autocompleter .results {
   max-width: 700px;
   margin: auto;
@@ -257,6 +260,9 @@ input, select, textarea {
 }
 #autocompleter .results.active div {
   padding: 0.3rem;
+}
+#autocompleter .results.active div.active {
+  background-color: grey;
 }
 #autocompleter .btn {
   font-size: 3rem;
