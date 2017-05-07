@@ -282,10 +282,10 @@ input, select, textarea {
   margin: auto;
 }
 .glass ~ .focus-border:before,
-.glass ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: #3399FF; transition: 0.2s; transition-delay: 0.2s;}
+.glass ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 3px; background-color: #3399FF; transition: 0.2s; transition-delay: 0.2s;}
 .glass ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
 .glass ~ .focus-border i:before,
-.glass ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #3399FF; transition: 0.2s;}
+.glass ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 3px; height: 0; background-color: #3399FF; transition: 0.2s;}
 .glass ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
 .glass:focus ~ .focus-border:before,
 .glass:focus ~ .focus-border:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
