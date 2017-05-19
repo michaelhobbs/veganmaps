@@ -21,6 +21,7 @@ define(function(require) {
     //           iconAnchor: [20, 30]
     //         });
     ctrl.maxZoom = ctrl.LocationService.isMobileDevice() ? 15 : 17;
+    ctrl.minZoom = ctrl.LocationService.isMobileDevice() ? 11 : 12;
 
     if (MAP_TYPE === 'leaflet') {
       ctrl.LocationService.lastSearch = ctrl.LocationService.lastSearch ? ctrl.LocationService.lastSearch : {};
@@ -104,7 +105,7 @@ define(function(require) {
         L.tileLayer('https://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png', {//https://opentopomap.org/{z}/{x}/{y}.png', {
             attribution: 'data &copy <a href="http://openstreetmap.org/copyright">OSM</a> map <a href="https://creativecommons.org/licenses/by/4.0/">cc-by</a> <a href="https://github.com/xyztobixyz/OSM-Swiss-Style">xyztobixyz</a>',
             maxZoom: ctrl.maxZoom, // iphone has trouble panning map if zoom too far, mobile-> 15 , pc -> 17
-            minZoom: 12
+            minZoom: ctrl.minZoom
         }).addTo(ctrl.LocationService.map);
         // var icontext = 'A';
         var userMarkerIcon =

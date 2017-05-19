@@ -37,7 +37,7 @@ define(function(require) {
     ctrl.useUserLocation = function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          alert('coords: ' + position.coords.latitude + ', ' + position.coords.longitude);
+          $log.debug('coords: ' + position.coords.latitude + ', ' + position.coords.longitude);
           $http.get('https://nominatim.openstreetmap.org/reverse', {
             params: {
               format: 'json',
