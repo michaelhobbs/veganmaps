@@ -18,7 +18,7 @@ define(function(require) {
         var searchControl = new Lgeo.GeoSearchControl({
             provider: provider,
             autoCompleteDelay: 1000,
-            searchLabel: 'Enter Swiss street, city...'
+            searchLabel: ''
           });
 
         /* Overwriting search control so that it works even without a map */
@@ -29,28 +29,44 @@ define(function(require) {
                   return !check;
               })();
           if (_isNotMobile) {
-            this.searchElement.elements.input.setAttribute('autofocus', 'true');
+            //this.searchElement.elements.input.setAttribute('autofocus', 'true');
           }
+          var classes = this.searchElement.elements.input.className;
+          this.searchElement.elements.input.className += ' input__field--makiko input__field';
+          this.searchElement.elements.input.setAttribute('id', 'input-16');
+          this.searchElement.elements.input.setAttribute('autocomplete', 'off');
+          this.searchElement.elements.input.setAttribute('required', ''); // hack to let CSS :valid mean that there is content in the input
           var form  = this.searchElement.elements.form;
           form.id = "locationSearchForm"; // needed for event listener so that search button works
-          var fancyFocusEffectContainer = document.createElement('div');
-          fancyFocusEffectContainer.className = "fancyFocusEffectContainer";
+
+          var fancyFocusEffectContainer = document.createElement('span');
+          fancyFocusEffectContainer.className = "input input--makiko";
+
           form.insertBefore(fancyFocusEffectContainer, this.searchElement.elements.input);
           fancyFocusEffectContainer.appendChild(this.searchElement.elements.input);
 
-          var fancyFocusEffect =  fancyFocusEffectContainer.appendChild(document.createElement('span'));
-          fancyFocusEffect.className = "focus-border";
-          fancyFocusEffect.appendChild(document.createElement('i'));
-          var searchButton =  form.appendChild(document.createElement('input'));
-          searchButton.value = "Search";
-          searchButton.type = "submit";
-          searchButton.className = "btn btn--search";
+          var fancyFocusEffectLabel = document.createElement('label');
+          fancyFocusEffectLabel.className = "input__label input__label--makiko";
+          fancyFocusEffectLabel.setAttribute('for', 'input-16');
+
+          var fancyFocusEffectPlaceholder = document.createElement('span');
+          fancyFocusEffectPlaceholder.className = "input__label-content input__label-content--makiko";
+          fancyFocusEffectPlaceholder.innerHTML = 'Search';
+
+          fancyFocusEffectLabel.appendChild(fancyFocusEffectPlaceholder);
+          fancyFocusEffectContainer.appendChild(fancyFocusEffectLabel);
+
+
           var root = elem;
 
           var container = document.createElement('div', 'leaflet-control-geosearch bar');
           container.appendChild(form);
           root.appendChild(container);
           this.elements.container = container;
+          var searchButton =  form.appendChild(document.createElement('input'));
+          searchButton.value = "go";
+          searchButton.type = "submit";
+          searchButton.className = "btn btn--search";
 
           return this.searchElement.elements.container;
         };

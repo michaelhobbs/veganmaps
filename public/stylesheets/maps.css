@@ -228,24 +228,24 @@ input, select, textarea {
 .landingTitle:hover {
   text-decoration: underline overline;
 }
-
+/*
 #autocompleter input:first-child {
 
   line-height: 4rem;
   height: 4rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-family: Helvetica, Arial, serif;//'Moon Light', 'Architext Regular', serif;
   border: 2px solid black;
   border-radius:3px;
   max-width: 700px;
   margin: auto;
   margin-top: 2rem;
-}
+}*/
 /*#autocompleter input:focus {
   outline-color: dodgerblue;
 }*/
 #autocompleter .results {
-  max-width: 700px;
+  /*max-width: 700px;*/
   margin: auto;
   cursor: pointer;
   text-align: left;
@@ -260,7 +260,7 @@ input, select, textarea {
   background-color: grey;
 }
 #autocompleter .results.active div {
-  padding: 0.3rem;
+  padding: 0.7rem 0.3rem;
 }
 #autocompleter .results.active div.active {
   background-color: grey;
@@ -276,6 +276,7 @@ input, select, textarea {
   width: auto;
   margin: 2rem auto auto;
 }
+/*
 .fancyFocusEffectContainer {
   position: relative;
   max-width: 700px;
@@ -292,7 +293,7 @@ input, select, textarea {
 .glass:focus ~ .focus-border:after{transition-delay: 0.2s;}
 .glass:focus ~ .focus-border i:before,
 .glass:focus ~ .focus-border i:after{height: 100%; transition: 0.2s;}
-.glass:focus ~ .focus-border i:after{transition-delay: 0.4s;}
+.glass:focus ~ .focus-border i:after{transition-delay: 0.4s;}*/
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   font-style: oblique; */
@@ -318,7 +319,6 @@ input, select, textarea {
   display: inline-block;
 }
 .landingContainer {
-  font-family: 'Moon Light', 'Architext Regular', serif;
   text-align: center;
   margin: auto;
   background-color: rgba(255,255,255,0.8);
@@ -327,6 +327,7 @@ input, select, textarea {
   margin-left:20rem;
 }
 .landingSlogan {
+  font-family: 'Moon Light', 'Architext Regular', serif;
   text-align: center;
   font-size: 4rem;
   opacity: 1;
@@ -440,4 +441,123 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
     margin-left: -6px;
     margin-top: -7px;
     text-align: center;
+}
+
+
+
+
+/** MAKIKO INPUT SAEARCH FIERLD **/
+/* Makiko */
+.input {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	/*margin: 1em;*/
+	/*max-width: 400px;*/
+	/*width: calc(100% - 2em);*/
+  width: 100%;
+	vertical-align: top;
+}
+
+.input__field {
+	position: relative;
+	display: block;
+	float: right;
+	padding: 0.8em;
+	width: 60%;
+	border: none;
+	border-radius: 0;
+	background: #f0f0f0;
+	/*color: #aaa;*/
+	font-weight: 400;
+	/*font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+	-webkit-appearance: none; /* for box shadows to show on iOS */
+  border: thin solid rgba(216, 216, 216, 0.99);
+}
+
+.input__field:focus {
+	/*outline: none;*/
+  outline-style: solid;
+  outline-color: #0db9f0;
+  /*border: none;*/
+}
+
+.input__label {
+	display: inline-block;
+	float: right;
+	padding: 0 1em;
+	width: 40%;
+	color: #6a7989;
+	font-weight: bold;
+	/*font-size: 70.25%;*/
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.input__label-content {
+	position: relative;
+	display: block;
+	padding: 1.6em 0;
+	width: 100%;
+}
+
+.input--makiko {
+	overflow: hidden;
+	background: #CBCBCB;
+  /*border: 1px solid grey;*/
+  font-size: 1.4rem;
+  line-height: normal;
+}
+
+.input__field--makiko {
+	width: 100%;
+	background: transparent;
+	/*color: #797693;*/
+	z-index: 10;
+	font-weight: 500;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.input__label--makiko {
+	position: absolute;
+	width: 100%;
+	text-align: left;
+	pointer-events: none;
+	color: #fff;
+  height: 100%;
+}
+
+.input__label--makiko::before {
+	content: '';
+	position: absolute;
+	width: 2rem;
+	height: 100%;
+	/*top: 20%;
+	left: 20px;*/
+	background: url(../images/search.svg) no-repeat center center;
+	background-size: 100%;
+	-webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
+}
+
+.input__label-content--makiko {
+	display: block;
+	padding: 2px 0 0 2.5rem;
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+      font-size: 2rem;
+}
+
+.input__field--makiko:focus + .input__label--makiko::before,
+.input__field--makiko:valid + .input__label--makiko::before,
+.input--filled .input__label--makiko::before {
+	-webkit-transform: scale3d(80, 80, 1);
+	transform: scale3d(80, 80, 1);
 }

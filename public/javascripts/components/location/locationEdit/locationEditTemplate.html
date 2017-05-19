@@ -14,6 +14,8 @@
   </div>
   <div class="grd-row-col-4-6--md">
     <h4>Update:</h4>
+    <div style="cursor: pointer; color: dodgerblue;" ng-click="$ctrl.toggleAutocomplete()">Search for an address and autofill?</div>
+    <div id="autocompleter" ng-show="$ctrl.showAutocomplete"></div>
     <form name="form" novalidate class="simple-form">
       <fieldset>
         <legend>Name*:</legend>
@@ -27,69 +29,48 @@
 
       <fieldset>
         <legend>Address*:</legend>
-        <div>try to search and automatically fill in the address:</div>
-        <div id="autocompleter"></div>
         <div>Edit the address manually:</div>
-        <div>number*</div>
+        <div>number</div>
           <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.number" name="addressNumber" required=""/>
-            <div ng-show="form.$submitted || form.addressNumber.$touched">
-              <div ng-show="form.addressNumber.$error.required">Required</div>
-            </div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.number" name="addressNumber"/>
           </div>
-        <div>street*</div>
+        <div>street</div>
           <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.street" name="addressStreet" required=""/>
-            <div ng-show="form.$submitted || form.addressStreet.$touched">
-              <div ng-show="form.addressStreet.$error.required">Required</div>
-            </div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.street" name="addressStreet"/>
           </div>
-        <div>postcode*</div>
+        <div>postcode</div>
           <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.postcode" name="addressPostcode" required=""/>
-            <div ng-show="form.$submitted || form.addressPostcode.$touched">
-              <div ng-show="form.addressPostcode.$error.required">Required</div>
-            </div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.postcode" name="addressPostcode"/>
           </div>
-        <div>city*</div>
+        <div>city</div>
           <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.city" name="addressCity" required=""/>
-            <div ng-show="form.$submitted || form.addressCity.$touched">
-              <div ng-show="form.addressCity.$error.required">Required</div>
-            </div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.city" name="addressCity"/>
           </div>
-        <div>state*
-          <span ng-show="form.$submitted || form.addressState.$touched">
-            <span style="color:red;" ng-show="form.addressState.$error.required">Required</span>
-          </span>
-        </div>
+        <div>state</div>
           <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.state" name="addressState" required=""/>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.state" name="addressState"/>
           </div>
-        <div>country*</div>
+        <div>country</div>
           <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.country" name="addressCountry" required=""/>
-            <div ng-show="form.$submitted || form.addressCountry.$touched">
-              <div ng-show="form.addressCountry.$error.required">Required</div>
-            </div>
+            <input type="text" ng-model="$ctrl.updatedLocation.address.country" name="addressCountry"/>
           </div>
 
         <div>Longitude*</div>
         <!--<div>{{$ctrl.oriLocation.longitude}}</div>-->
-        <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="-180" max="180" name="longitude" required=""/>
+        <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="5.9" max="10.5" name="longitude" required=""/>
 
         <div ng-show="form.$submitted || form.longitude.$touched">
           <div ng-show="form.longitude.$error.required">Required</div>
           <span ng-show="form.longitude.$error.min || form.longitude.$error.max">
-            The value must be in range -180 to 180!</span>
+            The coordinates must be in Switzerland. The longitude must be in range 5.9 to 10.5!</span>
         </div>
 
         <div>Latitude*</div>
-        <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="-90" max="90" name="latitude" required=""/>
+        <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="45.8" max="48" name="latitude" required=""/>
         <div ng-show="form.$submitted || form.latitude.$touched">
           <div ng-show="form.latitude.$error.required">Required</div>
           <span ng-show="form.latitude.$error.min || form.latitude.$error.max">
-            The value must be in range -90 to 90!</span>
+            The coordinates must be in Switzerland. The latitude must be in range 45.8 to 48.0!</span>
         </div>
       </fieldset>
       <br>
