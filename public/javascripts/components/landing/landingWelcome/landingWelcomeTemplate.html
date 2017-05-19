@@ -19,6 +19,8 @@
       <span>***Unless they use a <strong style="cursor:pointer;">delivery service</strong>.</span>
     </div-->
 
+    <div ng-if="$ctrl.isMobileDevice()">-------  OR  -------</div>
+    <button style="cursor: pointer;" class="btn" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Search near me</button>
   </div>
 </div>
 
