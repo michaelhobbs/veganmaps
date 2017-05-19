@@ -16,6 +16,9 @@
     <h4>Update:</h4>
     <div style="cursor: pointer; color: dodgerblue;" ng-click="$ctrl.toggleAutocomplete()">Search for an address and autofill?</div>
     <div id="autocompleter" ng-show="$ctrl.showAutocomplete"></div>
+    ------------------
+    <div style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Are you there now? Fill form with your location:</div>
+    <button style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Use my current location</button>
     <form name="form" novalidate class="simple-form">
       <fieldset>
         <legend>Name*:</legend>
