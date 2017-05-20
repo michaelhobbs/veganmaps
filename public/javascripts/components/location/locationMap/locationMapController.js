@@ -5,7 +5,7 @@ define(function(require) {
   var L = require('leaflet');
   var Lgeo = require('leafletgeosearch');
 
-  function locationMapController($scope, $timeout, $http, LocationService) {
+  function locationMapController($scope, $timeout, $http, $log, LocationService) {
 
     var MAP_TYPE = 'leaflet'; // 'leaflet' || 'google'
     var ctrl = this;
@@ -99,6 +99,39 @@ define(function(require) {
       }
 
       ctrl.LocationService.initializeMap = function(position) { // called when initial search is made, either with geolocation coords, or default. this function needs to initialize the map
+        /******START CUSTOM CONTROLS ******/
+        var customControl =  L.Control.extend({
+          options: {
+            position: 'bottomright'
+          },
+
+          onAdd: function (map) {
+            var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom fa fa-bullseye');
+
+            container.style.backgroundColor = 'white';
+            container.style.fontSize = '2rem';
+            container.style.padding = '0.5rem';
+
+            container.onclick = function(){
+              console.log('buttonClicked');
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  $log.debug('coords: ' + position.coords.latitude + ', ' + position.coords.longitude);
+                  ctrl.moveMapTo(position.coords.latitude, position.coords.longitude);
+                },
+                function (error) {
+                  if (error.code == error.PERMISSION_DENIED)
+                      alert("you need to allow the use of your location in order to use this feature");
+                });
+              } else {
+                alert("Geolocation is not supported by this browser.");
+              }
+            }
+
+            return container;
+          }
+        });
+        /******END CUSTOM CONTROLS*******/
         position = [ctrl.LocationService.lastSearch.coords.latitude,ctrl.LocationService.lastSearch.coords.longitude];
         ctrl.LocationService.map = L.map('map-canvas', {maxBounds: [[45.8,5.9],[48.0,10.5]] //[[[5.9559111595,45.8179931641],[10.4920501709,45.8179931641],[10.4920501709,47.808380127],[5.9559111595,47.808380127],[5.9559111595,45.8179931641]]]
         }).setView(position, 13);
@@ -137,6 +170,11 @@ define(function(require) {
         }).addTo(ctrl.LocationService.map);
 
         L.control.scale().addTo(ctrl.LocationService.map);
+
+        // add control for moving map to user location
+        if (ctrl.LocationService.isMobileDevice()) {
+          ctrl.LocationService.map.addControl(new customControl());
+        }
         // autocomplete search controls
         var mapBounds = ctrl.LocationService.map.getBounds();
         var viewbox = mapBounds.getWest() + ',' + mapBounds.getNorth() + ',' + mapBounds.getEast() +',' + (mapBounds.getSouth()+0.1);
@@ -214,14 +252,7 @@ define(function(require) {
         // auto close result list (aka. autocomplete options) after user selects one
         ctrl.LocationService.map.on("geosearch/showlocation", function(r) {
           searchControl.resultList.clear();
-          ctrl.userMarker.setLatLng({lat: r.location.y, lng: r.location.x});
-          ctrl.rangeCirclemarker.setLatLng({lat: r.location.y, lng: r.location.x});
-          ctrl.maxRangeCirclemarker.setLatLng({lat: r.location.y, lng: r.location.x});
-          ctrl.LocationService.lastSearch.coords = {latitude: r.location.y, longitude: r.location.x};
-          $http.get('api/locations/search/' +   ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude).then(function(response) {
-            ctrl.loadPlaces(response.data);
-          });
-          //socket.emit('position', ctrl.LocationService.lastSearch.coords);
+          ctrl.moveMapTo(r.location.y, r.location.x);
         });
 
         console.debug('sending query position: (lat, lng) ', ctrl.LocationService.lastSearch.coords);
@@ -232,6 +263,16 @@ define(function(require) {
       }
       // need to trigger ctrl.LocationService.getGeoLocation() in order to start loading the map
 
+      ctrl.moveMapTo = function (lat, lng) {
+        ctrl.userMarker.setLatLng({lat: lat, lng: lng});
+        ctrl.rangeCirclemarker.setLatLng({lat: lat, lng: lng});
+        ctrl.maxRangeCirclemarker.setLatLng({lat: lat, lng: lng});
+        ctrl.LocationService.lastSearch.coords = {latitude: lat, longitude: lng};
+        $http.get('api/locations/search/' +   ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude).then(function(response) {
+          ctrl.loadPlaces(response.data);
+        });
+        ctrl.LocationService.map.panTo(new L.LatLng(lat, lng));
+      }
       //ctrl.LocationService.getGeoLocation();
     }
 
@@ -415,6 +456,6 @@ define(function(require) {
 //    socket.on('places', ctrl.loadPlaces); // should call interface
   };
 
-  return ['$scope', '$timeout', '$http', 'LocationService', locationMapController];
+  return ['$scope', '$timeout', '$http', '$log', 'LocationService', locationMapController];
 
 });
