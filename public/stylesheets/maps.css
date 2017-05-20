@@ -245,7 +245,7 @@ input, select, textarea {
   outline-color: dodgerblue;
 }*/
 #autocompleter .results {
-  /*max-width: 700px;*/
+  max-width: 500px;
   margin: auto;
   cursor: pointer;
   text-align: left;
@@ -509,10 +509,12 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 
 .input--makiko {
 	overflow: hidden;
-	background: #CBCBCB;
+	background: #333;
   /*border: 1px solid grey;*/
   font-size: 1.4rem;
   line-height: normal;
+  max-width: 500px;
+  margin-top: 2rem;
 }
 
 .input__field--makiko {
