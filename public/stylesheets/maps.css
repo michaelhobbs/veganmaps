@@ -521,7 +521,7 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 
 .input--makiko {
 	overflow: hidden;
-	background: #333;
+	background: #eee;
   /*border: 1px solid grey;*/
   font-size: 1.4rem;
   line-height: normal;
@@ -544,7 +544,7 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 	width: 100%;
 	text-align: left;
 	pointer-events: none;
-	color: #fff;
+	color: #666;
   height: 100%;
 }
 
@@ -555,10 +555,16 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 	height: 100%;
 	/*top: 20%;
 	left: 20px;*/
-	background: url(../images/search.svg) no-repeat center center;
+	background: url(../images/search_black.svg) no-repeat center center;
 	background-size: 100%;
 	-webkit-transition: -webkit-transform 1s;
 	transition: transform 1s;
+}
+
+.input__field--makiko:focus + .input__label--makiko,
+.input__field--makiko:valid + .input__label--makiko,
+.input--filled .input__label--makiko {
+  color: white;
 }
 
 .input__label-content--makiko {
@@ -566,12 +572,12 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 	padding: 2px 0 0 2.5rem;
 	-webkit-transition: -webkit-transform 0.5s;
 	transition: transform 0.5s;
-      font-size: 2rem;
+  font-size: 2rem;
 }
 
 .input__field--makiko:focus + .input__label--makiko::before,
 .input__field--makiko:valid + .input__label--makiko::before,
-.input--filled .input__label--makiko::before {
+.input--filled .input__label--makiko::before  {
 	-webkit-transform: scale3d(80, 80, 1);
 	transform: scale3d(80, 80, 1);
 }

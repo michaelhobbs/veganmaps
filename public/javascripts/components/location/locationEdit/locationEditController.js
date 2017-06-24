@@ -137,6 +137,7 @@ define(function(require) {
         form.$setUntouched();
       }
       ctrl.updatedLocation = angular.copy(ctrl.oriLocation);
+      ctrl.dateInputTimes = _.cloneDeep(ctrl.updatedLocation.openTimes);
     };
 
     ctrl.update = function() {

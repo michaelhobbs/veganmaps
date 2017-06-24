@@ -22,10 +22,12 @@
           removeDiacritics: './lib/removeDiacritics',
           'moment': '../lib/moment/moment',
           '_': '../lib/lodash/lodash',
-          'angular-animate': '../lib/angular-animate/angular-animate',
-          'angular-touch': '../lib/angular-touch/angular-touch',
+          ngAnimate: '../lib/angular-animate/angular-animate',
+          //'angular-touch': '../lib/angular-touch/angular-touch',
           //'ui-bootstrap': '../lib/angular-bootstrap/ui-bootstrap',
-          'ui-bootstrap': '../lib/angular-bootstrap/ui-bootstrap-tpls'
+          'ui-bootstrap': '../lib/angular-bootstrap/ui-bootstrap-tpls',
+          'ngAria': '../lib/angular-aria/angular-aria',
+          ngMaterial: '../lib/angular-material/angular-material'
           // es6: '../lib/requirejs-babel/es6', // added when trying to use bower's leaflet-geosearch, in order to transcompile at load time
           // babel: '../lib/requirejs-babel/babel-5.8.34.min'
       },
@@ -41,6 +43,10 @@
         },
         socketio: {exports: 'io'},
         'ui-bootstrap': {deps:['angular']},
+        ngAnimate: {deps:['angular']},
+        ngAria: {deps:['angular']},
+        ngMaterial: {deps:['angular','ngAnimate','ngAria'],exports: 'ngMaterial'}
+
         //'ui-bootstrap-tpls': {deps:['angular']}
     },
 

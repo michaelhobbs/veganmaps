@@ -35,8 +35,8 @@ define(function(require) {
     ctrl.filterExpression = function(location) {
       var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || location.flags[ctrl.LocationService.lastSearch.filterProp] === true);
       var distanceFilterValidates = $scope.slider.value >= location.distance;
-      // ctrl.LocationService.updateCircleRange();
-      return typeFilterValidates && distanceFilterValidates;
+      var openTimeFilterValidates = !ctrl.LocationService.lastSearch.filterByOpenNow || ctrl.isOpen(location.openTimes);
+      return typeFilterValidates && distanceFilterValidates && openTimeFilterValidates;
     }
 
     ctrl.toggleList = function() {

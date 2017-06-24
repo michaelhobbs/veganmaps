@@ -124,7 +124,7 @@
                     <div>copy to: <span ng-repeat="dayApply in $ctrl.days" ng-if="!$ctrl.updatedLocation.openTimes[dayApply].closed && dayApply!==day" class="btn" ng-click="$ctrl.copyTimeSlotToDay(slot,dayApply)">{{$ctrl.dayMap[dayApply]}}</span></div>
                   </div>
 
-                  <div class="btn btn--green" ng-click="$ctrl.addTimeSlotForDay(day)">Add time slot</div>
+                  <div class="btn btn--green fa fa-plus" ng-click="$ctrl.addTimeSlotForDay(day)"></div>
 
                   <!-- NEW TIMESLOT -->
                   <!--div>

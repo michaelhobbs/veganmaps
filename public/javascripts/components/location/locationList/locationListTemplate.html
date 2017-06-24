@@ -31,27 +31,47 @@
         <div class="grd p0">
           <div class="grd-row">
             <div class="grd-row-col-3-6 mr05">
-              Order by:
+              <!--Order by:
               <select ng-model="$ctrl.LocationService.lastSearch.orderProp">
                 <option value="name">Alphabetical</option>
                 <option value="distance">Closest</option>
-              </select>
+              </select-->
+              <md-input-container style="display: block;">
+               <label>Order by:</label>
+               <md-select ng-model="$ctrl.LocationService.lastSearch.orderProp">
+                <md-option value="name">Alphabetical</md-option>
+                <md-option value="distance">Closest</md-option>
+               </md-select>
+             </md-input-container>
             </div>
 
             <div class="grd-row-col-3-6 ml05">
-              Filter by:
-              <select ng-model="$ctrl.LocationService.lastSearch.filterProp">
+              <!--Filter by:
+              <md-select ng-model="$ctrl.LocationService.lastSearch.filterProp">
                 <option value="fullv">100% vegan</option>
                 <option value="gf">Gluten-free options</option>
                 <option value="meat">Meat options</option>
                 <option value="all">show all</option>
-              </select>
+              </md-select-->
+              <md-input-container style="display: block;">
+               <label>Filter by:</label>
+               <md-select ng-model="$ctrl.LocationService.lastSearch.filterProp">
+                <md-option value="fullv">100% vegan</md-option>
+                <md-option value="gf">Gluten-free options</md-option>
+                <md-option value="meat">Meat options</md-option>
+                <md-option value="all">show all</md-option>
+               </md-select>
+             </md-input-container>
             </div>
           </div>
 
           <div class="grd-row">
             Distance:
             <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options" class="with-legend"></rzslider>
+          </div>
+
+          <div class="grd-row">
+            <md-checkbox ng-model="$ctrl.LocationService.lastSearch.filterByOpenNow">Open now</md-checkbox>
           </div>
         </div>
       </div>

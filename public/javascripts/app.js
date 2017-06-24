@@ -12,6 +12,7 @@ define(function(require) {
   var angular = require('angular');
   require('ngRoute');
   require('rzModule');
+  require('ngMaterial');
   var socketio = require('socketio');
 
   // load app's submodules
@@ -27,6 +28,7 @@ define(function(require) {
       'rzModule',
       'ui.bootstrap',
       'ui.bootstrap.timepicker',
+      'ngMaterial',
       components
     ]).service('LocationService', require('./services/locationService'))
     .filter('removeDiacriticsFilter', function() {
