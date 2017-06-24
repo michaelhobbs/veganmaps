@@ -7,10 +7,6 @@
       <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
       <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
     </div>
-    <div style="bottom:0;position: absolute;">
-      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
-      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
-    </div>
   </div>
   <div class="grd-row-col-4-6--md">
     <h4>Update:</h4>
@@ -100,13 +96,47 @@
             </div>
       </fieldset>
 
-      <!--<fieldset>
+      <fieldset>
         <legend>Opening times:</legend>
+            <div>Closed days:</div>
+            <span ng-repeat="day in $ctrl.days">
+              <label style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer;">{{$ctrl.dayMap[day]}}:
+                <input type="checkbox" ng-model="$ctrl.updatedLocation.openTimes[day].closed" style="cursor:pointer;"/>
+              </label>
+            </span>
             <div>
-              <div>monday</div>
+              <div>Time slots:</div>
+              <div ng-repeat="day in $ctrl.days" style="width:100%;" ng-if="!$ctrl.updatedLocation.openTimes[day].closed">
+                <div style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer; width: 100%;">
+                  <div style="font-weight: bold;">{{$ctrl.dayMap[day]}}:</div>
+
+                  <!-- EXISTING TIMESLOTS -->
+                  <div ng-repeat="slot in $ctrl.dateInputTimes[day].times">
+                    <div style="width:40%; display:inline-block;">from:
+                      <div ng-if="::!$ctrl.isMobileDevice()" uib-timepicker ng-model="slot.start" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+                      <input type="time" ng-if="::$ctrl.isMobileDevice()" ng-model="slot.start" ng-change=$ctrl.onTimeChange(day,slot) step="900"/>
+
+                    </div>
+                    <div style="width:40%; display: inline-block;">to:
+                      <div ng-if="::!$ctrl.isMobileDevice()" uib-timepicker ng-model="slot.end" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+                      <input type="time" ng-if="::$ctrl.isMobileDevice()" ng-model="slot.end" ng-change=$ctrl.onTimeChange(day,slot) step="900"/></div>
+                    <div style="width:10%; display: inline-block; color: blue;" ng-click="$ctrl.removeTimeSlot(day, $index)">remove</div>
+                    <div>copy to: <span ng-repeat="dayApply in $ctrl.days" ng-if="!$ctrl.updatedLocation.openTimes[dayApply].closed && dayApply!==day" class="btn" ng-click="$ctrl.copyTimeSlotToDay(slot,dayApply)">{{$ctrl.dayMap[dayApply]}}</span></div>
+                  </div>
+
+                  <div class="btn btn--green" ng-click="$ctrl.addTimeSlotForDay(day)">Add time slot</div>
+
+                  <!-- NEW TIMESLOT -->
+                  <!--div>
+                    <div style="width:40%; display:inline-block;">from: <input type="time" ng-model="$ctrl.updatedLocation.openTimes[day][0].start" step="900"/></div>
+                    <div style="width:40%; display: inline-block;">to: <input type="time" ng-model="$ctrl.updatedLocation.openTimes[day][0].end" /></div-->
+                    <!--div>copy to: <span ng-repeat="dayApply in $ctrl.days" ng-if="!$ctrl.updatedLocation.openTimes[dayApply].closed" class="btn">{{$ctrl.dayMap[dayApply]}}</span></div-->
+                  <!--/div-->
+
+                </div>
+              </div>
             </div>
       </fieldset>
-    -->
 
       <!--<fieldset>
         <legend>Menu:</legend>
@@ -139,8 +169,14 @@
       <div ng-if="$ctrl.showSuccess">Changes saved! Thank you for your contribution :-)</div>
       <div ng-if="$ctrl.showError">An error occurred. Please send a message saying what you were doing when the error occurred.</div>
     </form>
-    <pre>newLocation = {{$ctrl.updatedLocation | json}}</pre>
+    <!--pre>newLocation = {{$ctrl.updatedLocation | json}}</pre-->
   </div>
 
-  <div class="formOffsetRight grd-row-col-1-6--md"> </div>
+</div>
+
+<div class="formOffsetRight grd-row">
+  <div style="top:0;" class="grd-row-col-1-6--md">
+      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
+      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
+  </div>
 </div>

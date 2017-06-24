@@ -37,6 +37,9 @@
 #list-view-header {
     border-bottom: 3px solid darkgrey;
 }
+#list-view-header i.fa:hover{
+    color: #aaa;
+}
 .create-location-button {
   color: #333;
 }
@@ -47,6 +50,15 @@
 .home-link:hover {
   text-decoration: underline overline;
   color: #333;
+}
+
+.openTimesList {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-bottom: 10px;
+}
+.today {
+  font-weight: bold;
+  background: #eee;
 }
 
 /*#list-view */

@@ -25,6 +25,8 @@ define(function(require) {
       // ...which depends on the `locationList` module
       // 'ngAnimate',
       'rzModule',
+      'ui.bootstrap',
+      'ui.bootstrap.timepicker',
       components
     ]).service('LocationService', require('./services/locationService'))
     .filter('removeDiacriticsFilter', function() {

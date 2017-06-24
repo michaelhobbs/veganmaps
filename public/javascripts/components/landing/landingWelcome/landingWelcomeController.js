@@ -7,7 +7,7 @@ define(function(require) {
   function landingWelcomeController($routeParams, $location, $scope, $log, $timeout, LocationService) {
         var ctrl = this;
         ctrl.LocationService = LocationService;
-
+        
         var provider = new Lgeo.OpenStreetMapProvider({
           params:{
             countrycodes: 'CH',

@@ -19,7 +19,13 @@
           leaflet : '../lib/leaflet/dist/leaflet',
           leafletgeosearch: '../node/leaflet-geosearch/dist/bundle.min',
           'whatwg-fetch' : '../lib/fetch/fetch',
-          removeDiacritics: './lib/removeDiacritics'
+          removeDiacritics: './lib/removeDiacritics',
+          'moment': '../lib/moment/moment',
+          '_': '../lib/lodash/lodash',
+          'angular-animate': '../lib/angular-animate/angular-animate',
+          'angular-touch': '../lib/angular-touch/angular-touch',
+          //'ui-bootstrap': '../lib/angular-bootstrap/ui-bootstrap',
+          'ui-bootstrap': '../lib/angular-bootstrap/ui-bootstrap-tpls'
           // es6: '../lib/requirejs-babel/es6', // added when trying to use bower's leaflet-geosearch, in order to transcompile at load time
           // babel: '../lib/requirejs-babel/babel-5.8.34.min'
       },
@@ -33,7 +39,9 @@
         angular: {
             exports : 'angular'
         },
-        socketio: {exports: 'io'}
+        socketio: {exports: 'io'},
+        'ui-bootstrap': {deps:['angular']},
+        //'ui-bootstrap-tpls': {deps:['angular']}
     },
 
     priority: [
@@ -43,7 +51,7 @@
 
   // Start loading the main app file. Put all of
   // your application logic in there.
-  require(['whatwg-fetch'], function () {
+  require(['whatwg-fetch', 'moment', 'ui-bootstrap'], function () {
     requirejs(['app'], function() {
       console.log('requireJS loading success');
     }, function(exception) {

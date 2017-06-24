@@ -13,14 +13,16 @@
     <div id="list-view-header" class="p1 clearfix">
       <!-- List Header Controls -->
       <div class="grd-row">
-        <h3 class="my0 txt--left grd-row-col-3-6 fnt--moon"><a href="maps#/" class="fnt--moon-bold home-link">v_m</a> Feed me.</a></h3>
+        <h3 class="my0 txt--left grd-row-col-3-6 fnt--moon"><a href="maps#/" class="fnt--moon-bold home-link">v_m </a> Feed me.</a></h3>
 
         <div class="txt--right h3 grd-row-col-3-6" style="margin:0;">
-          <a href="#/maps/new" aria-label="Create location"><i class="fa fa-plus create-location-button"></i></a>
+          <a href="#/" aria-label="go to home page"><i class="fa fa-home create-location-button" aria-label="go to home page"></i></a>
 
-          <i class="fa fa-cog ml1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"></i>
+          <a ng-href="#/maps/new" aria-label="Create location"><i class="fa fa-plus create-location-button ml1"></i></a>
 
-          <i class="fa fa-map ml1 cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="$ctrl.LocationService.listView"></i>
+          <i class="fa fa-filter ml1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"></i>
+
+          <i class="fa fa-close ml1 cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="$ctrl.LocationService.listView"></i>
         </div>
       </div>
 
@@ -64,14 +66,35 @@
             <img ng-src="images/{{location.picPath || 'default.thumbnail.png'}}" class="location-icon" alt="{{location.name}}"></img>
           </a>
         </div>
-        <div class="grd-row-col-5-6 media-body">
+        <div class="grd-row-col-3-6 media-body">
           <a href="#/maps/id/{{location._id}}" class="location-name">{{location.name | removeDiacriticsFilter}}</a>
           <div>{{location.distance}} m</div>
           <span ng-repeat="(key, value) in location.flags" ng-if="value"><img class="locationFlagIcon {{key}}"></img> </span>
+
+        </div>
+        <div class="grd-row-col-2-6 media-body">
+          <span ng-if="$ctrl.hasOpenTimes(location.openTimes) && $ctrl.isOpen(location.openTimes)" style="color: green; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
+            <i class="fa fa-clock-o" aria-label="restaurant is open"></i> OPEN <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
+          </span>
+          <span ng-if="$ctrl.hasOpenTimes(location.openTimes) && !$ctrl.isOpen(location.openTimes)" style="color: red; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
+            <i class="fa fa-clock-o" aria-label="restaurant is closed"></i> CLOSED <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
+          </span>
+          <span ng-if="!$ctrl.hasOpenTimes(location.openTimes)" style="color: orange; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
+            <i class="fa fa-clock-o" aria-label="restaurant could be open or closed. missing data"></i> open? <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
+          </span>
+
+          <div class="openTimesList" ng-show="location.showOpenTimes">
+            <div ng-repeat="(day, times) in location.openTimes" ng-if="times.times.length>0" ng-class="{'well': $ctrl.isToday(day)}">{{$ctrl.isoToStringDay(day)}}
+              <div ng-repeat="timeSlot in times.times" class="ml1">{{$ctrl.getTimeString(timeSlot.start)}} - {{$ctrl.getTimeString(timeSlot.end)}}</div>
+            </div>
+            <div ng-hide="$ctrl.hasOpenTimes(location.openTimes)">No open times found</div>
+          </div>
+
           <div>
-            <a href="{{location.url}}" ng-if="location.url" target="_blank">website</a>
-            <span ng-if="location.url"> | </span>
-            <a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank">directions</a>
+            <a href="{{location.url}}" ng-if="location.url" target="_blank"><i class="fa fa-globe" aria-label="Visit restaurant's website"></i> website</a>
+          </div>
+          <div>
+            <a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank"><i class="fa fa-arrow-right" aria-label="Get directions from Google"></i> directions</a>
           </div>
         </div>
 

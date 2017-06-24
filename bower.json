@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "angular": "1.5.x",
+    "angular": "1.5.11",
     "angular-route": "1.5.x",
     "furtive": "2.3.x",
     "angularjs-slider": "^5.9.0",
@@ -14,10 +14,11 @@
     "leaflet-geosearch": "^2.0.0",
     "requirejs-babel": "^0.0.9",
     "fetch": "^2.0.3",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "lodash": "^4.17.4",
+    "angular-bootstrap": "^2.5.0"
   },
   "resolutions": {
-    "angular": "1.5.10",
-    "angular-animate": "1.5.10"
+    "angular": "1.5.11"
   }
 }

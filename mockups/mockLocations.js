@@ -36,30 +36,31 @@ function populateDB() {
     phone: "044 448 15 20",
     picPath: "d5a121_506227dc77454bedadbb55918e2295a3.jpg",
     openTimes: {
-      monday: [{
-          start: 1100,
-          end: 2300
-      }],
-      tuesday: [{
-          start: 1100,
-          end: 2300
-      }],
-      wednesday: [{
-          start: 1100,
-          end: 2300
-      }],
-      thursday: [{
-          start: 1100,
-          end: 2300
-      }],
-      friday: [{
-          start: 1100,
-          end: 2300
-      }],
-      saturday: [{
-          start: 1100,
-          end: 2300
-      }]
+      1: {times:[{
+          start: 660,
+          end: 1380
+      }]},
+      2: {times:[{
+          start: 660,
+          end: 1380
+      }]},
+      3: {times:[{
+          start: 660,
+          end: 1380
+      }]},
+      4: {times:[{
+          start: 660,
+          end: 1380
+      }]},
+      5: {times:[{
+          start: 660,
+          end: 1380
+      }]},
+      6: {times:[{
+          start: 660,
+          end: 1380
+      }]},
+      7: {closed: true}
     },
     created_at: new Date,
     updated_at: new Date

@@ -59,34 +59,48 @@ var locationSchema = new Schema({
   phone: String,
   picPath: String,
   openTimes: {
-    monday: [{
-        start: Number,
-        end: Number
-    }],
-    tuesday: [{
-        start: Number,
-        end: Number
-    }],
-    wednesday: [{
-        start: Number,
-        end: Number
-    }],
-    thursday: [{
-        start: Number,
-        end: Number
-    }],
-    friday: [{
-        start: Number,
-        end: Number
-    }],
-    saturday: [{
-        start: Number,
-        end: Number
-    }],
-    sunday: [{
-        start: Number,
-        end: Number
-    }]
+    1: {
+        closed: Boolean,
+        times: [{
+          start: Number,
+          end: Number
+    }]},
+    2: {
+        closed: Boolean,
+        times: [{
+          start: Number,
+          end: Number
+    }]},
+    3:  {
+        closed: Boolean,
+        times: [{
+          start: Number,
+          end: Number
+    }]},
+    4:  {
+        closed: Boolean,
+        times: [{
+          start: Number,
+          end: Number
+    }]},
+    5:  {
+        closed: Boolean,
+        times: [{
+          start: Number,
+          end: Number
+    }]},
+    6:  {
+        closed: Boolean,
+        times: [{
+          start: Number,
+          end: Number
+    }]},
+    7:  {
+        closed: Boolean,
+        times: [{
+          start: Number,
+          end: Number
+    }]}
   },
   created_at: {
         type: Date,
