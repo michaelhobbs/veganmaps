@@ -7,6 +7,7 @@ define(function(require) {
 
   function locationListController($scope, $timeout, $mdSidenav, LocationService) {
     var ctrl = this;
+    ctrl.isSidenavOpen = function() { return $mdSidenav('right').isOpen();};
     ctrl.LocationService = LocationService;
     ctrl.LocationService.range = 2000;
     ctrl.defaultMapPosition =  {coords: {latitude: 47.3841831, longitude: 8.5329786}};
@@ -107,6 +108,14 @@ define(function(require) {
         ]
       }
     };
+
+    $timeout(function () {
+        //DOM has finished rendering
+      // restore sideNav upon navigation/reloading controller
+      if (ctrl.LocationService.listView) {
+          $mdSidenav('right').toggle();
+      }
+    });
   };
 
 return ['$scope', '$timeout', '$mdSidenav', 'LocationService', locationListController];
