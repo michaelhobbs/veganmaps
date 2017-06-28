@@ -277,7 +277,9 @@ define(function(require) {
     // in the initialize function it will create the map, so we have to wait for the DOM to be ready in order for the map to have correct size.
     // at the end of the initialize function a call is made to the backend to fetch the locations near the center of the map
     angular.element(document).ready(function () {
-      ctrl.LocationService.initializeMap();
+      $timeout(function () {
+        ctrl.LocationService.initializeMap();
+      }, 300);
     });
 
 

@@ -121,7 +121,7 @@ body {
     margin: 0 !important;
     padding: 0 !important;
     background: white;
-    overflow: hidden;
+    overflow: hidden; // TODO only apply this rule if on map page
 }
 /*
 a {
