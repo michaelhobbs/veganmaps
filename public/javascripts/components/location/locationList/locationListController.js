@@ -5,7 +5,7 @@ define(function(require) {
   var moment = require('moment');
   var _ = require('_');
 
-  function locationListController($scope, $timeout, LocationService) {
+  function locationListController($scope, $timeout, $mdSidenav, LocationService) {
     var ctrl = this;
     ctrl.LocationService = LocationService;
     ctrl.LocationService.range = 2000;
@@ -33,16 +33,16 @@ define(function(require) {
     }
 
     ctrl.filterExpression = function(location) {
-      var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || location.flags[ctrl.LocationService.lastSearch.filterProp] === true);
-      var distanceFilterValidates = $scope.slider.value >= location.distance;
-      var openTimeFilterValidates = !ctrl.LocationService.lastSearch.filterByOpenNow || ctrl.isOpen(location.openTimes);
-      return typeFilterValidates && distanceFilterValidates && openTimeFilterValidates;
+      return ctrl.LocationService.filterValidates(location);
     }
 
     ctrl.toggleList = function() {
+        $mdSidenav('right').toggle();
         ctrl.LocationService.listView = !ctrl.LocationService.listView;
-        ctrl.LocationService.resizeMap();
-
+        $timeout(function () {
+          ctrl.LocationService.resizeMap();
+        }, 300);
+        ctrl.updateCircleRange(); // hack to make markers update
     }
 
     ctrl.updateCircleRange = function() {
@@ -109,6 +109,6 @@ define(function(require) {
     };
   };
 
-  return ['$scope', '$timeout', 'LocationService', locationListController];
+return ['$scope', '$timeout', '$mdSidenav', 'LocationService', locationListController];
 
 });

@@ -2,6 +2,9 @@
     max-height: 100%;
     margin: 0px;
     padding: 0px;
+    z-index: 50;
+    transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 .container.list-view-open #map-canvas {
@@ -31,6 +34,7 @@
 
 #list-view {
     height: 100%;
+    width: 100%;
     margin: 0;
     overflow: auto;
 }
@@ -116,6 +120,8 @@ a:hover {
 body {
     margin: 0 !important;
     padding: 0 !important;
+    background: white;
+    overflow: hidden;
 }
 /*
 a {

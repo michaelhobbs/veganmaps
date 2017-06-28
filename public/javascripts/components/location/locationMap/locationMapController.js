@@ -31,18 +31,16 @@ define(function(require) {
         ctrl.rangeCirclemarker.setRadius(ctrl.LocationService.range);
         //for marker in markers, if marker.distance > range -> set marker opacity to low
         ctrl.LocationService.lastSearch.results.forEach(function(place){
-          var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || place.flags[ctrl.LocationService.lastSearch.filterProp] === true);
-          var distanceFilterValidates = ctrl.LocationService.range >= place.distance;
-          if (!(typeFilterValidates && distanceFilterValidates)) {
+          if (!ctrl.LocationService.filterValidates(place)) {
             // find corresponding marker and change its opacity and z-index
-            var t = ctrl.LocationService.markers.find(function (m) { return m.id === place._id;});
+            var t = _.find(ctrl.LocationService.markers,function (m) { return m.id === place._id;});
             if (t) {
               //ctrl.LocationService.map.removeLayer(marker.marker);
               t.marker.setOpacity(0.5);
             }
           }
           else {
-            var t = ctrl.LocationService.markers.find(function (m) { return m.id === place._id;});
+            var t = _.find(ctrl.LocationService.markers,function (m) { return m.id === place._id;});
             if (t) {
               //ctrl.LocationService.map.removeLayer(marker.marker);
               t.marker.setOpacity(1);
@@ -80,9 +78,7 @@ define(function(require) {
             ctrl.LocationService.markers.push({id:place._id, marker: L.marker(place.location.coordinates.reverse()//,{icon:ctrl.locationMarkerIcon}
               ).addTo(ctrl.LocationService.map).bindPopup('<a href="#/maps/id/'+place._id+'" class="location-name">'+place.name+'</a><br><a href="https://www.google.com/maps/dir/' + ctrl.LocationService.lastSearch.coords.latitude+','+ctrl.LocationService.lastSearch.coords.longitude+'/'+place.location.coordinates[0]+','+place.location.coordinates[1]+'" target="_blank">directions</a>'+'<div>'+flagsHTML+'<div>')});
             var t = ctrl.LocationService.markers.find(function (m) { return m.id === place._id;});
-            var typeFilterValidates = (ctrl.LocationService.lastSearch.filterProp === 'all' || place.flags[ctrl.LocationService.lastSearch.filterProp] === true);
-            var distanceFilterValidates = ctrl.LocationService.range >= place.distance;
-            if (!(typeFilterValidates && distanceFilterValidates)) {
+            if (!ctrl.LocationService.filterValidates(place)) {
               if (t) {
                 //ctrl.LocationService.map.removeLayer(marker.marker);
                 t.marker.setOpacity(0.5);
