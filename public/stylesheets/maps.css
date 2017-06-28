@@ -138,6 +138,7 @@ a {
 .mb2 {margin-bottom: 2rem;}
 .mt1 {margin-top: 1rem;}
 .pt05 {padding-top: 0.5rem;}
+.pl1 {padding-left:1rem;}
 .brdrt {border-top: thin solid;}
 @media screen and (max-width: 48rem) {
   .mapContainer-listOpen {

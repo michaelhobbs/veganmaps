@@ -7,7 +7,7 @@ define(function(require) {
 
   function locationListController($scope, $timeout, $mdSidenav, LocationService) {
     var ctrl = this;
-    ctrl.isSidenavOpen = function() { return $mdSidenav('right').isOpen();};
+    //ctrl.isSidenavOpen = function() { return $mdSidenav('right').isOpen();};
     ctrl.LocationService = LocationService;
     ctrl.LocationService.range = 2000;
     ctrl.defaultMapPosition =  {coords: {latitude: 47.3841831, longitude: 8.5329786}};
