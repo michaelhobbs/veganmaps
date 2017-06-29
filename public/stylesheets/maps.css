@@ -121,7 +121,7 @@ body {
     margin: 0 !important;
     padding: 0 !important;
     background: white;
-    /*overflow: hidden; // TODO only apply this rule if on map page*/
+    overflow-x: hidden; /* TODO only apply this rule if on map page? Is used to avoid horizontal scroll on desktop when map view opens or closes sidenav and animation is playing*/
 }
 /*
 a {
