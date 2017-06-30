@@ -98,10 +98,12 @@ a:hover {
   width: 2rem;
   border-radius: 50%;
   display: inline-block;
-    margin-left: 0.3rem;
+  margin-left: 0.3rem;
 
 }
-
+.locationFlagIcon:first-child {
+    margin: 0;
+}
 .locationFlagIcon.meat {
   background-color: #B3362E;
   /*content: url("/images/meat_options.png");*/

@@ -37,6 +37,7 @@ define(function(require) {
             if (t) {
               //ctrl.LocationService.map.removeLayer(marker.marker);
               t.marker.setOpacity(0.5);
+              t.marker.getElement().style.filter = "grayscale(100%)";
             }
           }
           else {
@@ -44,6 +45,7 @@ define(function(require) {
             if (t) {
               //ctrl.LocationService.map.removeLayer(marker.marker);
               t.marker.setOpacity(1);
+              t.marker.getElement().style.filter = "none";
             }
           }
 
@@ -82,6 +84,7 @@ define(function(require) {
               if (t) {
                 //ctrl.LocationService.map.removeLayer(marker.marker);
                 t.marker.setOpacity(0.5);
+                t.marker.getElement().style.filter = "grayscale(100%)";
               }
             }
           });

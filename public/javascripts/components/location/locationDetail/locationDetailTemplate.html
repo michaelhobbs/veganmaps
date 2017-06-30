@@ -1,6 +1,7 @@
 
 <div class="px2 mx2 center txt--center">
 
+<!-- MAIN ITEM -->
   <div ng-if="$ctrl.prev._id || $ctrl.next._id" class="mt1 grd-row">
     <span class="grd-row-col-3-6">
       <a href="#/maps/id/{{$ctrl.prev._id}}" ng-if="$ctrl.prev._id" class="btn btn--link flt--right">&lt; {{$ctrl.prev.name}}</a>
@@ -25,18 +26,47 @@
         </span>
       </div>
       <div>
-        <a href="{{$ctrl.locationDetails.url}}" ng-if="$ctrl.locationDetails.url" target="_blank">website</a>
-        <span ng-if="$ctrl.locationDetails.url"> | </span>
-        <a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{$ctrl.locationDetails.latitude}},{{$ctrl.locationDetails.longitude}}" target="_blank">directions</a>
+        <a href="{{$ctrl.locationDetails.url}}" ng-if="$ctrl.locationDetails.url" target="_blank"><i class="fa fa-globe" aria-label="Visit restaurant's website"></i> website</a>
+      </div>
+      <div>
+        <a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{$ctrl.locationDetails.latitude}},{{$ctrl.locationDetails.longitude}}" target="_blank"><i class="fa fa-arrow-right" aria-label="Get directions from Google"></i> directions</a>
       </div>
     </div>
 
+    <md-button ng-href="#/maps/edit/{{$ctrl.locationId}}">Edit</md-button>
+    <md-button ng-href="#/maps/">Back</md-button>
+
   </div>
 
-  <div class="my2">
-    <a href="#/maps/edit/{{$ctrl.locationId}}" ng-if="$ctrl.fromSearch" class="btn btn--gray">Edit details</a>
+<!-- LIST OF SECONDARY ITEMS -->
+  <md-content class="md-padding">
+    <md-grid-list
+          md-cols-gt-md="4" md-cols="1" md-cols-md="3"
+          md-row-height-gt-md="2:1" md-row-height="2:1"
+          md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px">
+      <md-grid-tile ng-repeat="location in $ctrl.LocationService.lastSearch.results">
+        <md-card style="width:100%;height:100%">
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-sm card-media"><img ng-src="images/{{location.picPath || 'default.thumbnail.png'}}"></div>
+            </md-card-title-media>
+            <md-card-title-text>
+              <span class="md-headline">{{location.name}}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button>Action 1</md-button>
+            <md-button>Action 2</md-button>
+          </md-card-actions>
+        </md-card>
+      </md-grid-tile>
+    </md-grid-list>
+  </md-content>
 
-    <a href="#/maps/" ng-if="$ctrl.fromSearch" class="btn btn--blue">Back to map</a>
-    <a href="#/maps/" ng-if="!$ctrl.fromSearch" class="btn btn--blue">New search</a>
+<!-- FOOTER -->
+  <div class="my2">
+
+    <md-button ng-href="#/maps/edit/{{$ctrl.locationId}}">Edit</md-button>
+    <md-button ng-href="#/maps/">Back</md-button>
   </div>
 </div>

@@ -3,7 +3,7 @@
   <input id="searchTextField" class="fa fa-search" type="text" placeholder="Search"></input>
 </div>
 
-<i id="list-toggle" class="bg--dark-gray fnt--light-gray fa cursor--pointer h3 p1" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"><md-tooltip md-direction="bottom">open list</md-tooltip></i>
+<i id="list-toggle" class="bg--dark-gray fnt--light-gray fa cursor--pointer h3 p1" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">open list</md-tooltip></i>
 <div class="container grd-row pageRow h100" ng-class="{'list-view-open': $ctrl.LocationService.listView}">
   <location-map id="map-canvas" ng-class="{'grd-row-col-4-6--md': $ctrl.LocationService.listView, 'w100': !$ctrl.LocationService.listView, 'grd-row-col-6--lg': !$ctrl.LocationService.listView}"></location-map>
 
@@ -14,17 +14,17 @@
     <div id="list-view-header" class="p1 clearfix">
       <!-- List Header Controls -->
       <div class="grd-row">
-        <h3 class="my0 txt--left grd-row-col-3-6 fnt--moon"><a href="maps#/" class="fnt--moon-bold home-link">v_m <md-tooltip md-direction="bottom">home</md-tooltip></a> Feed me.
+        <h3 class="my0 txt--left grd-row-col-3-6 fnt--moon"><a href="maps#/" class="fnt--moon-bold home-link">v_m </a> Feed me.
           </h3>
 
         <div class="txt--right h3 grd-row-col-3-6" style="margin:0;">
-          <a href="#/" aria-label="go to home page"><i class="fa fa-home create-location-button" aria-label="go to home page"></i><md-tooltip md-direction="bottom">home</md-tooltip></a>
+          <a href="#/" aria-label="go to home page"><i class="fa fa-home create-location-button" aria-label="go to home page"></i><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">home</md-tooltip></a>
 
-          <a ng-href="#/maps/new" aria-label="Create location"><i class="fa fa-plus create-location-button pl1"></i><md-tooltip md-direction="bottom">add restaurant</md-tooltip></a>
+          <a ng-href="#/maps/new" aria-label="Create location"><i class="fa fa-plus create-location-button pl1"></i><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">add restaurant</md-tooltip></a>
 
-          <i class="fa fa-filter pl1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"><md-tooltip md-direction="bottom">filter results</md-tooltip></i>
+          <i class="fa fa-filter pl1 cursor--pointer" ng-click="$ctrl.toggleOptions()" aria-label="Toggle search options form"><md-tooltip md-direction="bottom" md-autohide ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">filter results</md-tooltip></i>
 
-          <i class="fa fa-close pl1 cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="$ctrl.LocationService.listView"><md-tooltip md-direction="bottom">close list</md-tooltip></i>
+          <i class="fa fa-close pl1 cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="$ctrl.LocationService.listView"><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">close list</md-tooltip></i>
         </div>
       </div>
 
@@ -57,10 +57,13 @@
               </md-select-->
               <md-input-container style="display: block;">
                <label>Filter by:</label>
-               <md-select ng-model="$ctrl.LocationService.lastSearch.filterProp" multiple>
+               <md-select ng-model="$ctrl.LocationService.lastSearch.filterProp" multiple ng-change="$ctrl.updateCircleRange()">
                 <md-option value="fullv">100% vegan</md-option>
                 <md-option value="gf">Gluten-free options</md-option>
                 <md-option value="meat">Meat options</md-option>
+                <md-option value="bio">Organic options</md-option>
+                <md-option value="local">Local produce</md-option>
+                <md-option value="raw">Raw options</md-option>
                 <md-option value="open">Open now</md-option>
                </md-select>
              </md-input-container>
@@ -91,10 +94,12 @@
         <div class="grd-row-col-3-6 media-body">
           <a href="#/maps/id/{{location._id}}" class="location-name">{{location.name | removeDiacriticsFilter}}</a>
           <div style="padding-left: 0.3rem;">{{location.distance}} m</div>
-          <div ng-repeat="(key, value) in location.flags" ng-if="value" class="locationFlagIcon {{key}}">
-            <!--img class="locationFlagIcon {{key}}"-->
-              <md-tooltip md-direction="bottom" md-delay="300">{{key}}</md-tooltip>
-            <!--/img-->
+          <div style="padding:0.3rem;display:inline-block;">
+            <div ng-repeat="(key, value) in location.flags" ng-if="value" class="locationFlagIcon {{key}}">
+              <!--img class="locationFlagIcon {{key}}"-->
+                <md-tooltip md-direction="bottom" md-delay="300">{{key}}</md-tooltip>
+              <!--/img-->
+            </div>
           </div>
 
         </div>
