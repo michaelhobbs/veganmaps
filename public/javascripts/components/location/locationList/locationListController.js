@@ -41,7 +41,7 @@ define(function(require) {
         $mdSidenav('right').toggle();
         $timeout(function () {
           ctrl.LocationService.resizeMap();
-        }, 200);
+        }, 400);
         ctrl.updateCircleRange(); // hack to make markers update
     }
 
