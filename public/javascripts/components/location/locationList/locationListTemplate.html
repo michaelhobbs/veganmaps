@@ -93,7 +93,7 @@
           <div style="padding-left: 0.3rem;">{{location.distance}} m</div>
           <div ng-repeat="(key, value) in location.flags" ng-if="value" class="locationFlagIcon {{key}}">
             <!--img class="locationFlagIcon {{key}}"-->
-              <md-tooltip md-direction="bottom" md-delay="100">{{key}}</md-tooltip>
+              <md-tooltip md-direction="bottom" md-delay="300">{{key}}</md-tooltip>
             <!--/img-->
           </div>
 
@@ -105,8 +105,8 @@
           <span ng-if="$ctrl.hasOpenTimes(location.openTimes) && !$ctrl.isOpen(location.openTimes)" style="color: red; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
             <i class="fa fa-clock-o" aria-label="restaurant is closed"></i> CLOSED <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
           </span>
-          <span ng-if="!$ctrl.hasOpenTimes(location.openTimes)" style="color: orange; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
-            <i class="fa fa-clock-o" aria-label="restaurant could be open or closed. missing data"></i> open? <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
+          <span ng-if="!$ctrl.hasOpenTimes(location.openTimes)" style="color: #999; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
+            <i class="fa fa-clock-o" aria-label="restaurant could be open or closed. missing data"></i> N/A
           </span>
 
           <div class="openTimesList" ng-show="location.showOpenTimes">
