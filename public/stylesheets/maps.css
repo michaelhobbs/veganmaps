@@ -588,3 +588,16 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 	-webkit-transform: scale3d(80, 80, 1);
 	transform: scale3d(80, 80, 1);
 }
+
+
+
+
+/* MATERIAL OVERWRITE
+make side nav full screen on mobile */
+@media (max-width: 450px) {
+  md-sidenav {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+}

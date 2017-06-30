@@ -42,7 +42,7 @@ define(function(require) {
         ctrl.LocationService.listView = !ctrl.LocationService.listView;
         $timeout(function () {
           ctrl.LocationService.resizeMap();
-        }, 300);
+        }, 200);
         ctrl.updateCircleRange(); // hack to make markers update
     }
 

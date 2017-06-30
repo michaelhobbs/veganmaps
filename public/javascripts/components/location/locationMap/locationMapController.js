@@ -90,7 +90,7 @@ define(function(require) {
 
       ctrl.LocationService.resizeMap = function() { // called when toggle list open/closed
         setTimeout(function(){
-          ctrl.LocationService.map.invalidateSize()
+          ctrl.LocationService.map.invalidateSize(true)
         }, 100);
       }
 
