@@ -90,12 +90,12 @@
         </div>
         <div class="grd-row-col-3-6 media-body">
           <a href="#/maps/id/{{location._id}}" class="location-name">{{location.name | removeDiacriticsFilter}}</a>
-          <div>{{location.distance}} m</div>
-          <span ng-repeat="(key, value) in location.flags" ng-if="value">
-            <img class="locationFlagIcon {{key}}">
-              <md-tooltip md-direction="right">{{key}}</md-tooltip>
-            </img>
-          </span>
+          <div style="padding-left: 0.3rem;">{{location.distance}} m</div>
+          <div ng-repeat="(key, value) in location.flags" ng-if="value" class="locationFlagIcon {{key}}">
+            <!--img class="locationFlagIcon {{key}}"-->
+              <md-tooltip md-direction="bottom" md-delay="100">{{key}}</md-tooltip>
+            <!--/img-->
+          </div>
 
         </div>
         <div class="grd-row-col-2-6 media-body">

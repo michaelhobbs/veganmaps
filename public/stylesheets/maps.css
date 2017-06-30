@@ -83,34 +83,49 @@ a:hover {
 .location-name {
     color: #333;/*#703030;*/
     font-weight: bold;
+    padding: 0.3rem;
 }
 
 .location-name:hover {
-    color: #333;/*#703030;*/
+    color: #666;/*#703030;*/
+    text-decoration: none;
+    background-color: #eee;
 }
 
 /* Flag icons */
 .locationFlagIcon {
-  height: 18px;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  display: inline-block;
+    margin-left: 0.3rem;
 
 }
+
 .locationFlagIcon.meat {
-  content: url("/images/meat_options.png");
+  background-color: #B3362E;
+  /*content: url("/images/meat_options.png");*/
 }
 .locationFlagIcon.gf {
-  content: url("/images/gluten_free.png");
+  background-color: #FAA945;
+  /*content: url("/images/gluten_free.png");*/
 }
 .locationFlagIcon.bio {
-  content: url("/images/bio.png");
+  background-color: #8B4513;
+  /*content: url("/images/bio.png");*/
 }
 .locationFlagIcon.raw {
-  content: url("/images/raw.png");
+  background-color: white;
+  border: 2px solid #333;
+  /*content: url("/images/raw.png");*/
 }
 .locationFlagIcon.fullv {
-  content: url("/images/100_percent_vegan.png");
+  background-color: #5B8930;
+  /*content: url("/images/100_percent_vegan.png");*/
 }
 .locationFlagIcon.local {
-  content: url("/images/local.png");
+  background-color: #89C4F4;
+  /*content: url("/images/local.png");*/
 }
 
 .container {

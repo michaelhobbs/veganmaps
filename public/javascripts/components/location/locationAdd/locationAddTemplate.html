@@ -81,7 +81,7 @@
           <div style="text-align: center;">
             <span ng-repeat="(key, value) in $ctrl.updatedLocation.flags">
               <label style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer;">
-                <img class="locationFlagIcon {{key}}"></img> {{key}} <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]" style="cursor:pointer;"/>
+                <div class="locationFlagIcon {{key}}"></div> <div>{{key}}</div> <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]" style="cursor:pointer;"/>
               </label>
             </span>
           </div>

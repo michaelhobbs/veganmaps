@@ -72,7 +72,7 @@ define(function(require) {
             console.log('Found close place: ', place);
             Object.keys(place.flags).forEach(function(key) {
               if (place.flags[key]) {
-                flagsHTML += '<span><img class="locationFlagIcon ' +key + '"></img></span>';
+                flagsHTML += '<div class="locationFlagIcon ' +key + '"></div>';
               }
             });
             ctrl.LocationService.markers.push({id:place._id, marker: L.marker(place.location.coordinates.reverse()//,{icon:ctrl.locationMarkerIcon}
