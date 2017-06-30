@@ -39,7 +39,6 @@ define(function(require) {
 
     ctrl.toggleList = function() {
         $mdSidenav('right').toggle();
-        ctrl.LocationService.listView = !ctrl.LocationService.listView;
         $timeout(function () {
           ctrl.LocationService.resizeMap();
         }, 200);
@@ -108,14 +107,6 @@ define(function(require) {
         ]
       }
     };
-
-    $timeout(function () {
-        //DOM has finished rendering
-      // restore sideNav upon navigation/reloading controller
-      if (ctrl.LocationService.listView) {
-          $mdSidenav('right').toggle();
-      }
-    });
   };
 
 return ['$scope', '$timeout', '$mdSidenav', 'LocationService', locationListController];
