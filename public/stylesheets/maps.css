@@ -594,7 +594,7 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 
 /* MATERIAL OVERWRITE
 make side nav full screen on mobile */
-@media (max-width: 450px) {
+@media (max-width: 800px) {
   md-sidenav {
     width: 100%;
     min-width: 100%;
