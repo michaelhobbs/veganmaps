@@ -28,8 +28,15 @@
     border-radius: 4px;
     background-clip: padding-box;
     padding-bottom: 0.5rem;
+}
 
-    color: black;
+#list-toggle md-icon {
+  color: #333;
+  height: auto;
+  width: auto;
+  max-height: auto;
+  max-width: auto;
+  font-size: 2rem;
 }
 
 #list-view {
@@ -44,6 +51,7 @@
 #list-view-header i.fa:hover{
     color: #aaa;
 }
+
 .create-location-button {
   color: #333;
 }
@@ -84,12 +92,25 @@ a:hover {
     color: #333;/*#703030;*/
     font-weight: bold;
     padding: 0.3rem;
+    display: inline-block;
 }
 
 .location-name:hover {
     color: #666;/*#703030;*/
     text-decoration: none;
     background-color: #eee;
+}
+.editButton {
+  min-width: auto;
+  min-height: auto;
+  margin:0;
+  line-height: inherit;
+}
+.editButton md-icon {
+  font-size: 1rem;
+  min-width: auto;
+  min-height: auto;
+  line-height: inherit;
 }
 
 /* Flag icons */
@@ -302,8 +323,6 @@ input, select, textarea {
   background-color: grey;
 }
 #autocompleter .btn {
-  font-size: 3rem;
-  padding: 0.5rem 1rem;
   font-family: "Moon Light", "Architext Regular", serif;
   cursor: pointer;
   background: transparent;
@@ -311,6 +330,9 @@ input, select, textarea {
   border: 2px solid rgb(204, 204, 204);
   width: auto;
   margin: 2rem auto auto;
+  display: inline-block;
+  font-size: 2rem;
+  padding: 0.1rem;
 }
 /*
 .fancyFocusEffectContainer {
@@ -359,13 +381,11 @@ input, select, textarea {
   margin: auto;
   background-color: rgba(255,255,255,0.8);
   margin-top: 1rem;
-  margin-right:20rem;
-  margin-left:20rem;
 }
 .landingSlogan {
   font-family: 'Moon Light', 'Architext Regular', serif;
   text-align: center;
-  font-size: 4rem;
+  font-size: 2rem;
   opacity: 1;
 }
 .landingInfoIcon {
@@ -491,7 +511,7 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
 	/*margin: 1em;*/
 	/*max-width: 400px;*/
 	/*width: calc(100% - 2em);*/
-  width: 100%;
+  width: auto;
 	vertical-align: top;
 }
 
@@ -551,6 +571,7 @@ and (orientation : landscape) { /* IPHONE6 LANDSCAPE ONLY STYLES GO HERE */
   line-height: normal;
   max-width: 500px;
   margin-top: 2rem;
+  display: inline-block;
 }
 
 .input__field--makiko {
@@ -617,4 +638,21 @@ make side nav full screen on mobile */
     min-width: 100%;
     max-width: 100%;
   }
+}
+
+.md-icon-auto-size {
+  font-size: initial;
+  vertical-align: text-bottom;
+  min-width: auto;
+  min-height: auto;
+  height: auto;
+  width: auto;
+}
+
+.md-icon-header-button {
+  height: auto !important;
+  width: auto !important;
+  color: #333 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }

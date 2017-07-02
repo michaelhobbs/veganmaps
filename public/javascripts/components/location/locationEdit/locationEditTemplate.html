@@ -16,85 +16,103 @@
     <div style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Are you there now? Fill form with your location:</div>
     <button style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Use my current location</button>
     <form name="form" novalidate class="simple-form">
-      <fieldset>
-        <legend>Name*:</legend>
-            <div>
-              <input type="text" ng-model="$ctrl.updatedLocation.name" name="name" required=""/>
-              <div ng-show="form.$submitted || form.name.$touched">
-                <div ng-show="form.name.$error.required">Required</div>
+      <md-input-container>
+        <label>Name</label>
+        <input required name="name" ng-model="$ctrl.updatedLocation.name"  md-maxlength="50">
+        <div ng-messages="form.name.$error" role="alert">
+          <div ng-message-exp="['required', 'maxlength']">This is required.</div>
+        </div>
+      </md-input-container>
+
+      <div layout="row">
+        <md-input-container flex="20">
+          <label>Number</label>
+          <input name="addressNumber" ng-model="$ctrl.updatedLocation.address.number">
+        </md-input-container>
+
+        <md-input-container flex="80">
+          <label>Street</label>
+          <input name="addressStreet" ng-model="$ctrl.updatedLocation.address.street">
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container flex-gt-sm>
+          <label>Postcode</label>
+          <input name="addressPostcode" ng-model="$ctrl.updatedLocation.address.postcode" placeholder="1234" ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+          <div ng-messages="form.addressPostcode.$error" role="alert">
+              <div ng-message="pattern" class="my-message">Please provide a 4-digit postcode.
+              </div>
+              <div ng-message="md-maxlength" class="my-message">
+                Max 4 digits.
               </div>
             </div>
-      </fieldset>
+        </md-input-container>
 
-      <fieldset>
-        <legend>Address*:</legend>
-        <div>Edit the address manually:</div>
-        <div>number</div>
-          <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.number" name="addressNumber"/>
-          </div>
-        <div>street</div>
-          <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.street" name="addressStreet"/>
-          </div>
-        <div>postcode</div>
-          <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.postcode" name="addressPostcode"/>
-          </div>
-        <div>city</div>
-          <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.city" name="addressCity"/>
-          </div>
-        <div>state</div>
-          <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.state" name="addressState"/>
-          </div>
-        <div>country</div>
-          <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.address.country" name="addressCountry"/>
+        <md-input-container flex-gt-sm>
+          <label>City</label>
+          <input name="addressCity" ng-model="$ctrl.updatedLocation.address.city">
+        </md-input-container>
+
+        <md-input-container flex-gt-sm>
+          <label>Canton</label>
+          <input name="addressState" ng-model="$ctrl.updatedLocation.address.state">
+        </md-input-container>
+      </div>
+
+
+      <div layout="row">
+        <md-input-container flex="50">
+          <label>Longitude</label>
+          <input required type="number" name="longitude" ng-model="$ctrl.updatedLocation.longitude" min="5.9" max="10.5">
+          <div ng-message="required">
+            Coordinates are required.
           </div>
 
-        <div>Longitude*</div>
-        <!--<div>{{$ctrl.oriLocation.longitude}}</div>-->
-        <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="5.9" max="10.5" name="longitude" required=""/>
+          <div ng-message="min">
+            Min longitude for Switzerland is: 5.9
+          </div>
 
-        <div ng-show="form.$submitted || form.longitude.$touched">
-          <div ng-show="form.longitude.$error.required">Required</div>
-          <span ng-show="form.longitude.$error.min || form.longitude.$error.max">
-            The coordinates must be in Switzerland. The longitude must be in range 5.9 to 10.5!</span>
-        </div>
+          <div ng-message="max">
+              Max longitude for Switzerland is: 10.5
+          </div>
+        </md-input-container>
 
-        <div>Latitude*</div>
-        <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="45.8" max="48" name="latitude" required=""/>
-        <div ng-show="form.$submitted || form.latitude.$touched">
-          <div ng-show="form.latitude.$error.required">Required</div>
-          <span ng-show="form.latitude.$error.min || form.latitude.$error.max">
-            The coordinates must be in Switzerland. The latitude must be in range 45.8 to 48.0!</span>
-        </div>
-      </fieldset>
-      <br>
+        <md-input-container flex="50">
+          <label>Latitude</label>
+          <input required type="number" name="latitude" ng-model="$ctrl.updatedLocation.latitude" min="45.8" max="48">
+          <div ng-message="required">
+            Coordinates are required.
+          </div>
 
-      <fieldset>
-        <legend>Offers:</legend>
-            <div style="text-align: center;">
-              <span ng-repeat="(key, value) in $ctrl.updatedLocation.flags">
-                <label style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer;">
-                  <div class="locationFlagIcon {{key}}"></div> {{key}} <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]" style="cursor:pointer;"/>
-                </label>
-              </span>
-            </div>
-      </fieldset>
+          <div ng-message="min">
+            Min latitude for Switzerland is: 45.8
+          </div>
 
-      <fieldset>
-        <legend>Contact:</legend>
-            <div>
-              <div>phone</div>
-              <input type="text" ng-model="$ctrl.updatedLocation.phone" name="phone" />
+          <div ng-message="max">
+            Max latitude for Switzerland is: 48
+          </div>
+        </md-input-container>
+      </div>
 
-              <div>url</div>
-              <input type="text" ng-model="$ctrl.updatedLocation.url" name="url" />
-            </div>
-      </fieldset>
+      <div ng-repeat="(key, value) in $ctrl.updatedLocation.flags" style="border:1px solid #eee; margin:0.3rem; padding: 1rem; display:inline-block; cursor:pointer;">
+        <md-checkbox ng-model="$ctrl.updatedLocation.flags[key]" flex>
+        <label>
+          <div class="locationFlagIcon {{key}}" style="cursor:pointer;"></div>
+          <div style="cursor:pointer;">{{$ctrl.flagMap[key]}}</div>
+        </label>
+      </div>
+
+      <div layout="row" style=margin-top:1rem;>
+        <md-input-container flex="50">
+          <label>Phone number</label>
+          <input type="text" name="phone" ng-model="$ctrl.updatedLocation.phone">
+        </md-input-container>
+        <md-input-container flex="50">
+          <label>Website URL</label>
+          <input type="text" name="url" ng-model="$ctrl.updatedLocation.url">
+        </md-input-container>
+      </div>
 
       <fieldset>
         <legend>Opening times:</legend>
@@ -121,7 +139,11 @@
                       <div ng-if="::!$ctrl.isMobileDevice()" uib-timepicker ng-model="slot.end" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
                       <input type="time" ng-if="::$ctrl.isMobileDevice()" ng-model="slot.end" ng-change=$ctrl.onTimeChange(day,slot) step="900"/></div>
                     <div class="btn btn--s btn--red fa fa-minus" style="display: inline-block; cursor:pointer;" ng-click="$ctrl.removeTimeSlot(day, $index)"></div>
-                    <div>copy to: <span ng-repeat="dayApply in $ctrl.days" ng-if="!$ctrl.updatedLocation.openTimes[dayApply].closed && dayApply!==day" class="btn" ng-click="$ctrl.copyTimeSlotToDay(slot,dayApply)" style=" cursor:pointer;">{{$ctrl.dayMap[dayApply]}}</span></div>
+                    <div ng-init="show = false" ng-click="show = !show">{{show ? 'copy to' : 'copy to another day'}}
+                    </div>
+                    <div>
+                      <span ng-if="show" ng-repeat="dayApply in $ctrl.days" ng-show="!$ctrl.updatedLocation.openTimes[dayApply].closed && dayApply!==day" class="btn" ng-click="$ctrl.copyTimeSlotToDay(slot,dayApply)" style=" cursor:pointer;">{{$ctrl.dayMap[dayApply]}}</span>
+                    </div>
                   </div>
 
                   <div class="btn btn--green fa fa-plus" style=" cursor:pointer;" ng-click="$ctrl.addTimeSlotForDay(day)"></div>
@@ -163,7 +185,7 @@
     -->
 
       <div style="width:100%; display: inline-block;text-align: center;">
-        <input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/>
+        <!--input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/-->
         <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" class="btn btn--green" style="max-width:49%; display: inline-block;box-sizing: border-box;"/>
       </div>
       <div ng-if="$ctrl.showSuccess">Changes saved! Thank you for your contribution :-)</div>

@@ -15,6 +15,17 @@ define(function(require) {
       ctrl.showAutocomplete = !ctrl.showAutocomplete;
     }
 
+    ctrl.flagMap = {
+            gf: "Gluten-free",
+            bio: "Organic",
+            raw: "Raw",
+            fullv: "100% vegan",
+            //vOpt: false,
+            //vOnReq: false,
+            local: "Local produce",
+            meat: "Meat"
+          }
+
     new moment();
     ctrl.days = [1,2,3,4,5,6,7];
     ctrl.dayMap = {

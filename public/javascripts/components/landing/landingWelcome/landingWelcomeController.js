@@ -83,7 +83,7 @@ define(function(require) {
           container.appendChild(form);
           root.appendChild(container);
           this.elements.container = container;
-          var searchButton =  form.appendChild(document.createElement('input'));
+          var searchButton =  form.insertBefore(document.createElement('input'),fancyFocusEffectContainer.nextSibling);
           searchButton.value = "go";
           searchButton.type = "submit";
           searchButton.className = "btn btn--search";

@@ -51,12 +51,12 @@
               <div class="md-media-sm card-media"><img ng-src="images/{{location.picPath || 'default.thumbnail.png'}}"></div>
             </md-card-title-media>
             <md-card-title-text>
-              <span class="md-headline">{{location.name}}</span>
+              <span class="md-headline"><a href="#/maps/id/{{location._id}}" class="location-name">{{location.name}}</a></span>
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button>Action 1</md-button>
-            <md-button>Action 2</md-button>
+            <!--md-button>Action 1</md-button>
+            <md-button>Action 2</md-button-->
           </md-card-actions>
         </md-card>
       </md-grid-tile>
@@ -64,9 +64,9 @@
   </md-content>
 
 <!-- FOOTER -->
-  <div class="my2">
+  <!--div class="my2">
 
     <md-button ng-href="#/maps/edit/{{$ctrl.locationId}}">Edit</md-button>
     <md-button ng-href="#/maps/">Back</md-button>
-  </div>
+  </div-->
 </div>

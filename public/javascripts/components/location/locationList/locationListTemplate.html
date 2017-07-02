@@ -3,7 +3,16 @@
   <input id="searchTextField" class="fa fa-search" type="text" placeholder="Search"></input>
 </div>
 
-<i id="list-toggle" class="bg--dark-gray fnt--light-gray fa cursor--pointer h3 p1" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">open list</md-tooltip></i>
+<!--i id="list-toggle" class="bg--dark-gray fnt--light-gray fa cursor--pointer h3 p1" ng-class="{'fa-bars': !$ctrl.LocationService.listView}" ng-click="$ctrl.toggleList()" aria-label="Toggle list" ng-show="!$ctrl.LocationService.listView"><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">open list</md-tooltip></i-->
+
+
+<button id="list-toggle" class="md-fab md-primary" ng-show="!$ctrl.LocationService.listView">
+  <md-icon md-font-library="material-icons" class="cursor--pointer" ng-click="$ctrl.toggleList()" aria-label="Toggle list">view_list
+    <md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">open list</md-tooltip>
+  </md-icon>
+</button>
+
+
 <div class="container grd-row pageRow h100" ng-class="{'list-view-open': $ctrl.LocationService.listView}">
   <location-map id="map-canvas" ng-class="{'grd-row-col-4-6--md': $ctrl.LocationService.listView, 'w100': !$ctrl.LocationService.listView, 'grd-row-col-6--lg': !$ctrl.LocationService.listView}"></location-map>
 
@@ -18,7 +27,23 @@
           </h3>
 
         <div class="txt--right h3 grd-row-col-3-6" style="margin:0;">
-          <a href="#/" aria-label="go to home page"><i class="fa fa-home create-location-button" aria-label="go to home page"></i><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">home</md-tooltip></a>
+          <!--a href="#/" aria-label="go to home page"><i class="fa fa-home create-location-button" aria-label="go to home page"></i><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">home</md-tooltip></a-->
+
+          <md-menu md-position-mode="target-right target" >
+            <md-button aria-label="Open menu" class="md-icon-button md-icon-header-button" ng-click="$mdMenu.open($event)">
+              <md-icon md-menu-origin>more_horiz</md-icon>
+            </md-button>
+            <md-menu-content width="2" >
+              <md-menu-item ng-repeat="item in $ctrl.menuOptions">
+                <md-button ng-href="{{item.href}}">
+                    <div layout="row" flex>
+                      <md-icon style="margin: auto 3px auto 0;">{{item.icon}}</md-icon>
+                      <p flex md-menu-align-target>{{item.label}}</p>
+                    </div>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
 
           <a ng-href="#/maps/new" aria-label="Create location"><i class="fa fa-plus create-location-button pl1"></i><md-tooltip md-direction="bottom" ng-if="::!$ctrl.LocationService.isMobileDevice()" md-delay="300">add restaurant</md-tooltip></a>
 
@@ -92,9 +117,14 @@
           </a>
         </div>
         <div class="grd-row-col-3-6 media-body">
-          <a href="#/maps/id/{{location._id}}" class="location-name">{{location.name | removeDiacriticsFilter}}</a>
-          <div style="padding-left: 0.3rem;">{{location.distance}} m</div>
-          <div style="padding:0.3rem;display:inline-block;">
+          <div>
+            <a href="#/maps/id/{{location._id}}" class="location-name">{{location.name | removeDiacriticsFilter}}</a>
+          </div>
+          <div style="padding-left: 0.3rem;display: inline-block;">{{location.distance}} m</div>
+          <md-button ng-href="#/maps/edit/{{location._id}}" aria-label="Edit location" ng-click="$ctrl.LocationService.currentLocation = location" class="editButton">
+            <md-icon>edit</md-icon>
+          </md-button>
+          <div style="padding:0.3rem;display:block;">
             <div ng-repeat="(key, value) in location.flags" ng-if="value" class="locationFlagIcon {{key}}">
               <!--img class="locationFlagIcon {{key}}"-->
                 <md-tooltip md-direction="bottom" md-delay="300">{{key}}</md-tooltip>
@@ -105,13 +135,13 @@
         </div>
         <div class="grd-row-col-2-6 media-body">
           <span ng-if="$ctrl.hasOpenTimes(location.openTimes) && $ctrl.isOpen(location.openTimes)" style="color: green; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
-            <i class="fa fa-clock-o" aria-label="restaurant is open"></i> OPEN <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
+            <md-icon md-font-library="material-icons" style="color:green;">schedule</md-icon> OPEN <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
           </span>
           <span ng-if="$ctrl.hasOpenTimes(location.openTimes) && !$ctrl.isOpen(location.openTimes)" style="color: red; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
-            <i class="fa fa-clock-o" aria-label="restaurant is closed"></i> CLOSED <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
+            <md-icon md-font-library="material-icons" style="color:red;">schedule</md-icon></i> CLOSED <i class="fa" ng-class="{'fa-angle-down': !location.showOpenTimes, 'fa-angle-up': location.showOpenTimes}" aria-label="show open times"></i>
           </span>
           <span ng-if="!$ctrl.hasOpenTimes(location.openTimes)" style="color: #999; cursor:pointer;" ng-click="location.showOpenTimes = !location.showOpenTimes">
-            <i class="fa fa-clock-o" aria-label="restaurant could be open or closed. missing data"></i> N/A
+            <md-icon md-font-library="material-icons" style="color:#999;">schedule</md-icon> N/A
           </span>
 
           <div class="openTimesList" ng-show="location.showOpenTimes">
@@ -122,13 +152,17 @@
           </div>
 
           <div>
-            <a href="{{location.url}}" ng-if="location.url" target="_blank"><i class="fa fa-globe" aria-label="Visit restaurant's website"></i> website</a>
+            <a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank">
+              <md-icon md-font-library="material-icons" style="color:#3498db;">directions</md-icon>directions
+            </a>
           </div>
           <div>
-            <a ng-href="https://www.google.com/maps/dir/{{$ctrl.LocationService.lastSearch.coords.latitude}},{{$ctrl.LocationService.lastSearch.coords.longitude}}/{{location.latitude}},{{location.longitude}}" target="_blank"><i class="fa fa-arrow-right" aria-label="Get directions from Google"></i> directions</a>
+            <a href="{{location.url}}" ng-if="location.url" target="_blank">
+              <md-icon md-font-library="material-icons" style="color:#3498db;">public</md-icon>website
+            </a>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
 

@@ -106,6 +106,24 @@ define(function(require) {
         ]
       }
     };
+
+    ctrl.menuOptions = [
+      {
+        icon: 'home',
+        label: 'home',
+        href: '#/'
+      },
+      {
+        icon: 'info',
+        label: 'about',
+        href: '#/info'
+      },
+      {
+        icon: 'forum',
+        label: 'forum',
+        href: '#/forum'
+      }
+    ];
   };
 
 return ['$scope', '$timeout', '$mdSidenav', 'LocationService', locationListController];
