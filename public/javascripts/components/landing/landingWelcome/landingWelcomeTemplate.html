@@ -28,7 +28,23 @@
   </div>
 </div>
 
-<a href="#/info">
+<!--a href="#/info">
   <img src="../images/info.png" class="landingInfoIcon">
   </img>
-</a>
+</a-->
+
+<md-menu md-position-mode="target-right target" class="landingInfoIcon">
+  <md-button aria-label="Open menu" class="md-icon-button md-icon-header-button" ng-click="$mdMenu.open($event)">
+    <md-icon md-menu-origin>menu</md-icon>
+  </md-button>
+  <md-menu-content width="2" >
+    <md-menu-item ng-repeat="item in $ctrl.menuOptions">
+      <md-button ng-href="{{item.href}}">
+          <div layout="row" flex>
+            <md-icon style="margin: auto 3px auto 0;">{{item.icon}}</md-icon>
+            <p flex md-menu-align-target>{{item.label}}</p>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

@@ -8,6 +8,34 @@ define(function(require) {
         var ctrl = this;
         ctrl.LocationService = LocationService;
 
+        ctrl.menuOptions = [
+          {
+            icon: 'info',
+            label: 'about',
+            href: '#/info'
+          },
+          {
+            icon: 'forum',
+            label: 'forum',
+            href: 'https://forum.veganmaps.ch/forum/'
+          },
+          {
+            icon: 'map',
+            label: 'map',
+            href: '#/maps'
+          },
+          {
+            icon: 'add',
+            label: 'add',
+            href: '#/maps/new'
+          },
+          {
+            icon: 'feedback',
+            label: 'contact',
+            href: '#/contact'
+          }
+        ];
+
         var provider = new Lgeo.OpenStreetMapProvider({
           params:{
             countrycodes: 'CH',

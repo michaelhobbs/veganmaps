@@ -411,8 +411,6 @@ location-form #autocompleter .input__field--makiko {
 }
 .landingInfoIcon {
   position: fixed;
-  height: 4rem;
-  width: 4rem;
   top: 2rem;
   right: 2rem;
 }
