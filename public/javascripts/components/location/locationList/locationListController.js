@@ -121,7 +121,7 @@ define(function(require) {
       {
         icon: 'forum',
         label: 'forum',
-        href: '#/forum'
+        href: 'https://forum.veganmaps.ch/forum/'
       }
     ];
   };
