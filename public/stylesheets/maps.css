@@ -339,6 +339,21 @@ input, select, textarea {
   font-size: 2rem;
   padding: 0.1rem;
 }
+
+location-edit #autocompleter .input__label-content {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+location-edit #autocompleter .input__label--makiko::before {
+  width:1rem;
+}
+location-edit #autocompleter .input--makiko {
+  margin-top:0;
+}
+
+location-edit #autocompleter .input__field--makiko {
+  font-size: 1rem;
+}
 /*
 .fancyFocusEffectContainer {
   position: relative;

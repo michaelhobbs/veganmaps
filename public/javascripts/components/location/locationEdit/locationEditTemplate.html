@@ -2,119 +2,105 @@
 <location-add></location-add>'
 -->
 <div class="formContainer grd-row">
-  <div class="formOffsetLeft grd-row-col-1-6--md" style="position: relative;">
+  <!--div class="formOffsetLeft grd-row-col-1-6--md" style="position: relative;">
     <div style="top:0;">
       <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
       <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
     </div>
-  </div>
-  <div class="grd-row-col-4-6--md">
+  </div-->
+  <div class="grd-row-col-6-6--md m1">
     <h4>Update:</h4>
-    <div style="cursor: pointer; color: dodgerblue;" ng-click="$ctrl.toggleAutocomplete()">Search for an address and autofill?</div>
-    <div id="autocompleter" ng-show="$ctrl.showAutocomplete"></div>
-    ------------------
-    <div style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Are you there now? Fill form with your location:</div>
-    <button style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Use my current location</button>
-    <form name="form" novalidate class="simple-form">
-      <md-input-container>
-        <label>Name</label>
-        <input required name="name" ng-model="$ctrl.updatedLocation.name"  md-maxlength="50">
-        <div ng-messages="form.name.$error" role="alert">
-          <div ng-message-exp="['required', 'maxlength']">This is required.</div>
+
+    <form name="form" novalidate class="simple-form grd-row">
+      <div style="border: 1px solid #c1c1c1;padding:1rem;" class="grd-row-col-3-6--lg">
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>Name</label>
+            <input required name="name" ng-model="$ctrl.updatedLocation.name"  md-maxlength="50">
+            <!--div ng-messages="form.name.$error" role="alert">
+              <div ng-message-exp="['required', 'maxlength']">This is required.</div>
+            </div-->
+          </md-input-container>
+          <div flex="50" style="text-align:center">
+            <div id="autocompleter"></div>
+            <div style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Are you there now?</div>
+            <button class="btn btn--grey btn--s" style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Use my GPS</button>
+          </div>
         </div>
-      </md-input-container>
 
-      <div layout="row">
-        <md-input-container flex="20">
-          <label>Number</label>
-          <input name="addressNumber" ng-model="$ctrl.updatedLocation.address.number">
-        </md-input-container>
+        <div layout="row">
+          <md-input-container flex="20">
+            <label>Number</label>
+            <input name="addressNumber" ng-model="$ctrl.updatedLocation.address.number">
+          </md-input-container>
 
-        <md-input-container flex="80">
-          <label>Street</label>
-          <input name="addressStreet" ng-model="$ctrl.updatedLocation.address.street">
-        </md-input-container>
-      </div>
+          <md-input-container flex="80">
+            <label>Street</label>
+            <input name="addressStreet" ng-model="$ctrl.updatedLocation.address.street">
+          </md-input-container>
+        </div>
 
-      <div layout="row">
-        <md-input-container flex-gt-sm>
-          <label>Postcode</label>
-          <input name="addressPostcode" ng-model="$ctrl.updatedLocation.address.postcode" placeholder="1234" ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
-          <div ng-messages="form.addressPostcode.$error" role="alert">
-              <div ng-message="pattern" class="my-message">Please provide a 4-digit postcode.
-              </div>
-              <div ng-message="md-maxlength" class="my-message">
-                Max 4 digits.
-              </div>
+        <div layout="row">
+          <md-input-container flex-gt-sm>
+            <label>Postcode</label>
+            <input name="addressPostcode" ng-model="$ctrl.updatedLocation.address.postcode" placeholder="1234" ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+            <!--div ng-messages="form.addressPostcode.$error" role="alert">
+                <div ng-message="pattern" class="my-message">Please provide a 4-digit postcode.
+                </div>
+                <div ng-message="md-maxlength" class="my-message">
+                  Max 4 digits.
+                </div>
+              </div-->
+          </md-input-container>
+
+          <md-input-container flex-gt-sm>
+            <label>City</label>
+            <input name="addressCity" ng-model="$ctrl.updatedLocation.address.city">
+          </md-input-container>
+
+          <md-input-container flex-gt-sm>
+            <label>Canton</label>
+            <input name="addressState" ng-model="$ctrl.updatedLocation.address.state">
+          </md-input-container>
+        </div>
+
+
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>Longitude</label>
+            <input required type="number" name="longitude" ng-model="$ctrl.updatedLocation.longitude" min="5.9" max="10.5">
+            <!--div ng-message="required">
+              Coordinates are required.
             </div>
-        </md-input-container>
 
-        <md-input-container flex-gt-sm>
-          <label>City</label>
-          <input name="addressCity" ng-model="$ctrl.updatedLocation.address.city">
-        </md-input-container>
+            <div ng-message="min">
+              Min longitude for Switzerland is: 5.9
+            </div>
 
-        <md-input-container flex-gt-sm>
-          <label>Canton</label>
-          <input name="addressState" ng-model="$ctrl.updatedLocation.address.state">
-        </md-input-container>
+            <div ng-message="max">
+                Max longitude for Switzerland is: 10.5
+            </div-->
+          </md-input-container>
+
+          <md-input-container flex="50">
+            <label>Latitude</label>
+            <input required type="number" name="latitude" ng-model="$ctrl.updatedLocation.latitude" min="45.8" max="48">
+            <!--div ng-message="required">
+              Coordinates are required.
+            </div>
+
+            <div ng-message="min">
+              Min latitude for Switzerland is: 45.8
+            </div>
+
+            <div ng-message="max">
+              Max latitude for Switzerland is: 48
+            </div-->
+          </md-input-container>
+        </div>
       </div>
 
-
-      <div layout="row">
-        <md-input-container flex="50">
-          <label>Longitude</label>
-          <input required type="number" name="longitude" ng-model="$ctrl.updatedLocation.longitude" min="5.9" max="10.5">
-          <div ng-message="required">
-            Coordinates are required.
-          </div>
-
-          <div ng-message="min">
-            Min longitude for Switzerland is: 5.9
-          </div>
-
-          <div ng-message="max">
-              Max longitude for Switzerland is: 10.5
-          </div>
-        </md-input-container>
-
-        <md-input-container flex="50">
-          <label>Latitude</label>
-          <input required type="number" name="latitude" ng-model="$ctrl.updatedLocation.latitude" min="45.8" max="48">
-          <div ng-message="required">
-            Coordinates are required.
-          </div>
-
-          <div ng-message="min">
-            Min latitude for Switzerland is: 45.8
-          </div>
-
-          <div ng-message="max">
-            Max latitude for Switzerland is: 48
-          </div>
-        </md-input-container>
-      </div>
-
-      <div ng-repeat="(key, value) in $ctrl.updatedLocation.flags" style="border:1px solid #eee; margin:0.3rem; padding: 1rem; display:inline-block; cursor:pointer;">
-        <md-checkbox ng-model="$ctrl.updatedLocation.flags[key]" flex>
-        <label>
-          <div class="locationFlagIcon {{key}}" style="cursor:pointer;"></div>
-          <div style="cursor:pointer;">{{$ctrl.flagMap[key]}}</div>
-        </label>
-      </div>
-
-      <div layout="row" style=margin-top:1rem;>
-        <md-input-container flex="50">
-          <label>Phone number</label>
-          <input type="text" name="phone" ng-model="$ctrl.updatedLocation.phone">
-        </md-input-container>
-        <md-input-container flex="50">
-          <label>Website URL</label>
-          <input type="text" name="url" ng-model="$ctrl.updatedLocation.url">
-        </md-input-container>
-      </div>
-
-      <fieldset>
+      <div style="border: 1px solid #c1c1c1;padding:1rem;" class="grd-row-col-3-6--lg">
         <legend>Opening times:</legend>
             <div>Closed days:</div>
             <span ng-repeat="day in $ctrl.days">
@@ -158,7 +144,28 @@
                 </div>
               </div>
             </div>
-      </fieldset>
+
+
+      </div>
+
+      <div ng-repeat="(key, value) in $ctrl.updatedLocation.flags" style="border:1px solid #eee; margin:0.3rem; padding: 1rem; display:inline-block; cursor:pointer;">
+        <md-checkbox ng-model="$ctrl.updatedLocation.flags[key]" flex>
+        <label>
+          <div class="locationFlagIcon {{key}}" style="cursor:pointer;"></div>
+          <div style="cursor:pointer;">{{$ctrl.flagMap[key]}}</div>
+        </label>
+      </div>
+
+      <div layout="row" style=margin-top:1rem;>
+        <md-input-container flex="50">
+          <label>Phone number</label>
+          <input type="text" name="phone" ng-model="$ctrl.updatedLocation.phone">
+        </md-input-container>
+        <md-input-container flex="50">
+          <label>Website URL</label>
+          <input type="text" name="url" ng-model="$ctrl.updatedLocation.url">
+        </md-input-container>
+      </div>
 
       <!--<fieldset>
         <legend>Menu:</legend>
