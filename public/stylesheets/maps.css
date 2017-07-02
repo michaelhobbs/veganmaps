@@ -190,6 +190,11 @@ a {
   cursor: pointer;
 }
 
+.btn--green {
+  background-color: green;
+  border-color: green;
+}
+
 /* furtive overwriting */
 input, select, textarea {
   color: black;
