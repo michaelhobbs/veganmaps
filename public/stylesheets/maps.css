@@ -676,3 +676,16 @@ make side nav full screen on mobile */
   padding: 0 !important;
   margin: 0 !important;
 }
+
+md-toast.success-toast.md-default-theme .md-toast-content {
+  background-color: rgba(38,139,38,0.9);
+}
+md-toast.md-default-theme.success-toast .md-toast-content .md-button.md-highlight, md-toast.success-toast .md-toast-content .md-button.md-highlight .md-action {
+  color: white;
+}
+md-toast.error-toast.md-default-theme .md-toast-content {
+  background-color: rgba(139,38,38,0.9);
+}
+md-toast.md-default-theme.error-toast .md-toast-content .md-button.md-highlight, md-toast.error-toast .md-toast-content .md-button.md-highlight .md-action  {
+  color: white;
+}

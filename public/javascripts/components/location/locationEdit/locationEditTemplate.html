@@ -205,11 +205,8 @@
 
       <div style="width:100%; display: inline-block;text-align: center;">
         <!--input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/-->
-        <md-button class="md-raised md-primary" type="submit" ng-click="form.$valid && $ctrl.update()">Save</md-button>
-
+        <md-button class="md-raised" type="submit" ng-click="form.$valid && $ctrl.update()">Save</md-button>
       </div>
-      <div ng-if="$ctrl.showSuccess">Changes saved! Thank you for your contribution :-)</div>
-      <div ng-if="$ctrl.showError">An error occurred. Please send a message saying what you were doing when the error occurred.</div>
     </form>
     <!--pre>newLocation = {{$ctrl.updatedLocation | json}}</pre-->
   </div>

@@ -4,7 +4,7 @@ define(function(require) {
   var Lgeo = require('leafletgeosearch');
   var moment = require('moment');
 
-  function locationEditController($routeParams, $http, $log, $scope, LocationService) {
+  function locationEditController($routeParams, $http, $log, $scope, $mdToast, LocationService) {
     var ctrl = this;
     ctrl.LocationService = LocationService;
     ctrl.oriLocation = (ctrl.LocationService.currentLocation && Object.keys(ctrl.LocationService.currentLocation).length) ? ctrl.LocationService.currentLocation : ctrl.locationDetails;
@@ -156,10 +156,34 @@ define(function(require) {
       ctrl.convertDatesToOpenTimes();
       $http.put('api/locations/' + $routeParams.locationId, ctrl.updatedLocation).then(function(response) {
         $log.debug('Update Success. Response: ', response);
-        ctrl.showSuccess = true;
+        var toast = $mdToast.simple()
+          .textContent('Save successful!')
+          .action('ok')
+          .highlightAction(true)
+          .position('bottom right')
+          .hideDelay(0)
+          .toastClass('success-toast');
+
+        $mdToast.show(toast).then(function(response) {
+          if ( response == 'ok' ) {
+            //alert('You clicked the \'UNDO\' action.');
+          }
+        });
       }, function(response) {
         $log.debug('Update Error. Response: ', response);
-        ctrl.showError = true;
+        var toast = $mdToast.simple()
+          .textContent('Save failed!')
+          .action('ok')
+          .highlightAction(true)
+          .position('bottom right')
+          .hideDelay(0)
+          .toastClass('error-toast');
+
+        $mdToast.show(toast).then(function(response) {
+          if ( response == 'ok' ) {
+            //alert('You clicked the \'UNDO\' action.');
+          }
+        });
       });
     }
 
@@ -297,6 +321,6 @@ define(function(require) {
     /** END AUTOCOMPLETE GEOSEARCH */
   };
 
-  return ['$routeParams', '$http', '$log', '$scope', 'LocationService', locationEditController];
+  return ['$routeParams', '$http', '$log', '$scope', '$mdToast', 'LocationService', locationEditController];
 
 });
