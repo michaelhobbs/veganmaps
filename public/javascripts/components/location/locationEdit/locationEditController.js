@@ -177,7 +177,8 @@ define(function(require) {
           .highlightAction(true)
           .position('bottom right')
           .hideDelay(0)
-          .toastClass('error-toast');
+          .toastClass('error-toast')
+          .parent(angular.element(document.body));
 
         $mdToast.show(toast).then(function(response) {
           if ( response == 'ok' ) {
