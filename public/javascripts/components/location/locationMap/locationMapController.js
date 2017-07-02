@@ -116,7 +116,16 @@ define(function(require) {
               if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                   $log.debug('coords: ' + position.coords.latitude + ', ' + position.coords.longitude);
-                  ctrl.moveMapTo(position.coords.latitude, position.coords.longitude);
+
+                  if (position.coords.latitude >= 45.8 && position.coords.latitude <= 48 && position.coords.longitude >= 5.9 && position.coords.longitude <= 10.5 ) {
+                    ctrl.moveMapTo(position.coords.latitude, position.coords.longitude);
+                  }
+                  else {
+                    ctrl.LocationService.userInSwitzerland = false;
+                    ctrl.LocationService.map.removeControl(ctrl.userPositionControl);
+                    alert("you need to be in Switzerland in order to use this feature");
+                  }
+
                 },
                 function (error) {
                   if (error.code == error.PERMISSION_DENIED)
@@ -171,8 +180,9 @@ define(function(require) {
         L.control.scale().addTo(ctrl.LocationService.map);
 
         // add control for moving map to user location
-        if (ctrl.LocationService.isMobileDevice()) {
-          ctrl.LocationService.map.addControl(new customControl());
+        if (ctrl.LocationService.isMobileDevice() && ctrl.LocationService.userInSwitzerland) {
+          ctrl.userPositionControl = new customControl();
+          ctrl.LocationService.map.addControl(ctrl.userPositionControl);
         }
         // autocomplete search controls
         var mapBounds = ctrl.LocationService.map.getBounds();

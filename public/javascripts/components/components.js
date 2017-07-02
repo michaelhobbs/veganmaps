@@ -6,11 +6,13 @@ define(function(require) {
   // import components
   var locationComponent = require('./location/module');
   var landingComponent = require('./landing/module');
+  var formsComponent = require('./forms/module');
 
   return angular.module('veganmaps.components', [
     // components
     locationComponent,
-    landingComponent
+    landingComponent,
+    formsComponent
   ])
   .name;
 });

@@ -1,110 +1,16 @@
 <div class="formContainer grd-row">
-  <div class="formOffsetLeft grd-row-col-1-6--md" style="position: relative;">
-    <div style="top:0;">
-      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
-      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
-    </div>
-    <div style="bottom:0;position: absolute;">
-      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
-      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
-    </div>
+  <div class="grd-row-col-6-6--md m1">
+    <h4>Add a new location:</h4>
+
+    <location-form location="$ctrl.oriLocation"></locaion-form>
+
   </div>
 
-  <div class="grd-row-col-4-6--md">
-    <h4>Add:</h4>
-    <div style="cursor: pointer; color: dodgerblue;" ng-click="$ctrl.toggleAutocomplete()">Search for an address and autofill?</div>
-    <div id="autocompleter" ng-show="$ctrl.showAutocomplete"></div>
-    ------------------
-    <div style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Are you there now? Fill form with your location:</div>
-    <button style="cursor: pointer;" ng-click="$ctrl.useUserLocation()" ng-if="$ctrl.isMobileDevice()">Use my current location</button>
-  <form name="form" novalidate class="simple-form">
+</div>
 
-    <fieldset>
-      <legend>Name*:</legend>
-          <div>
-            <input type="text" ng-model="$ctrl.updatedLocation.name" name="name" required=""/>
-            <div ng-show="form.$submitted || form.name.$touched">
-              <div ng-show="form.name.$error.required">Required</div>
-            </div>
-          </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Address*:</legend>
-      <div>Edit the address manually:</div>
-      <div>number</div>
-        <div>
-          <input type="text" ng-model="$ctrl.updatedLocation.address.number" name="addressNumber">
-        </div>
-      <div>street</div>
-        <div>
-          <input type="text" ng-model="$ctrl.updatedLocation.address.street" name="addressStreet"/>
-        </div>
-      <div>postcode</div>
-        <div>
-          <input type="text" ng-model="$ctrl.updatedLocation.address.postcode" name="addressPostcode"/>
-        </div>
-      <div>city</div>
-        <div>
-          <input type="text" ng-model="$ctrl.updatedLocation.address.city" name="addressCity"/>
-        </div>
-      <div>state</div>
-        <div>
-          <input type="text" ng-model="$ctrl.updatedLocation.address.state" name="addressState"/>
-        </div>
-      <div>country</div>
-        <div>
-          <input type="text" ng-model="$ctrl.updatedLocation.address.country" name="addressCountry"/>
-        </div>
-
-      <div>Longitude*
-        <span ng-show="form.$submitted || form.longitude.$touched">
-          <span style="color:red;" ng-show="form.longitude.$error.required">Required</span>
-          <span style="color:red;" ng-show="form.longitude.$error.min || form.longitude.$error.max">
-            The coordinates must be in Switzerland. The longitude must be in range 5.9 to 10.5!</span>
-        </span>
-      </div>
-      <input type="number" ng-model="$ctrl.updatedLocation.longitude" min="5.9" max="10.5" name="longitude" required=""/>
-
-      <div>Latitude*
-        <span ng-show="form.$submitted || form.latitude.$touched">
-          <span style="color:red;" ng-show="form.latitude.$error.required">Required</span>
-          <span style="color:red;" ng-show="form.latitude.$error.min || form.latitude.$error.max">
-            The coordinates must be in Switzerland. The latitude must be in range 45.8 to 48.0!</span>
-        </span>
-      </div>
-      <input type="number" ng-model="$ctrl.updatedLocation.latitude" min="45.8" max="48" name="latitude" required=""/>
-    </fieldset>
-
-    <fieldset>
-      <legend>Offers:</legend>
-          <div style="text-align: center;">
-            <span ng-repeat="(key, value) in $ctrl.updatedLocation.flags">
-              <label style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer;">
-                <div class="locationFlagIcon {{key}}"></div> <div>{{key}}</div> <input type="checkbox" ng-model="$ctrl.updatedLocation.flags[key]" style="cursor:pointer;"/>
-              </label>
-            </span>
-          </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Contact:</legend>
-          <div>
-            <div>phone</div>
-            <input type="text" ng-model="$ctrl.updatedLocation.phone" name="phone" />
-
-            <div>url</div>
-            <input type="text" ng-model="$ctrl.updatedLocation.url" name="url" />
-          </div>
-    </fieldset>
-
-    <div style="width:100%; display: inline-block;text-align: center;">
-      <input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/>
-      <input type="submit" ng-click="form.$valid && $ctrl.update()" value="Save" class="btn btn--green" style="max-width:49%; display: inline-block;box-sizing: border-box;"/>
-    </div>
-    <div ng-if="$ctrl.showSuccess">Changes saved! Thank you for your contribution :-)</div>
-    <div ng-if="$ctrl.showError">An error occurred. Please send a message saying what you were doing when the error occurred.</div>
-  </form>
-  <pre>newLocation = {{$ctrl.updatedLocation | json}}</pre>
-  <div class="formOffsetRight grd-row-col-1-6--md"> </div>
+<div class="formOffsetRight grd-row">
+  <div style="top:0;" class="grd-row-col-1-6--md">
+      <a href="#/maps/" ng-if="$ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results" class="btn btn--gray">Back to map</a>
+      <a href="#/maps/" ng-if="!($ctrl.LocationService.lastSearch && $ctrl.LocationService.lastSearch.results)" class="btn btn--gray">New search</a>
+  </div>
 </div>

@@ -1,0 +1,191 @@
+<form name="form" novalidate class="simple-form grd-row">
+  <div style="border: 1px solid #c1c1c1;padding:1rem;" class="grd-row-col-3-6--lg">
+    <div style="border: 1px solid #c1c1c1;padding:1rem;" class="grd-row">
+      <div layout="row" style="width:100%;">
+        <md-input-container flex="50">
+          <label>Name</label>
+          <input required name="name" ng-model="$ctrl.updatedLocation.name"  md-maxlength="50">
+          <!--div ng-messages="form.name.$error" role="alert">
+            <div ng-message-exp="['required', 'maxlength']">This is required.</div>
+          </div-->
+        </md-input-container>
+        <div flex="50" style="border: 1px solid #c1c1c1;text-align:center;margin:0.5rem;padding:0.5rem;">
+          <div><span style="display:inline-block;vertical-align: top;color:#999; margin-right:1rem;">Autocomplete: </span><span id="autocompleter" style="display:inline-block;"></span></div>
+          <div style="cursor: pointer;" ng-if="::$ctrl.LocationService.isMobileDevice() && $ctrl.LocationService.userInSwitzerland">Are you there now?</div>
+          <div class="btn btn--grey btn--s" style="cursor: pointer; display: inline-block;" ng-click="$ctrl.useUserLocation()" ng-if="::$ctrl.LocationService.isMobileDevice() && $ctrl.LocationService.userInSwitzerland">Use my GPS</div>
+        </div>
+      </div>
+
+      <div layout="row"  style="width:100%;">
+        <md-input-container flex="20">
+          <label>Number</label>
+          <input name="addressNumber" ng-model="$ctrl.updatedLocation.address.number">
+        </md-input-container>
+
+        <md-input-container flex="80">
+          <label>Street</label>
+          <input name="addressStreet" ng-model="$ctrl.updatedLocation.address.street">
+        </md-input-container>
+      </div>
+
+      <div layout="row" style="width:100%;">
+        <md-input-container flex-gt-sm>
+          <label>Postcode</label>
+          <input name="addressPostcode" ng-model="$ctrl.updatedLocation.address.postcode" placeholder="1234" ng-pattern="/^[0-9]{4}$/" md-maxlength="4">
+          <!--div ng-messages="form.addressPostcode.$error" role="alert">
+              <div ng-message="pattern" class="my-message">Please provide a 4-digit postcode.
+              </div>
+              <div ng-message="md-maxlength" class="my-message">
+                Max 4 digits.
+              </div>
+            </div-->
+        </md-input-container>
+
+        <md-input-container flex-gt-sm>
+          <label>City</label>
+          <input name="addressCity" ng-model="$ctrl.updatedLocation.address.city">
+        </md-input-container>
+
+        <md-input-container flex-gt-sm>
+          <label>Canton</label>
+          <input name="addressState" ng-model="$ctrl.updatedLocation.address.state">
+        </md-input-container>
+      </div>
+
+
+      <div layout="row" style="width:100%;">
+        <md-input-container flex="50">
+          <label>Longitude</label>
+          <input required type="number" name="longitude" ng-model="$ctrl.updatedLocation.longitude" min="5.9" max="10.5">
+          <!--div ng-message="required">
+            Coordinates are required.
+          </div>
+
+          <div ng-message="min">
+            Min longitude for Switzerland is: 5.9
+          </div>
+
+          <div ng-message="max">
+              Max longitude for Switzerland is: 10.5
+          </div-->
+        </md-input-container>
+
+        <md-input-container flex="50">
+          <label>Latitude</label>
+          <input required type="number" name="latitude" ng-model="$ctrl.updatedLocation.latitude" min="45.8" max="48">
+          <!--div ng-message="required">
+            Coordinates are required.
+          </div>
+
+          <div ng-message="min">
+            Min latitude for Switzerland is: 45.8
+          </div>
+
+          <div ng-message="max">
+            Max latitude for Switzerland is: 48
+          </div-->
+        </md-input-container>
+      </div>
+    </div>
+
+    <div style="border: 1px solid #c1c1c1;padding:1rem;" class="grd-row">
+
+      <div layout="row" style="margin-top:1rem;width:100%;">
+        <md-input-container flex="50">
+          <label>Phone number</label>
+          <input type="text" name="phone" ng-model="$ctrl.updatedLocation.phone">
+        </md-input-container>
+        <md-input-container flex="50">
+          <label>Website URL</label>
+          <input type="text" name="url" ng-model="$ctrl.updatedLocation.url">
+        </md-input-container>
+      </div>
+    </div>
+
+    <div style="border: 1px solid #c1c1c1;padding:1rem;" class="grd-row">
+
+      <div ng-repeat="(key, value) in $ctrl.updatedLocation.flags" style="border:1px solid #eee; margin:0.3rem; padding: 1rem; display:inline-block; cursor:pointer;">
+        <md-checkbox ng-model="$ctrl.updatedLocation.flags[key]" flex>
+        <label>
+          <div class="locationFlagIcon {{key}}" style="cursor:pointer;"></div>
+          <div style="cursor:pointer;">{{$ctrl.flagMap[key]}}</div>
+        </label>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="border: 1px solid #c1c1c1;padding:1rem;" class="grd-row-col-3-6--lg">
+    <legend>Business hours:</legend>
+        <div>Closed days:</div>
+        <span ng-repeat="day in $ctrl.days">
+          <label style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block; cursor:pointer;">{{$ctrl.dayMap[day]}}:
+            <input type="checkbox" ng-model="$ctrl.updatedLocation.openTimes[day].closed" style="cursor:pointer;"/>
+          </label>
+        </span>
+        <div>
+          <div>Time slots:</div>
+          <div ng-repeat="day in $ctrl.days" ng-if="!$ctrl.updatedLocation.openTimes[day].closed" style="display: inline-block;">
+            <div style="border:1px solid grey; margin:0.3rem; padding: 0.5rem; display:inline-block;">
+              <div style="font-weight: bold;">{{$ctrl.dayMap[day]}}:</div>
+
+              <!-- EXISTING TIMESLOTS -->
+              <div ng-repeat="slot in $ctrl.dateInputTimes[day].times" style="margin-bottom:0.5rem;border-bottom:1px solid #eee; padding-bottom:0.5rem;">
+                <div style="display:inline-flex;">from:
+                  <div ng-if="::!$ctrl.isMobileDevice()" uib-timepicker ng-model="slot.start" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
+                  <input type="time" ng-if="::$ctrl.isMobileDevice()" ng-model="slot.start" ng-change=$ctrl.onTimeChange(day,slot) step="900"/>
+
+                </div>
+                <div style="display: inline-flex;">to:
+                  <div ng-if="::!$ctrl.isMobileDevice()" uib-timepicker ng-model="slot.end" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
+                  <input type="time" ng-if="::$ctrl.isMobileDevice()" ng-model="slot.end" ng-change=$ctrl.onTimeChange(day,slot) step="900"/></div>
+                <div class="btn btn--s btn--red fa fa-minus" style="display: inline-block; cursor:pointer;" ng-click="$ctrl.removeTimeSlot(day, $index)"></div>
+                <div ng-init="show = false" ng-click="show = !show" style="cursor:pointer;">{{show ? 'copy to' : 'copy to another day'}}
+                </div>
+                <div>
+                  <span ng-if="show" ng-repeat="dayApply in $ctrl.days" ng-show="!$ctrl.updatedLocation.openTimes[dayApply].closed && dayApply!==day" class="btn" ng-click="$ctrl.copyTimeSlotToDay(slot,dayApply)" style=" cursor:pointer;">{{$ctrl.dayMap[dayApply]}}</span>
+                </div>
+              </div>
+
+              <div class="btn btn--green fa fa-plus" style=" cursor:pointer;" ng-click="$ctrl.addTimeSlotForDay(day)"></div>
+
+            </div>
+          </div>
+        </div>
+
+
+  </div>
+
+
+
+
+  <!--<fieldset>
+    <legend>Menu:</legend>
+        <div>
+        <div>url</div>
+        <div>pictures</div>
+        </div>
+  </fieldset>
+-->
+
+  <!--<fieldset>
+    <legend>Thumbnail:</legend>
+        <div>
+        </div>
+  </fieldset>
+-->
+
+  <!--
+  <fieldset>
+    <legend>Pictures:</legend>
+        <div>
+        </div>
+  </fieldset>
+-->
+
+  <div style="width:100%; display: inline-block;text-align: center;">
+    <!--input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/-->
+    <md-button class="md-raised" type="submit" ng-click="form.$valid && $ctrl.update()">Save</md-button>
+  </div>
+</form>
+<!--pre>newLocation = {{$ctrl.updatedLocation | json}}</pre-->

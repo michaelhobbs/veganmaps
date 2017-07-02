@@ -6,6 +6,7 @@ define(function(require) {
     this.lastSearch = {filterProp : {}, orderProp: 'distance'}; // coords, results, filterSelection, orderBySelection
     this.currentLocation = {}; // to have detail displayed or to be edited
     this.listView = false; // by default list view is hidden
+    this.userInSwitzerland = true; // assume in CH until proven false
     this.distance = function (lat1, lon1, lat2, lon2) {
         var p = 0.017453292519943295;    // Math.PI / 180
         var c = Math.cos;

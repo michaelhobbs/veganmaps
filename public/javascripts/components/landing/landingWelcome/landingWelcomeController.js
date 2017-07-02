@@ -25,10 +25,16 @@ define(function(require) {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               $log.debug('coords: ' + position.coords.latitude + ', ' + position.coords.longitude);
-              ctrl.LocationService.lastSearch.coords = {latitude: position.coords.latitude, longitude: position.coords.longitude};
-              $timeout(function() {
-                $location.path( "/maps" );
-              });
+              if (position.coords.latitude >= 45.8 && position.coords.latitude <= 48 && position.coords.longitude >= 5.9 && position.coords.longitude <= 10.5 ) {
+                ctrl.LocationService.lastSearch.coords = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+                $timeout(function() {
+                  $location.path( "/maps" );
+                });
+              }
+              else {
+                ctrl.LocationService.userInSwitzerland = false;
+                alert("you need to be in Switzerland in order to use this feature");
+              }
             },
             function (error) {
               if (error.code == error.PERMISSION_DENIED)
