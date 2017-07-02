@@ -160,6 +160,7 @@ body {
     padding: 0 !important;
     background: white;
     overflow-x: hidden; /* TODO only apply this rule if on map page? Is used to avoid horizontal scroll on desktop when map view opens or closes sidenav and animation is playing*/
+    height: initial;
 }
 /*
 a {
