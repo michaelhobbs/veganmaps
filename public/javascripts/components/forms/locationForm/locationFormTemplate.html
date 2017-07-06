@@ -132,13 +132,13 @@
               <!-- EXISTING TIMESLOTS -->
               <div ng-repeat="slot in $ctrl.dateInputTimes[day].times" style="margin-bottom:0.5rem;border-bottom:1px solid #eee; padding-bottom:0.5rem;">
                 <div style="display:inline-flex;">from:
-                  <div ng-if="::!$ctrl.isMobileDevice()" uib-timepicker ng-model="slot.start" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
-                  <input type="time" ng-if="::$ctrl.isMobileDevice()" ng-model="slot.start" ng-change=$ctrl.onTimeChange(day,slot) step="900"/>
+                  <div ng-if="::!$ctrl.LocationService.isMobileDevice()" uib-timepicker ng-model="slot.start" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
+                  <input type="time" ng-if="::$ctrl.LocationService.isMobileDevice()" ng-model="slot.start" ng-change=$ctrl.onTimeChange(day,slot) step="900"/>
 
                 </div>
                 <div style="display: inline-flex;">to:
-                  <div ng-if="::!$ctrl.isMobileDevice()" uib-timepicker ng-model="slot.end" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
-                  <input type="time" ng-if="::$ctrl.isMobileDevice()" ng-model="slot.end" ng-change=$ctrl.onTimeChange(day,slot) step="900"/></div>
+                  <div ng-if="::!$ctrl.LocationService.isMobileDevice()" uib-timepicker ng-model="slot.end" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
+                  <input type="time" ng-if="::$ctrl.LocationService.isMobileDevice()" ng-model="slot.end" ng-change=$ctrl.onTimeChange(day,slot) step="900"/></div>
                 <div class="btn btn--s btn--red fa fa-minus" style="display: inline-block; cursor:pointer;" ng-click="$ctrl.removeTimeSlot(day, $index)"></div>
                 <div ng-init="show = false" ng-click="show = !show" style="cursor:pointer;">{{show ? 'copy to' : 'copy to another day'}}
                 </div>
