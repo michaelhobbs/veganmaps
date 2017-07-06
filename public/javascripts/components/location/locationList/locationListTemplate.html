@@ -13,7 +13,8 @@
 </button>
 
 
-<div class="container grd-row pageRow h100" ng-class="{'list-view-open': $ctrl.LocationService.listView}">
+<div class="container grd-row pageRow h100" ng-class="{'list-view-open': $ctrl.LocationService.listView}" style="position: absolute;
+    width: 100%;">
   <location-map id="map-canvas" ng-class="{'grd-row-col-4-6--md': $ctrl.LocationService.listView, 'w100': !$ctrl.LocationService.listView, 'grd-row-col-6--lg': !$ctrl.LocationService.listView}"></location-map>
 
   <!-- List -->
