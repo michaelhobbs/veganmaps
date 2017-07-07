@@ -39,6 +39,7 @@ app.use('/node', express.static(path.join(__dirname, 'node_modules'))); // serve
 app.use('/users', users);
 app.use('/maps', maps);
 app.use('/welcome', welcome);
+app.use('/', maps);
 
 // serve api
 app.use('/api/locations', apiLocations);

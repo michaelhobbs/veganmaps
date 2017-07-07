@@ -61,7 +61,7 @@ define(function(require) {
 
       return _.find(_.get(openTimes,dayOfWeek).times,
         function(item) {
-          return item.end > timeInMinutes  && item.start < timeInMinutes;
+          return (item.end > timeInMinutes || item.end === 0)  && item.start < timeInMinutes;
         });
     }
 
