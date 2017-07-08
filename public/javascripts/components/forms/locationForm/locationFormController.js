@@ -166,7 +166,7 @@ define(function(require) {
         .action('ok')
         .highlightAction(true)
         .position('bottom right')
-        .hideDelay(0)
+        .hideDelay(2000)
         .toastClass('success-toast');
 
       $mdToast.show(toast).then(function(response) {
@@ -182,7 +182,7 @@ define(function(require) {
         .action('ok')
         .highlightAction(true)
         .position('bottom right')
-        .hideDelay(0)
+        .hideDelay(2000)
         .toastClass('error-toast');
 
       $mdToast.show(toast).then(function(response) {
@@ -192,27 +192,44 @@ define(function(require) {
       });
     }
 
-    ctrl.update = function() {
-      ctrl.convertDatesToOpenTimes();
+    ctrl.update = function(valid) {
+      if (valid) {
+        ctrl.convertDatesToOpenTimes();
 
-      if ($routeParams.locationId) {
-        $log.debug('updating a location: ', ctrl.updatedLocation);
-        $http.put('api/locations/' + $routeParams.locationId, ctrl.updatedLocation).then(function(response) {
-          $log.debug('Update Success. Response: ', response);
-          showSuccessToast();
-        }, function(response) {
-          $log.debug('Update Error. Response: ', response);
-          showErrorToast();
-        });
+        if ($routeParams.locationId) {
+          $log.debug('updating a location: ', ctrl.updatedLocation);
+          $http.put('api/locations/' + $routeParams.locationId, ctrl.updatedLocation).then(function(response) {
+            $log.debug('Update Success. Response: ', response);
+            showSuccessToast();
+          }, function(response) {
+            $log.debug('Update Error. Response: ', response);
+            showErrorToast();
+          });
+        }
+        else {
+          $log.debug('saving a new location: ', ctrl.updatedLocation);
+          $http.put('api/locations', ctrl.updatedLocation).then(function(response) {
+            $log.debug('Response: ', response);
+            showSuccessToast();
+          }, function(response) {
+            $log.debug('Response: ', response);
+            showErrorToast();
+          });
+        }
       }
       else {
-        $log.debug('saving a new location: ', ctrl.updatedLocation);
-        $http.put('api/locations', ctrl.updatedLocation).then(function(response) {
-          $log.debug('Response: ', response);
-          showSuccessToast();
-        }, function(response) {
-          $log.debug('Response: ', response);
-          showErrorToast();
+        var toast = $mdToast.simple()
+          .textContent('Form has errors!')
+          .action('ok')
+          .highlightAction(true)
+          .position('bottom right')
+          .hideDelay(2000)
+          .toastClass('error-toast');
+
+        $mdToast.show(toast).then(function(response) {
+          if ( response == 'ok' ) {
+            //alert('You clicked the \'UNDO\' action.');
+          }
         });
       }
     }

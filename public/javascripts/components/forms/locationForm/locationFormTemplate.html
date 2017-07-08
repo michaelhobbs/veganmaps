@@ -9,7 +9,8 @@
             <div ng-message-exp="['required', 'maxlength']">This is required.</div>
           </div-->
         </md-input-container>
-        <div flex="50" style="border: 1px solid #c1c1c1;text-align:center;margin:0.5rem;padding:0.5rem;">
+        <div flex="50" style="border: 1px solid #c1c1c1;text-align:center;margin:0.5rem;padding:0.5rem;    background-color: dimgrey;
+    border-radius: 5px;">
           <div><span style="display:inline-block;vertical-align: top;color:#999; margin-right:1rem;">Autocomplete: </span><span id="autocompleter" style="display:inline-block;"></span></div>
           <div style="cursor: pointer;" ng-if="::$ctrl.LocationService.isMobileDevice() && $ctrl.LocationService.userInSwitzerland">Are you there now?</div>
           <div class="btn btn--grey btn--s" style="cursor: pointer; display: inline-block;" ng-click="$ctrl.useUserLocation()" ng-if="::$ctrl.LocationService.isMobileDevice() && $ctrl.LocationService.userInSwitzerland">Use my GPS</div>
@@ -140,7 +141,7 @@
                   <div ng-if="::!$ctrl.LocationService.isMobileDevice()" uib-timepicker ng-model="slot.end" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
                   <input type="time" ng-if="::$ctrl.LocationService.isMobileDevice()" ng-model="slot.end" ng-change=$ctrl.onTimeChange(day,slot) step="900"/></div>
                 <div class="btn btn--s btn--red fa fa-minus" style="display: inline-block; cursor:pointer;" ng-click="$ctrl.removeTimeSlot(day, $index)"></div>
-                <div ng-init="show = false" ng-click="show = !show" style="cursor:pointer;">{{show ? 'copy to' : 'copy to another day'}}
+                <div ng-init="show = false" ng-click="show = !show" style="cursor:pointer; color: dodgerblue;">{{show ? 'copy to' : 'copy to another day'}}
                 </div>
                 <div>
                   <span ng-if="show" ng-repeat="dayApply in $ctrl.days" ng-show="!$ctrl.updatedLocation.openTimes[dayApply].closed && dayApply!==day" class="btn" ng-click="$ctrl.copyTimeSlotToDay(slot,dayApply)" style=" cursor:pointer;">{{$ctrl.dayMap[dayApply]}}</span>
@@ -189,7 +190,7 @@
 
   <div style="width:100%; display: inline-block;text-align: center;">
     <!--input type="button" ng-click="$ctrl.reset(form)" value="Reset" style="margin-top:1rem;max-width:49%;display: inline-block;box-sizing: border-box;" class="btn btn--red"/-->
-    <md-button class="md-raised" type="submit" ng-click="form.$valid && $ctrl.update()">Save</md-button>
+    <md-button class="md-raised" type="submit" ng-click="$ctrl.update(form.$valid)">Save</md-button>
   </div>
 </form>
 <!--pre>newLocation = {{$ctrl.updatedLocation | json}}</pre-->
