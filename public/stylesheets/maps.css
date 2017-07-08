@@ -287,6 +287,10 @@ input, select, textarea {
 
 }
 
+.timeSlotForm.ng-invalid-is-after {
+  background: rgba(255, 0, 0, 0.5);
+}
+
 /** LANDING PAGE **/
 .landingTitle:hover {
   text-decoration: underline overline;

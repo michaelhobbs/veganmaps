@@ -16,7 +16,8 @@ define(function(require) {
 
   // load routes
   module
-    .component('locationForm', require('./locationForm/locationFormDirective'));
+    .component('locationForm', require('./locationForm/locationFormDirective'))
+    .directive('isAfter', require('./locationForm/locationFormTimeValidationDirective'));
 
   return module.name;
 });

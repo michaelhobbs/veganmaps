@@ -130,7 +130,7 @@
               <div style="font-weight: bold;">{{$ctrl.dayMap[day]}}:</div>
 
               <!-- EXISTING TIMESLOTS -->
-              <div ng-repeat="slot in $ctrl.dateInputTimes[day].times" style="margin-bottom:0.5rem;border-bottom:1px solid #eee; padding-bottom:0.5rem;">
+              <div ng-repeat="slot in $ctrl.dateInputTimes[day].times" style="margin-bottom:0.5rem;border-bottom:1px solid #eee; padding-bottom:0.5rem;" ng-model="slot.end" is-after="slot.start" class="timeSlotForm" name="slot{{$index}}" ng-form>
                 <div style="display:inline-flex;">from:
                   <div ng-if="::!$ctrl.LocationService.isMobileDevice()" uib-timepicker ng-model="slot.start" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" show-spinners="false"></div>
                   <input type="time" ng-if="::$ctrl.LocationService.isMobileDevice()" ng-model="slot.start" ng-change=$ctrl.onTimeChange(day,slot) step="900"/>
@@ -145,6 +145,10 @@
                 <div>
                   <span ng-if="show" ng-repeat="dayApply in $ctrl.days" ng-show="!$ctrl.updatedLocation.openTimes[dayApply].closed && dayApply!==day" class="btn" ng-click="$ctrl.copyTimeSlotToDay(slot,dayApply)" style=" cursor:pointer;">{{$ctrl.dayMap[dayApply]}}</span>
                 </div>
+
+                <!-- TIMESLOT INVALID MESSAGE -->
+                <span ng-show="slot{{$index}}.$error.isAfter" style="color: red; font-weight: bold;">Closing time must be after opening time, or midnight (00:00).</span><br>
+
               </div>
 
               <div class="btn btn--green fa fa-plus" style=" cursor:pointer;" ng-click="$ctrl.addTimeSlotForDay(day)"></div>
